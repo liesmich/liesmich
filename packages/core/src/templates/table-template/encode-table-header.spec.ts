@@ -4,13 +4,13 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { encodeColumnHeader } from './encode-column-header';
+import { encodeTableHeader } from './encode-table-header';
 import { ColumnAlignment, ColumnHeader } from './table-template';
 
 describe('templates/table-template/encode-column-header', (): void => {
-    describe('encodeColumnHeader', (): void => {
+    describe('encodeTableHeader', (): void => {
         it('should work line breaks', (): void => {
-            expect(encodeColumnHeader(['asdf', 'fdsa'], 4))
+            expect(encodeTableHeader(['asdf', 'fdsa'], 4))
                 .to.deep.equal([
                     '| asdf | fdsa | | |',
                     '| --- | --- | --- | --- |'
@@ -21,7 +21,7 @@ describe('templates/table-template/encode-column-header', (): void => {
                 { title: 'second', align: ColumnAlignment.RIGHT },
                 { title: '3', align: ColumnAlignment.CENTER },
                 { title: 'fourth' }];
-            expect(encodeColumnHeader(columnHeaders, 4))
+            expect(encodeTableHeader(columnHeaders, 4))
                 .to.deep.equal([
                     '| asdf | second | 3 | fourth |',
                     '| --- | ---: | :---: | --- |'
