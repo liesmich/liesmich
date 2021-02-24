@@ -3,33 +3,33 @@
     "badges": [
         {
             "alt": "Test",
-            "url": "https://github.com/manniwatch/manniwatch/actions?query=workflow%3ATest+branch%3Amaster",
-            "img": "https://github.com/manniwatch/manniwatch/workflows/Test/badge.svg?branch=master&event=push"
+            "url": "https://github.com/liesmich/liesmich/actions?query=workflow%3ATest+branch%3Amaster",
+            "img": "https://github.com/liesmich/liesmich/workflows/Test/badge.svg?branch=master&event=push"
         },
         {
             "alt": "codecov",
-            "url": "https://codecov.io/gh/manniwatch/manniwatch/branch/master",
-            "img": "https://codecov.io/gh/manniwatch/manniwatch/branch/master/graph/badge.svg"
+            "url": "https://codecov.io/gh/liesmich/liesmich/branch/master",
+            "img": "https://codecov.io/gh/liesmich/liesmich/branch/master/graph/badge.svg"
         },
         {
             "alt": "GitHub release (latest SemVer)",
-            "url": "https://github.com/manniwatch/manniwatch/releases",
-            "img": "https://img.shields.io/github/v/release/manniwatch/manniwatch?sort=semver"
+            "url": "https://github.com/liesmich/liesmich/releases",
+            "img": "https://img.shields.io/github/v/release/liesmich/liesmich?sort=semver"
         },
         {
             "alt": "GitHub license",
-            "url": "https://github.com/manniwatch/manniwatch/blob/master/LICENSE",
-            "img": "https://img.shields.io/github/license/manniwatch/manniwatch"
+            "url": "https://github.com/liesmich/liesmich/blob/master/LICENSE",
+            "img": "https://img.shields.io/github/license/liesmich/liesmich"
         },
         {
             "alt": "David",
-            "url": "https://github.com/manniwatch/manniwatch",
-            "img": "https://img.shields.io/david/dev/manniwatch/manniwatch"
+            "url": "https://github.com/liesmich/liesmich",
+            "img": "https://img.shields.io/david/dev/liesmich/liesmich"
         },
         {
             "alt": "GitHub contributors",
-            "url": "https://github.com/manniwatch/manniwatch/graphs/contributors",
-            "img": "https://img.shields.io/github/contributors-anon/manniwatch/manniwatch"
+            "url": "https://github.com/liesmich/liesmich/graphs/contributors",
+            "img": "https://img.shields.io/github/contributors-anon/liesmich/liesmich"
         }
     ],
     "lineBreak": "\r\n",

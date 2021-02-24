@@ -33,9 +33,9 @@ jobs:
         run: |
           echo "${{ secrets.APP_DEPLOY_ENVIRONMENT }}" > "./packages/client-ng/src/environments/environment.ts"
           echo "${{ secrets.APP_DEPLOY_ENVIRONMENT }}" > "./packages/client-ng/src/environments/environment.prod.ts"
-          npx lerna run build --scope @manniwatch/client-ng --include-dependencies
-          npx lerna exec --scope=@manniwatch/client-ng -- ng build --prod --aot
-          cp ./packages/client-ng/dist/manniwatch/index.html ./packages/client-ng/dist/manniwatch/404.html
+          npx lerna run build --scope @liesmich/client-ng --include-dependencies
+          npx lerna exec --scope=@liesmich/client-ng -- ng build --prod --aot
+          cp ./packages/client-ng/dist/liesmich/index.html ./packages/client-ng/dist/liesmich/404.html
       - name: Install SSH Client
         uses: webfactory/ssh-agent@v0.5.0
         with:
@@ -45,8 +45,8 @@ jobs:
         with:
           SSH: true
           BRANCH: master # The branch the action should deploy to.
-          FOLDER: packages/client-ng/dist/manniwatch # The folder the action should deploy.
-          REPOSITORY_NAME: manniwatch/manniwatch.github.io
+          FOLDER: packages/client-ng/dist/liesmich # The folder the action should deploy.
+          REPOSITORY_NAME: liesmich/liesmich.github.io
           TARGET_FOLDER: .
           CLEAN: true
   build-and-deploy-docs:
@@ -86,5 +86,5 @@ jobs:
           SSH: true
           BRANCH: master # The branch the action should deploy to.
           FOLDER: docs # The folder the action should deploy.
-          REPOSITORY_NAME: manniwatch/docs
+          REPOSITORY_NAME: liesmich/docs
           TARGET_FOLDER: .

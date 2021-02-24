@@ -1,1 +1,56 @@
-{"package_table":[["Name","Version"],["@manniwatch/api-client","0.21.0"],["@manniwatch/api-proxy-router","0.21.0"],["@manniwatch/api-proxy-server","0.21.0"],["@manniwatch/api-types","0.21.0"],["@manniwatch/assets","0.21.0"],["@manniwatch/client-desktop","0.21.0"],["@manniwatch/client-ng","0.21.0"],["@manniwatch/pb-converter","0.21.0"],["@manniwatch/pb-types","0.21.0"],["@manniwatch/schemas","0.21.0"],["@manniwatch/vehicle-cache","0.21.0"],["@manniwatch/vehicle-location-diff","0.21.0"]]}
+{
+    "package_table": [
+        [
+            "Name",
+            "Version"
+        ],
+        [
+            "@liesmich/api-client",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/api-proxy-router",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/api-proxy-server",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/api-types",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/assets",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/client-desktop",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/client-ng",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/pb-converter",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/pb-types",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/schemas",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/vehicle-cache",
+            "0.21.0"
+        ],
+        [
+            "@liesmich/vehicle-location-diff",
+            "0.21.0"
+        ]
+    ]
+}
