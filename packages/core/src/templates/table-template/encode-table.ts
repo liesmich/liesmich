@@ -1,5 +1,4 @@
 import { IConfig } from "../../config";
-import { BaseTemplate } from "../base-template";
 import { calculateColumnCount } from "./column-count";
 import { encodeRow } from "./encode-row";
 import { encodeTableHeader } from "./encode-table-header";
@@ -10,12 +9,12 @@ export enum ColumnAlignment {
 }
 export type CellValue = string | number | boolean | undefined;
 export type ColumnHeader = (string | { title: string, align?: ColumnAlignment });
-export interface ITableTemplate extends BaseTemplate {
+export interface ITableTemplate {
     headers: ColumnHeader[];
     rows: CellValue[][];
 }
 
-export const createTable: (cfg: IConfig, data) => string = (cfg: IConfig, data: ITableTemplate): string => {
+export const encodeTable: (cfg: IConfig, data: ITableTemplate) => string = (cfg: IConfig, data: ITableTemplate): string => {
     const columnCount: number = calculateColumnCount(data);
     const encodedRows: string[] = encodeTableHeader(data.headers, columnCount);
     data.rows

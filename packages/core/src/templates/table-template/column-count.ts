@@ -1,4 +1,4 @@
-import { ITableTemplate } from "./table-template";
+import { ITableTemplate } from "./encode-table";
 export const calculateColumnCount: (table: ITableTemplate) => number = (table: ITableTemplate): number => {
     return table.rows
         .reduce((prev: number, row: string[]): number => {

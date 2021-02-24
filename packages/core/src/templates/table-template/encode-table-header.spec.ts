@@ -5,7 +5,7 @@
 import { expect } from 'chai';
 import 'mocha';
 import { encodeTableHeader } from './encode-table-header';
-import { ColumnAlignment, ColumnHeader } from './table-template';
+import { ColumnAlignment, ColumnHeader } from './encode-table';
 
 describe('templates/table-template/encode-column-header', (): void => {
     describe('encodeTableHeader', (): void => {

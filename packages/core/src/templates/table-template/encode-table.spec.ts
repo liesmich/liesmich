@@ -4,7 +4,7 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { createTable, ITableTemplate } from './table-template';
+import { encodeTable, ITableTemplate } from './encode-table';
 
 describe('templates/table-template/encode-column-header', (): void => {
     describe('createTable', (): void => {
@@ -16,7 +16,7 @@ describe('templates/table-template/encode-column-header', (): void => {
                     [2, 123.45]
                 ]
             }
-            expect(createTable({ lineBreak: '\r\n' } as any, testData))
+            expect(encodeTable({ lineBreak: '\r\n' } as any, testData))
                 .to.deep.equal(
                     '| asdf | |\r\n' +
                     '| --- | --- |\r\n' +

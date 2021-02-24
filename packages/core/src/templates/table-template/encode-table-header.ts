@@ -1,5 +1,5 @@
 import { encodeRow } from "./encode-row";
-import { ColumnAlignment, ColumnHeader } from "./table-template";
+import { ColumnAlignment, ColumnHeader } from "./encode-table";
 
 export const encodeTableHeader = (headers: ColumnHeader[], colums: number): string[] => {
     const titles: string[] = headers.map((col: ColumnHeader): string => {
