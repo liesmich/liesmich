@@ -8,10 +8,11 @@ export enum ColumnAlignment {
     RIGHT = 'right',
     LEFT = 'left'
 }
+export type CellValue = string | number | boolean | undefined;
 export type ColumnHeader = (string | { title: string, align?: ColumnAlignment });
 export interface ITableTemplate extends BaseTemplate {
     headers: ColumnHeader[];
-    rows: (string | number)[][];
+    rows: CellValue[][];
 }
 
 export const createTable: (cfg: IConfig, data) => string = (cfg: IConfig, data: ITableTemplate): string => {
