@@ -46,9 +46,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {},
-  "peerDependencies": {},
   "dependencies": {
-    "deepmerge": "^4.2.2"
+    "deepmerge": "~4.2.2",
+    "marked": "~2.0.0"
+  },
+  "devDependencies": {
+    "@types/marked": "^2.0.0"
   }
 }
