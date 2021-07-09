@@ -1,9 +1,8 @@
 import { promises as fsp } from 'fs';
-import { Lexer, Token, TokensList, walkTokens } from 'marked';
+import { walkTokens, Lexer, Token, TokensList } from 'marked';
 
-
-const parseText = (tree: Token[]) => {
-    tree.forEach((item: Token) => {
+const parseText = (tree: Token[]): void => {
+    tree.forEach((item: Token): void => {
         if ('type' in item) {
             switch (item.type) {
                 case 'text':
@@ -15,8 +14,8 @@ const parseText = (tree: Token[]) => {
             parseText(item.tokens as any);
         }
     });
-}
-export const parseConfigFile = async (filepath): Promise<TokensList> => {
+};
+export const parseConfigFile = async (filepath: string): Promise<TokensList> => {
     const lexer: Lexer = new Lexer({});
     const fileContent: string = await fsp.readFile(filepath, 'utf-8');
     const tree: TokensList = lexer.lex(fileContent);
@@ -31,9 +30,9 @@ export const parseConfigFile = async (filepath): Promise<TokensList> => {
                     break;
             }
         }
-    })
+    });
     return tree;
-}
+};
 
 export const parseConfig = (markdown: string): TokensList => {
     const lexer: Lexer = new Lexer({});
@@ -41,4 +40,4 @@ export const parseConfig = (markdown: string): TokensList => {
     parseText(tree);
 
     return tree;
-}
+};

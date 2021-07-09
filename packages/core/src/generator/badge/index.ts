@@ -1,5 +1,5 @@
-import { AbstractGenerator } from "../abstract-generator";
-import { GeneratorHandler } from "../generator-handler";
+import { AbstractGenerator } from '../abstract-generator';
+import { GeneratorHandler } from '../generator-handler';
 
 export interface IBadgeSettings {
 	url: string;
@@ -12,6 +12,6 @@ export class BadgeGenerator extends AbstractGenerator<'badge', IBadgeSettings> {
 	}
 
 	public async generate(badge: IBadgeSettings): Promise<string> {
-		return `<a href="${badge.url}"><img alt="${badge.alt}" src="${badge.img}" height="20"/></a>`;
+		return `<a href='${badge.url}'><img alt='${badge.alt}' src='${badge.img}' height='20'/></a>`;
 	}
 }

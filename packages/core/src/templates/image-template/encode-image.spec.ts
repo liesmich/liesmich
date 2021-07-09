@@ -11,7 +11,7 @@ describe('templates/image-template/encode-image', (): void => {
         it('should create image without title attribute', (): void => {
             expect(encodeImage(undefined as any, {
                 alt: '"ooh yes',
-                src: 'https://github.com'
+                src: 'https://github.com',
             }))
                 .to.equal('![%22ooh%20yes](https://github.com)');
         });
@@ -19,7 +19,7 @@ describe('templates/image-template/encode-image', (): void => {
             expect(encodeImage(undefined as any, {
                 alt: 'alt',
                 src: 'https://github.com',
-                title: 'This is a great title'
+                title: 'This is a great title',
             }))
                 .to.equal('![alt](https://github.com "This%20is%20a%20great%20title")');
         });

@@ -1,5 +1,5 @@
-import { calculateLongestLine } from "./longest-line";
-import { ColumnHeader, ITableTemplate } from "./encode-table";
+import { calculateLongestLine } from './longest-line';
+import { ColumnHeader, ITableTemplate } from './encode-table';
 export const calculateColumnWidths: (table: ITableTemplate) => number[] = (table: ITableTemplate): number[] => {
     const widths: number[] = table.headers
         .map((header: ColumnHeader): number => {

@@ -5,8 +5,8 @@
 import { expect } from 'chai';
 import 'mocha';
 import Sinon from 'sinon';
-import { GeneratorHandler } from '../generator-handler';
 import { ImageGenerator } from '.';
+import { GeneratorHandler } from '../generator-handler';
 
 describe('generator/image', (): void => {
     let sandbox: Sinon.SinonSandbox;

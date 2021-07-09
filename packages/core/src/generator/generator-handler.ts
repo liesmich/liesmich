@@ -1,5 +1,5 @@
-import { IConfigFile } from "../merge-config";
-import { AbstractGenerator } from "./abstract-generator";
+import { IConfigFile } from '../merge-config';
+import { AbstractGenerator } from './abstract-generator';
 
 type Storage<K extends string> = Map<string, AbstractGenerator<K, object>>
 export class GeneratorHandler {
@@ -8,7 +8,8 @@ export class GeneratorHandler {
 
     }
 
-    public register<K extends string, T extends AbstractGenerator<K, object>>(generator: { new(genHandler: GeneratorHandler): T } & AbstractGenerator<K, object>): void {
+    public register<K extends string, T extends AbstractGenerator<K, object>>
+        (generator: { new(genHandler: GeneratorHandler): T } & AbstractGenerator<K, object>): void {
         const generatorInstance: T = new generator(this);
         this.generators.set(generatorInstance.name, generatorInstance);
     }

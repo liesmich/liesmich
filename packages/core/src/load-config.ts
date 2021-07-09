@@ -15,12 +15,12 @@ const loadConfigFromFile: (filepath: string) => Promise<IConfigFile> = async (fi
         return fsp.readFile(filepath, 'utf-8')
             .then((filecontent: string): IConfigFile => {
                 return JSON.parse(filecontent);
-            })
+            });
     }
-}
+};
 const mergeConfig = (cfg1: IConfigFile, cfg2: IConfigFile): IConfigFile => {
     return deepmerge(cfg1, cfg2);
-}
+};
 
 const parseConfig = async (filepath: string): Promise<IConfigFile> => {
     if (!isAbsolute(filepath)) {
@@ -45,4 +45,4 @@ const parseConfig = async (filepath: string): Promise<IConfigFile> => {
     } else {
         return cfg;
     }
-}
+};

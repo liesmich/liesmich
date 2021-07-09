@@ -1,8 +1,8 @@
 import deepmerge from 'deepmerge';
-import { readFile } from "fs/promises";
-import { dirname, relative, resolve } from "path";
-import { IConfig } from "../config";
-import { IConfigFile } from "../merge-config";
+import { readFile } from 'fs/promises';
+import { dirname, relative, resolve } from 'path';
+import { IConfig } from '../config';
+import { IConfigFile } from '../merge-config';
 
 export class CircularExtensionError extends Error {
     public constructor(visitedPath: string[], currentPath: string) {

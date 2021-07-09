@@ -1,4 +1,4 @@
-import { MarkedOptions, Renderer } from "marked";
+import { MarkedOptions, Renderer } from 'marked';
 
 export class MarkdownRenderer extends Renderer {
 

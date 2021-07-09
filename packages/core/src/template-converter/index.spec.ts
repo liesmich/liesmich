@@ -29,20 +29,20 @@ describe('template-converter/index', (): void => {
             });
             it('should match h4 title', async (): Promise<void> => {
                 expect(converter.extractTemplateVariables('test{{test:data?yolo=29}} string')).to.deep.equal([{
-                    "end": 25,
-                    "host": "test",
-                    "qs": "?yolo=29",
-                    "scheme": "data",
-                    "start": 4,
+                    end: 25,
+                    host: 'test',
+                    qs: '?yolo=29',
+                    scheme: 'data',
+                    start: 4,
                 }]);
             });
             it('should match h2 title', async (): Promise<void> => {
                 expect(converter.extractTemplateVariables('test{{test:data}} string')).to.deep.equal([{
-                    "end": 17,
-                    "host": "test",
-                    "qs": undefined,
-                    "scheme": "data",
-                    "start": 4,
+                    end: 17,
+                    host: 'test',
+                    qs: undefined,
+                    scheme: 'data',
+                    start: 4,
                 }]);
             });
         });

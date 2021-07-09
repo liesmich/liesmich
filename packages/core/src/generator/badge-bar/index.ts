@@ -1,6 +1,6 @@
-import { AbstractGenerator } from "../abstract-generator";
-import { BadgeGenerator, IBadgeSettings } from "../badge";
-import { GeneratorHandler } from "../generator-handler";
+import { AbstractGenerator } from '../abstract-generator';
+import { BadgeGenerator, IBadgeSettings } from '../badge';
+import { GeneratorHandler } from '../generator-handler';
 
 export class BadgeBarGenerator extends AbstractGenerator<'badge-bar', IBadgeSettings[]> {
 	public constructor(genHandler: GeneratorHandler) {

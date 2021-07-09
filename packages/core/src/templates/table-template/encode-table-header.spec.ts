@@ -4,8 +4,8 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { encodeTableHeader } from './encode-table-header';
 import { ColumnAlignment, ColumnHeader } from './encode-table';
+import { encodeTableHeader } from './encode-table-header';
 
 describe('templates/table-template/encode-column-header', (): void => {
     describe('encodeTableHeader', (): void => {
@@ -13,7 +13,7 @@ describe('templates/table-template/encode-column-header', (): void => {
             expect(encodeTableHeader(['asdf', 'fdsa'], 4))
                 .to.deep.equal([
                     '| asdf | fdsa | | |',
-                    '| --- | --- | --- | --- |'
+                    '| --- | --- | --- | --- |',
                 ]);
         });
         it('should align columns', (): void => {
@@ -24,7 +24,7 @@ describe('templates/table-template/encode-column-header', (): void => {
             expect(encodeTableHeader(columnHeaders, 4))
                 .to.deep.equal([
                     '| asdf | second | 3 | fourth |',
-                    '| --- | ---: | :---: | --- |'
+                    '| --- | ---: | :---: | --- |',
                 ]);
         });
     });

@@ -1,7 +1,7 @@
-import { IConfig } from "../../config";
-import { calculateColumnCount } from "./column-count";
-import { encodeRow } from "./encode-row";
-import { encodeTableHeader } from "./encode-table-header";
+import { IConfig } from '../../config';
+import { calculateColumnCount } from './column-count';
+import { encodeRow } from './encode-row';
+import { encodeTableHeader } from './encode-table-header';
 export enum ColumnAlignment {
     CENTER = 'center',
     RIGHT = 'right',

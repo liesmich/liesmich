@@ -1,4 +1,4 @@
-import { CellValue } from "./encode-table";
+import { CellValue } from './encode-table';
 
 export const encodeRow = (items: CellValue[], colums: number, defaultValue?: CellValue) => {
     let out: string = '|';

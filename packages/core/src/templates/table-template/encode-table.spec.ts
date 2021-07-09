@@ -15,7 +15,7 @@ describe('templates/table-template/encode-column-header', (): void => {
                     ['any data', 'second'],
                     [2, 123.45]
                 ]
-            }
+            };
             expect(encodeTable({ lineBreak: '\r\n' } as any, testData))
                 .to.deep.equal(
                     '| asdf | |\r\n' +

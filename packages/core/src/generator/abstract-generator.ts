@@ -1,4 +1,4 @@
-import { GeneratorHandler } from "./generator-handler";
+import { GeneratorHandler } from './generator-handler';
 
 export abstract class AbstractGenerator<T extends string, K extends object> {
     public constructor(public readonly name: T,

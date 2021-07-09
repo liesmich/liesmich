@@ -7,7 +7,7 @@ import fs from 'fs/promises';
 import 'mocha';
 import { resolve } from 'path';
 import Sinon from 'sinon';
-import { CircularExtensionError, loadConfig } from './loader';
+import { loadConfig, CircularExtensionError } from './loader';
 
 describe('templates/encoder', (): void => {
     let sandbox: Sinon.SinonSandbox;
@@ -29,7 +29,7 @@ describe('templates/encoder', (): void => {
             expect(result2).to.deep.equal({
                 a: true,
                 extends: [
-                    "path\\1.json"
+                    'path\\1.json'
                 ]
             });
             expect(fsReadStub.callCount).to.equal(1);
@@ -41,8 +41,8 @@ describe('templates/encoder', (): void => {
             expect(result2).to.deep.equal({
                 a: false,
                 extends: [
-                    "path\\1.json",
-                    "path\\b.json"
+                    'path\\1.json',
+                    'path\\b.json'
                 ]
             });
             expect(fsReadStub.callCount).to.equal(2, 'two config files were called');
@@ -55,9 +55,9 @@ describe('templates/encoder', (): void => {
             expect(result2).to.deep.equal({
                 a: false,
                 extends: [
-                    "path\\1.json",
-                    "path\\b.json",
-                    "path\\z.json"
+                    'path\\1.json',
+                    'path\\b.json',
+                    'path\\z.json'
                 ],
                 k: 2,
             });
@@ -71,8 +71,8 @@ describe('templates/encoder', (): void => {
                 a: false,
                 b: 5,
                 extends: [
-                    "path\\1.json",
-                    "path\\2.json"
+                    'path\\1.json',
+                    'path\\2.json'
                 ],
             });
             expect(fsReadStub.callCount).to.equal(2, 'three config files were called');

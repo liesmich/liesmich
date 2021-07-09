@@ -1,5 +1,5 @@
-import { AbstractGenerator } from "../abstract-generator";
-import { GeneratorHandler } from "../generator-handler";
+import { AbstractGenerator } from '../abstract-generator';
+import { GeneratorHandler } from '../generator-handler';
 
 export interface IImageSettings {
 	alt: string;
