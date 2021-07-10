@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { IConfig } from '../../config';
 import { calculateColumnCount } from './column-count';
 import { encodeRow } from './encode-row';
@@ -5,7 +9,7 @@ import { encodeTableHeader } from './encode-table-header';
 export enum ColumnAlignment {
     CENTER = 'center',
     RIGHT = 'right',
-    LEFT = 'left'
+    LEFT = 'left',
 }
 export type CellValue = string | number | boolean | undefined;
 export type ColumnHeader = (string | { title: string, align?: ColumnAlignment });
@@ -22,4 +26,4 @@ export const encodeTable: (cfg: IConfig, data: ITableTemplate) => string = (cfg:
             encodedRows.push(encodeRow(row, columnCount));
         });
     return encodedRows.join(cfg.lineBreak);
-}
+};

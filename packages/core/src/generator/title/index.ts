@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { AbstractGenerator } from '../abstract-generator';
 import { GeneratorHandler } from '../generator-handler';
 

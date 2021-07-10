@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -13,15 +13,15 @@ describe('templates/table-template/encode-column-header', (): void => {
                 headers: ['asdf'],
                 rows: [
                     ['any data', 'second'],
-                    [2, 123.45]
-                ]
+                    [2, 123.45],
+                ],
             };
             expect(encodeTable({ lineBreak: '\r\n' } as any, testData))
                 .to.deep.equal(
                     '| asdf | |\r\n' +
                     '| --- | --- |\r\n' +
                     '| any data | second |\r\n' +
-                    '| 2 | 123.45 |'
+                    '| 2 | 123.45 |',
                 );
         });
     });

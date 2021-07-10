@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { IConfig } from '../config';
 
 export interface IBaseTemplate<T> {

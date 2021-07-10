@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { IConfig } from '../../config';
 
 export interface IReferenceLink {
@@ -13,7 +17,7 @@ export type Link = ILink
     | IReferenceLink;
 export const encodeLink = (cfg: IConfig, link: Link): string => {
     if ('url' in link) {
-        return `[${link.inline}](${link.url}${link.title ? ` '${link.title}'` : ''})`;
+        return `[${link.inline}](${link.url}${link.title ? ` "${link.title}"` : ''})`;
     } else {
         return `${link.inline ? `[${link.inline}]` : ''}[${link.ref}]`;
     }

@@ -1,3 +1,6 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
 
 export interface IMatches {
     end: number;
@@ -15,12 +18,13 @@ export class Converter {
         const TEMPLATE_PATTERN: RegExp = /\{\{\s*([a-zA-Z]+)\:([a-zA-Z]+)(\?\S+)?\s*\}\}/g;
         const matches: IMatches[] = [];
         let execGroup: RegExpExecArray | null;
+        // tslint:disable-next-line:no-conditional-assignment
         while ((execGroup = TEMPLATE_PATTERN.exec(source)) !== null) {
             matches.push({
                 end: TEMPLATE_PATTERN.lastIndex,
                 host: execGroup[1],
-                scheme: execGroup[2],
                 qs: execGroup[3] ? execGroup[3] : undefined,
+                scheme: execGroup[2],
                 start: execGroup.index,
             });
             console.log(`Found ${execGroup}. Next starts at ${TEMPLATE_PATTERN.lastIndex}.`);

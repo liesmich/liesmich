@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -11,7 +11,7 @@ describe('templates/link-template/encode-link', (): void => {
         it('should create image without title attribute', (): void => {
             expect(encodeLink(undefined as any, {
                 inline: '"ooh yes',
-                url: 'https://github.com'
+                url: 'https://github.com',
             }))
                 .to.equal('["ooh yes](https://github.com)');
         });
@@ -19,7 +19,7 @@ describe('templates/link-template/encode-link', (): void => {
             expect(encodeLink(undefined as any, {
                 inline: '"ooh yes',
                 title: 'any title',
-                url: 'https://github.com'
+                url: 'https://github.com',
             }))
                 .to.equal('["ooh yes](https://github.com "any title")');
         });

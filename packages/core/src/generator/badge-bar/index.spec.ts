@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -35,10 +35,10 @@ describe('generator/badge-bar', (): void => {
             const result: string = await generator.generate([{
                 alt: 'alt text',
                 img: 'http://random.domain/img.jpg',
-                url: 'random.href/path'
+                url: 'random.href/path',
             }]);
             expect(result)
-                .to.equal('<p align="center"><a></p>')
+                .to.equal('<p align="center"><a></p>');
         });
         it('should work with line breaks', async (): Promise<void> => {
             badgeGeneratorStub.generate.resolves('<a>');
@@ -46,14 +46,14 @@ describe('generator/badge-bar', (): void => {
             const result: string = await generator.generate([{
                 alt: 'alt text',
                 img: 'http://random.domain/img.jpg',
-                url: 'random.href/path'
+                url: 'random.href/path',
             }, {
                 alt: 'alt text2',
                 img: 'http://random.domain/img2.jpg',
-                url: 'random.href/path2'
+                url: 'random.href/path2',
             }]);
             expect(result)
-                .to.equal('<p align="center"><a>test<a></p>')
+                .to.equal('<p align="center"><a>test<a></p>');
         });
     });
 });

@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';

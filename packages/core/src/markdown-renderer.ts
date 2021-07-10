@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { MarkedOptions, Renderer } from 'marked';
 
 export class MarkdownRenderer extends Renderer {

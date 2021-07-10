@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { encodeRow } from './encode-row';
 import { ColumnAlignment, ColumnHeader } from './encode-table';
 
@@ -7,7 +11,7 @@ export const encodeTableHeader = (headers: ColumnHeader[], colums: number): stri
     });
     const seperators: string[] = headers.map((col: ColumnHeader): string => {
         if (typeof col === 'string') {
-            return '---'
+            return '---';
         }
         switch (col?.align) {
             case ColumnAlignment.CENTER:
@@ -18,7 +22,7 @@ export const encodeTableHeader = (headers: ColumnHeader[], colums: number): stri
                 return '---';
         }
     });
-    let titleRow: string = encodeRow(titles, colums);
-    let seperatorRow: string = encodeRow(seperators, colums, '---');
+    const titleRow: string = encodeRow(titles, colums);
+    const seperatorRow: string = encodeRow(seperators, colums, '---');
     return [titleRow, seperatorRow];
-}
+};

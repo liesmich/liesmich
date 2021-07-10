@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import Token from 'markdown-it/lib/token';
 
 const handleToken = (token: Token): string => {
@@ -6,7 +10,7 @@ const handleToken = (token: Token): string => {
         data += handleTokens(token.children);
     }
     return data;
-}
+};
 const encodeToken = (token: Token): string => {
     console.log(token);
     switch (token.type) {
@@ -67,11 +71,11 @@ const encodeToken = (token: Token): string => {
         default:
             throw new Error(`Unknown type ${token.type}`);
     }
-}
+};
 export const handleTokens = (lst: Token[]): string => {
     let out: string = '';
-    for (let token of lst) {
+    for (const token of lst) {
         out += handleToken(token);
     }
     return out;
-}
+};

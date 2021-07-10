@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import deepmerge from 'deepmerge';
 import { promises as fsp } from 'fs';
 import { dirname, isAbsolute, resolve } from 'path';

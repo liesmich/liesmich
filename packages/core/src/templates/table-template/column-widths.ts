@@ -1,5 +1,9 @@
-import { calculateLongestLine } from './longest-line';
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { ColumnHeader, ITableTemplate } from './encode-table';
+import { calculateLongestLine } from './longest-line';
 export const calculateColumnWidths: (table: ITableTemplate) => number[] = (table: ITableTemplate): number[] => {
     const widths: number[] = table.headers
         .map((header: ColumnHeader): number => {

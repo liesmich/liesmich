@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -25,7 +25,7 @@ describe('generator/badge', (): void => {
         it('should work without line breaks', async (): Promise<void> => {
             const generator: BadgeGenerator = new BadgeGenerator(testGenHandler as any);
             expect(await generator.generate({ alt: 'alt text', img: 'http://random.domain/img.jpg', url: 'random.href/path' }))
-                .to.equal('<a href="random.href/path"><img alt="alt text" src="http://random.domain/img.jpg" height="20"/></a>')
+                .to.equal('<a href="random.href/path"><img alt="alt text" src="http://random.domain/img.jpg" height="20"/></a>');
         });
     });
 });

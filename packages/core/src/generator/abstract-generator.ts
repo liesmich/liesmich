@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { GeneratorHandler } from './generator-handler';
 
 export abstract class AbstractGenerator<T extends string, K extends object> {

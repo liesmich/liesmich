@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -29,8 +29,8 @@ describe('templates/encoder', (): void => {
             expect(result2).to.deep.equal({
                 a: true,
                 extends: [
-                    'path\\1.json'
-                ]
+                    'path\\1.json',
+                ],
             });
             expect(fsReadStub.callCount).to.equal(1);
         });
@@ -42,8 +42,8 @@ describe('templates/encoder', (): void => {
                 a: false,
                 extends: [
                     'path\\1.json',
-                    'path\\b.json'
-                ]
+                    'path\\b.json',
+                ],
             });
             expect(fsReadStub.callCount).to.equal(2, 'two config files were called');
         });
@@ -57,7 +57,7 @@ describe('templates/encoder', (): void => {
                 extends: [
                     'path\\1.json',
                     'path\\b.json',
-                    'path\\z.json'
+                    'path\\z.json',
                 ],
                 k: 2,
             });
@@ -72,7 +72,7 @@ describe('templates/encoder', (): void => {
                 b: 5,
                 extends: [
                     'path\\1.json',
-                    'path\\2.json'
+                    'path\\2.json',
                 ],
             });
             expect(fsReadStub.callCount).to.equal(2, 'three config files were called');
@@ -87,7 +87,7 @@ describe('templates/encoder', (): void => {
                 })
                 .catch((err: any): void => {
                     expect(err).to.be.instanceOf(CircularExtensionError);
-                })
+                });
         });
     });
 });

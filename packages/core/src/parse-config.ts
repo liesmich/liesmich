@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import { promises as fsp } from 'fs';
 import { walkTokens, Lexer, Token, TokensList } from 'marked';
 

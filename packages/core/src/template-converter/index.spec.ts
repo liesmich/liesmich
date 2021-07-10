@@ -1,5 +1,5 @@
 /*!
- * Source https://github.com/liesmich/liesmich Package: schemas
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import { expect } from 'chai';
@@ -7,6 +7,7 @@ import 'mocha';
 import Sinon from 'sinon';
 import { Converter } from './';
 
+// tslint:disable:no-unused-expression
 describe('template-converter/index', (): void => {
     let sandbox: Sinon.SinonSandbox;
     before((): void => {

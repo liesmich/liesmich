@@ -6,9 +6,9 @@
         "file-header": [
             true,
             {
-                "match": "Source https://github.com/liesmich/liesmich Package: schemas",
+                "match": "Source https://github.com/liesmich/liesmich Package: core",
                 "allow-single-line-comments": true,
-                "default": "Source https://github.com/liesmich/liesmich Package: schemas",
+                "default": "Source https://github.com/liesmich/liesmich Package: core",
                 "enforce-trailing-newline": false
             }
         ]

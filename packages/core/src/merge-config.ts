@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import deepmerge from 'deepmerge';
 import { IConfig } from './config';
 export interface IConfigFile extends IConfig {
@@ -11,15 +15,15 @@ const removeDuplicate: <T>(arr1: T[], arr2: T[]) => T[] = <T>(arr1: T[], arr2: T
         if (!(idx >= 0)) {
             copy.push(item);
         }
-    })
+    });
     return copy;
-}
+};
 export const mergeConfig = (cfg1: IConfigFile, cfg2: IConfigFile): IConfigFile => {
     return deepmerge(cfg1, cfg2, {
-        customMerge: (key) => {
+        customMerge: (key: string): any => {
             if (key === 'extends') {
                 return removeDuplicate as any;
             }
-        }
+        },
     });
-}
+};

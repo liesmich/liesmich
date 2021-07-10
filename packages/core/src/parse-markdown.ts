@@ -1,3 +1,7 @@
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
+ */
+
 import Markdownit from 'markdown-it';
 import Token from 'markdown-it/lib/token';
 
