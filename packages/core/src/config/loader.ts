@@ -3,7 +3,7 @@
  */
 
 import deepmerge from 'deepmerge';
-import { readFile } from 'fs/promises';
+import { promises as fs } from 'fs';
 import { dirname, relative, resolve } from 'path';
 import { IConfig } from '../config';
 import { IConfigFile } from '../merge-config';
@@ -25,7 +25,7 @@ export const loadConfigInternal: (path: string,
         visitedPath.push(normalizedPath);
         visited.set(normalizedPath, true);
         const baseDir: string = dirname(normalizedPath);
-        const fileContent: string = await readFile(normalizedPath, 'utf-8');
+        const fileContent: string = await fs.readFile(normalizedPath, 'utf-8');
         const parsedFileContent: IConfigFile = JSON.parse(fileContent);
         if (Array.isArray(parsedFileContent.extends)) {
             const parsedExtendedFiles: IConfigFile[] = await Promise.all(parsedFileContent.extends
