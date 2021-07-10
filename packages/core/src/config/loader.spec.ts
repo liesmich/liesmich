@@ -3,7 +3,7 @@
  */
 
 import { expect } from 'chai';
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 import 'mocha';
 import { join, resolve } from 'path';
 import Sinon from 'sinon';
