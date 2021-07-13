@@ -15,6 +15,15 @@ class TestGenerator extends AbstractGenerator<'test', object> {
     }
 
     public async generate(badge: object): Promise<string> {
+        return `{{ template:test2 }} ${this.name}:${JSON.stringify(badge)}`;
+    }
+}
+class Test2Generator extends AbstractGenerator<'test2', object> {
+    public constructor(genHandler: GeneratorHandler) {
+        super('test2', genHandler);
+    }
+
+    public async generate(badge: object): Promise<string> {
         return `${this.name}:${JSON.stringify(badge)}`;
     }
 }
@@ -67,20 +76,26 @@ describe('template-converter/index', (): void => {
             beforeEach((): void => {
                 genHandler = new GeneratorHandler({} as any);
                 genHandler.register(TestGenerator);
+                genHandler.register(Test2Generator);
                 converter = new Converter(genHandler);
             });
             it('should match h4 title', async (): Promise<void> => {
                 expect(await converter.convert('test string')).to.equal('test string');
             });
             it('should match h4 title', async (): Promise<void> => {
-                expect(await converter.convert('test {{ template:test }} string')).to.equal('test test:undefined string');
+                expect(await converter.convert('test {{ template:test }} string')).to.equal('test test2:undefined test:undefined string');
             });
             it('should match h4 title', async (): Promise<void> => {
-                expect(await converter.convert('test {{ template:test?yolo=2 }} string')).to.equal('test test:{"yolo":"2"} string');
+                expect(await converter.convert('test {{ template:test?yolo=2 }} string'))
+                    .to.equal('test test2:undefined test:{"yolo":"2"} string');
             });
             it('should match h4 title', async (): Promise<void> => {
                 const input: string = 'test {{ template:test?yolo=2 }} string {{ template:test?yolo=3 }}';
-                expect(await converter.convert(input)).to.equal('test test:{"yolo":"2"} string test:{"yolo":"3"}');
+                expect(await converter.convert(input)).to.equal('test test2:undefined test:{"yolo":"2"} string test2:undefined test:{"yolo":"3"}');
+            });
+            it('should match h4 title', async (): Promise<void> => {
+                const input: string = 'test {{ template:test?yolo=2 }} string {{ template:test?yolo=3 }}';
+                expect(await converter.convert(input)).to.equal('test test2:undefined test:{"yolo":"2"} string test2:undefined test:{"yolo":"3"}');
             });
         });
     });

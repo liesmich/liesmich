@@ -15,12 +15,10 @@ export interface IMatches {
     start: number;
 }
 export class Converter {
-    public constructor(private readonly genHandler: GeneratorHandler) {
-
-    }
+    public constructor(private readonly genHandler: GeneratorHandler) { }
 
     public extractTemplateVariables(source: string): IMatches[] {
-        const TEMPLATE_PATTERN: RegExp = /\{\{\s*([a-zA-Z]+)\:([a-zA-Z]+)(\?\S+)?\s*\}\}/g;
+        const TEMPLATE_PATTERN: RegExp = /\{\{\s*([a-zA-Z0-9_]+)\:([a-zA-Z0-9_]+)(\?\S+)?\s*\}\}/g;
         const matches: IMatches[] = [];
         let execGroup: RegExpExecArray | null;
         // tslint:disable-next-line:no-conditional-assignment
@@ -42,7 +40,7 @@ export class Converter {
         return this.convert(fileContent);
     }
 
-    public async convert(source: string): Promise<string> {
+    private async convertInteral(source: string, depth: number): Promise<string> {
         const matches: IMatches[] = this.extractTemplateVariables(source);
         if (matches.length === 0) {
             return source;
@@ -56,6 +54,11 @@ export class Converter {
             output.push(await generator.generate(currentMatch.qs as any));
         }
         output.push(source.slice(matches[matches.length - 1].end));
-        return output.join('');
+        const data: string = output.join('');
+        return this.convertInteral(data, depth + 1);
+    }
+
+    public async convert(source: string): Promise<string> {
+        return this.convertInteral(source, 0);
     }
 }
