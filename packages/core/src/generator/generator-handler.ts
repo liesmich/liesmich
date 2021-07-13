@@ -6,6 +6,7 @@ import { IConfigFile } from '../merge-config';
 import { AbstractGenerator } from './abstract-generator';
 
 type Storage<K extends string> = Map<string, AbstractGenerator<K, object>>;
+// tslint:disable-next-line:callable-types interface-over-type-literal
 type Newable<K extends string, T extends AbstractGenerator<K, object>> = { new(genHandler: GeneratorHandler): T; };
 export class GeneratorHandler {
     private generators: Storage<string> = new Map();

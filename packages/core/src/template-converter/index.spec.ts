@@ -9,12 +9,12 @@ import { AbstractGenerator } from '../generator/abstract-generator';
 import { GeneratorHandler } from '../generator/generator-handler';
 import { Converter } from './';
 
-class TestGenerator extends AbstractGenerator<'test', Object> {
+class TestGenerator extends AbstractGenerator<'test', object> {
     public constructor(genHandler: GeneratorHandler) {
         super('test', genHandler);
     }
 
-    public async generate(badge: Object): Promise<string> {
+    public async generate(badge: object): Promise<string> {
         return `${this.name}:${JSON.stringify(badge)}`;
     }
 }
@@ -45,7 +45,7 @@ describe('template-converter/index', (): void => {
                     end: 25,
                     host: 'data',
                     qs: {
-                        yolo: "29",
+                        yolo: '29',
                     },
                     scheme: 'test',
                     start: 4,

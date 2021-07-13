@@ -3,8 +3,8 @@
  */
 
 import { parse as qsParse } from 'qs';
-import { AbstractGenerator } from "../generator/abstract-generator";
-import { GeneratorHandler } from "../generator/generator-handler";
+import { AbstractGenerator } from '../generator/abstract-generator';
+import { GeneratorHandler } from '../generator/generator-handler';
 
 export interface IMatches {
     end: number;
@@ -39,7 +39,7 @@ export class Converter {
         if (matches.length === 0) {
             return source;
         }
-        let output: string[] = [];
+        const output: string[] = [];
         for (let i: number = 0; i < matches.length; i++) {
             const currentMatch: IMatches = matches[i];
             const sliceStart: number = i === 0 ? 0 : matches[i - 1].end;
