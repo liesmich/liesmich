@@ -3,7 +3,7 @@
  */
 
 import { constants, promises as fs } from 'fs';
-import { parse as qsParse } from 'qs';
+import QueryString, { parse as qsParse } from 'qs';
 import { AbstractGenerator } from '../generator/abstract-generator';
 import { GeneratorHandler } from '../generator/generator-handler';
 
@@ -11,7 +11,7 @@ export interface IMatches {
     end: number;
     host: string;
     scheme: string;
-    qs?: string;
+    qs?: QueryString.ParsedQs;
     start: number;
 }
 export class Converter {
