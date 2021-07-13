@@ -2,6 +2,7 @@
  * Source https://github.com/liesmich/liesmich Package: core
  */
 
+import { parse as qsParse } from 'qs';
 import { AbstractGenerator } from "../generator/abstract-generator";
 import { GeneratorHandler } from "../generator/generator-handler";
 
@@ -26,7 +27,7 @@ export class Converter {
             matches.push({
                 end: TEMPLATE_PATTERN.lastIndex,
                 host: execGroup[2],
-                qs: execGroup[3] ? execGroup[3] : undefined,
+                qs: execGroup[3] ? qsParse(execGroup[3].slice(1)) : undefined,
                 scheme: execGroup[1],
                 start: execGroup.index,
             });

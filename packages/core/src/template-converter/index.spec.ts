@@ -43,18 +43,20 @@ describe('template-converter/index', (): void => {
             it('should match h4 title', async (): Promise<void> => {
                 expect(converter.extractTemplateVariables('test{{test:data?yolo=29}} string')).to.deep.equal([{
                     end: 25,
-                    host: 'test',
-                    qs: '?yolo=29',
-                    scheme: 'data',
+                    host: 'data',
+                    qs: {
+                        yolo: "29",
+                    },
+                    scheme: 'test',
                     start: 4,
                 }]);
             });
             it('should match h2 title', async (): Promise<void> => {
                 expect(converter.extractTemplateVariables('test{{test:data}} string')).to.deep.equal([{
                     end: 17,
-                    host: 'test',
+                    host: 'data',
                     qs: undefined,
-                    scheme: 'data',
+                    scheme: 'test',
                     start: 4,
                 }]);
             });
@@ -74,7 +76,11 @@ describe('template-converter/index', (): void => {
                 expect(await converter.convert('test {{ template:test }} string')).to.equal('test test:undefined string');
             });
             it('should match h4 title', async (): Promise<void> => {
-                expect(await converter.convert('test {{ template:test?yolo=2 }} string')).to.equal('test test:{"yolo":2} string');
+                expect(await converter.convert('test {{ template:test?yolo=2 }} string')).to.equal('test test:{"yolo":"2"} string');
+            });
+            it('should match h4 title', async (): Promise<void> => {
+                const input: string = 'test {{ template:test?yolo=2 }} string {{ template:test?yolo=3 }}';
+                expect(await converter.convert(input)).to.equal('test test:{"yolo":"2"} string test:{"yolo":"3"}');
             });
         });
     });
