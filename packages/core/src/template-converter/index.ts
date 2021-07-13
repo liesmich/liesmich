@@ -2,6 +2,7 @@
  * Source https://github.com/liesmich/liesmich Package: core
  */
 
+import { constants, promises as fs } from 'fs';
 import { parse as qsParse } from 'qs';
 import { AbstractGenerator } from '../generator/abstract-generator';
 import { GeneratorHandler } from '../generator/generator-handler';
@@ -34,6 +35,13 @@ export class Converter {
         }
         return matches;
     }
+
+    public async convertFile(sourceFile: string): Promise<string> {
+        await fs.access(sourceFile, constants.R_OK);
+        const fileContent: string = await fs.readFile(sourceFile, 'utf-8');
+        return this.convert(fileContent);
+    }
+
     public async convert(source: string): Promise<string> {
         const matches: IMatches[] = this.extractTemplateVariables(source);
         if (matches.length === 0) {
