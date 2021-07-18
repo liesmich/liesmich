@@ -4,6 +4,10 @@
 
 import { expect } from 'chai';
 import 'mocha';
+import remarkGfm from 'remark-gfm';
+import remarkStringify from 'remark-stringify';
+import unified, { Processor } from 'unified';
+import { Node } from 'unist';
 import Sinon from 'sinon';
 import { ImageGenerator } from '.';
 import { GeneratorHandler } from '../generator-handler';
@@ -11,9 +15,13 @@ import { GeneratorHandler } from '../generator-handler';
 describe('generator/image', (): void => {
     let sandbox: Sinon.SinonSandbox;
     let testGenHandler: Sinon.SinonStubbedInstance<GeneratorHandler>;
+    let testEncoder: Processor;
     before((): void => {
         sandbox = Sinon.createSandbox();
         testGenHandler = sandbox.createStubInstance(GeneratorHandler, {});
+        testEncoder = unified()
+            .use(remarkGfm)
+            .use(remarkStringify);
     });
     beforeEach((): void => {
         (testGenHandler as any).globalConfig = { lineBreak: 'test' };
@@ -27,8 +35,9 @@ describe('generator/image', (): void => {
     describe('ImageGenerator', (): void => {
         it('should generate h1 title', async (): Promise<void> => {
             const generator: ImageGenerator = new ImageGenerator(testGenHandler as any);
-            expect(await generator.generate({ alt: 'alt title', src: 'http://test.domain', title: 'test title' }))
-                .to.equal('![alt%20title](http://test.domain "test%20title")');
+            const node: Node = await generator.generate({ alt: 'alt title', url: 'http://test.domain', title: 'test title' });
+            expect(testEncoder.stringify(node))
+                .to.equal('![alt title](http://test.domain "test title")\n');
         });
     });
 });
