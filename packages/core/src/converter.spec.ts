@@ -26,10 +26,7 @@ describe('template-converter/index', (): void => {
                 converter = new Converter();
             });
             it('should match h4 title', async (): Promise<void> => {
-                expect(await converter.convert('test string')).to.equal('test string');
-            });
-            it('should match h4 title', async (): Promise<void> => {
-                expect(await converter.convert('test {{ template:table }} string')).to.equal('test test2:undefined test:undefined string');
+                expect(await converter.convert('test string')).to.equal('test string\n');
             });
         });
     });
