@@ -4,6 +4,7 @@
 
 import { Converter } from '@liesmich/core';
 import { Command } from 'commander';
+import { writeFile } from 'fs/promises';
 const program: Command = new Command();
 program
     .command('convert')
@@ -13,6 +14,8 @@ program
     .description('convert readme template')
     .action(async (source, destination): Promise<void> => {
         const converter: Converter = new Converter();
-        converter.convert(source);
+        const data: string = await converter.convertFile(source, 'cfg');
+        console.log("data", data);
+        await writeFile(destination, data);
     });
 program.parse(process.argv);

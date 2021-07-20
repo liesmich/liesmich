@@ -14,7 +14,7 @@ export class CircularExtensionError extends Error {
         this.name = 'CircularExtensionError';
     }
 }
-export const loadConfigInternal: (path: string,
+const loadConfigInternal: (path: string,
     visitedPath: string[],
     visited: Map<string, true>) => Promise<IConfigFile> =
     async (path: string, visitedPath: string[], visited: Map<string, true>): Promise<IConfigFile> => {
