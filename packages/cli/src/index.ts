@@ -4,7 +4,7 @@
 
 import { Converter } from '@liesmich/core';
 import { Command } from 'commander';
-import { writeFile } from 'fs/promises';
+import { promises as fsp } from 'fs';
 const program: Command = new Command();
 program
     .command('convert')
@@ -16,6 +16,6 @@ program
         const converter: Converter = new Converter();
         const data: string = await converter.convertFile(source, 'cfg');
         console.log('data', data);
-        await writeFile(destination, data);
+        await fsp.writeFile(destination, data);
     });
 program.parse(process.argv);
