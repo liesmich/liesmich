@@ -5,65 +5,22 @@
 import { Parent } from 'unist';
 import { AbstractGenerator } from '../abstract-generator';
 import { GeneratorHandler } from '../generator-handler';
-import { TextGenerator } from '../text';
+import { ITableCellSettings, TableCellGenerator } from './table-cell-generator';
+import { TableRow, TableRowGenerator } from './table-row-generator';
 
-export type ColumnAlignment = 'left' | 'right' | 'center' | null
-export interface ITableSettings {
-    align: ColumnAlignment[] | ColumnAlignment,
-    header: string[],
-    rows: string[][],
-}
-export type TableCell = Parent & { type: 'tableCell' }
-export type TableRow = Parent & { children: TableCell[], type: 'tableRow' }
+export type ColumnAlignment = 'left' | 'right' | 'center' | null;
 export type Table = Parent & {
+    // tslint:disable-next-line:no-null-keyword
     align: ('left' | 'right' | 'center' | null)[],
     children: TableRow[],
     type: 'table',
 };
-interface ITableRowSettings {
-    columns: number;
-    cells: ITableCellSettings[];
-}
-interface ITableCellSettings {
-    text: string | null,
-}
-export class TableCellGenerator extends AbstractGenerator<'tableCell', ITableCellSettings> {
-    public constructor(genHandler: GeneratorHandler) {
-        super('tableCell', genHandler);
-    }
-    public async generate(image: ITableCellSettings): Promise<TableCell> {
-        const cellsGenerator: TextGenerator = this.genHandler.get('text');
-        return {
-            children: [
-                await cellsGenerator.generate({
-                    value: image.text,
-                }),
-            ],
-            type: 'tableCell',
-        };
-    }
-}
-export class TableRowGenerator extends AbstractGenerator<'tableRow', ITableRowSettings> {
-    public constructor(genHandler: GeneratorHandler) {
-        super('tableRow', genHandler);
-    }
-    public async generate(image: ITableRowSettings): Promise<TableRow> {
-        const cellsGenerator: TableCellGenerator = this.genHandler.get('tableCell');
-        const cells: TableCell[] = new Array(image.columns);
-        for (let i: number = 0; i < image.columns; i++) {
-            if (i < image.cells.length) {
-                cells[i] = await cellsGenerator.generate(image.cells[i]);
-            } else {
 
-            }
-        }
-        return {
-            children: cells,
-            type: 'tableRow',
-        };
-    }
+export interface ITableSettings {
+    align: ColumnAlignment[] | ColumnAlignment;
+    header: string[];
+    rows: string[][];
 }
-
 export class TableGenerator extends AbstractGenerator<'table', ITableSettings> {
     public constructor(genHandler: GeneratorHandler) {
         super('table', genHandler);
@@ -74,6 +31,7 @@ export class TableGenerator extends AbstractGenerator<'table', ITableSettings> {
         const items: ColumnAlignment[] = new Array(columns);
         if (Array.isArray(alignment)) {
             for (let i: number = 0; i < columns; i++) {
+                // tslint:disable-next-line:no-null-keyword
                 items[i] = i >= alignment.length ? null : alignment[i];
             }
             return items;
@@ -90,14 +48,13 @@ export class TableGenerator extends AbstractGenerator<'table', ITableSettings> {
                 return Math.max(old, cur.length);
             }, 0));
         const alignments: ColumnAlignment[] = this.convertAlignment(image.align, columns);
-        console.log("JJJJ", alignments);
         let rows: Promise<TableRow>[] = [];
         const headerCells: ITableCellSettings[] = image.header.map((cellValue: string): ITableCellSettings => {
             return {
                 text: cellValue,
             };
         });
-        rows.push(rowGenerator.generate({ cells: headerCells, columns }))
+        rows.push(rowGenerator.generate({ cells: headerCells, columns }));
         rows = rows.concat(image.rows
             .map((values: string[]): Promise<TableRow> => {
                 const cells: ITableCellSettings[] = values.map((cellValue: string): ITableCellSettings => {
@@ -105,8 +62,8 @@ export class TableGenerator extends AbstractGenerator<'table', ITableSettings> {
                         text: cellValue,
                     };
                 });
-                return rowGenerator.generate({ cells, columns })
-            }))
+                return rowGenerator.generate({ cells, columns });
+            }));
         return {
             align: alignments,
             children: await Promise.all(rows),

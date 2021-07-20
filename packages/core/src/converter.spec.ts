@@ -7,22 +7,6 @@ import 'mocha';
 import Sinon from 'sinon';
 import { Converter } from './converter';
 
-
-const tableMarkdownTest: string =
-    `| Left | Center | Right  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | top |
-| col 2 is      | centered      |   mid |
-| test value | {{template:test?yolo=2}} |    bottom |
-`;
-const tableMarkdownTestResult: string =
-    `| Left       |               Center              |  Right |
-| ---------- | :-------------------------------: | -----: |
-| col 3 is   |           right-aligned           |    top |
-| col 2 is   |              centered             |    mid |
-| test value | test2:undefined test:{"yolo":"2"} | bottom |
-`;
-
 // tslint:disable:no-unused-expression
 describe('template-converter/index', (): void => {
     let sandbox: Sinon.SinonSandbox;

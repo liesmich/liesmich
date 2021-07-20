@@ -7,7 +7,7 @@ import { AbstractGenerator } from '../abstract-generator';
 import { GeneratorHandler } from '../generator-handler';
 
 export interface ITextSettings {
-    value: string | null,
+    value: string | null;
 }
 type TextNode = Node & ITextSettings & { type: 'text' };
 export class TextGenerator extends AbstractGenerator<'text', ITextSettings> {

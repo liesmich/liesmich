@@ -9,6 +9,7 @@ import { AbstractGenerator } from '../generator/abstract-generator';
 import { GeneratorHandler } from '../generator/generator-handler';
 import { TemplateConverter } from './';
 
+// tslint:disable:max-classes-per-file
 class TestGenerator extends AbstractGenerator<'test', object> {
     public constructor(genHandler: GeneratorHandler) {
         super('test', genHandler);
@@ -116,7 +117,7 @@ describe('template-converter/index', (): void => {
                 expect(await converter.convert2(tableMarkdownTest)).to.equal(tableMarkdownTestResult);
             });
             it('should handle markdown image links', async (): Promise<void> => {
-                const imageLink: string = '[![title](https://test.domain/image/path.jpg)](https://path.com)\n'
+                const imageLink: string = '[![title](https://test.domain/image/path.jpg)](https://path.com)\n';
                 expect(await converter.convert2(imageLink)).to.equal(imageLink);
             });
             it('should match h4 title', async (): Promise<void> => {

@@ -7,7 +7,7 @@ import QueryString, { parse as qsParse } from 'qs';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
-import unified, { Plugin, Processor, Settings } from 'unified';
+import unified, { Plugin, Processor, Settings, Transformer } from 'unified';
 import { Literal, Node, Parent } from 'unist';
 import { VFile } from 'vfile';
 import { AbstractGenerator } from '../generator/abstract-generator';
@@ -47,9 +47,7 @@ export class TemplateConverter {
     }
 
     public async handleTextNode(node: Node | Literal): Promise<Node> {
-        console.log("text node", JSON.stringify(node));
         if ('value' in node && typeof node.value === 'string') {
-            console.info('Handle node', JSON.stringify(node.value));
             node.value = await this.convert(node.value);
         }
         return node;
@@ -68,11 +66,10 @@ export class TemplateConverter {
 
     public async convert2(data: string): Promise<string> {
         const k: Settings = {
-            "test": 2,
+            test: 2,
         };
-        const plug: Plugin = (...args: Settings[]) => async (node: Node | Parent, file: VFile): Promise<Node> => {
-            console.log(args, JSON.stringify(node));
-            return this.traverseTree(node)
+        const plug: Plugin = (...args: Settings[]): Transformer => async (node: Node | Parent, file: VFile): Promise<Node> => {
+            return this.traverseTree(node);
         };
         return unified()
             .use(remarkParse)
@@ -92,14 +89,14 @@ export class TemplateConverter {
         }
         const encoder: Processor = unified()
             .use(remarkGfm)
-            .use(remarkStringify)
+            .use(remarkStringify);
         const output: string[] = [];
         for (let i: number = 0; i < matches.length; i++) {
             const currentMatch: IMatches = matches[i];
             const sliceStart: number = i === 0 ? 0 : matches[i - 1].end;
             output.push(source.slice(sliceStart, currentMatch.start));
             const generator: AbstractGenerator<string, object> = this.genHandler.get(currentMatch.host);
-            const item: Node | string = await generator.generate(currentMatch.qs as any)
+            const item: Node | string = await generator.generate(currentMatch.qs as any);
             output.push((typeof item === 'string' ? item : encoder.stringify(item)));
         }
         output.push(source.slice(matches[matches.length - 1].end));

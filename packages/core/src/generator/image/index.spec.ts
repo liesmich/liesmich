@@ -6,9 +6,9 @@ import { expect } from 'chai';
 import 'mocha';
 import remarkGfm from 'remark-gfm';
 import remarkStringify from 'remark-stringify';
+import Sinon from 'sinon';
 import unified, { Processor } from 'unified';
 import { Node } from 'unist';
-import Sinon from 'sinon';
 import { ImageGenerator } from '.';
 import { GeneratorHandler } from '../generator-handler';
 

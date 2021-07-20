@@ -12,10 +12,10 @@ program
     .argument('<destination>', 'template output')
     .option('-c, --config', 'Config file to be used')
     .description('convert readme template')
-    .action(async (source, destination): Promise<void> => {
+    .action(async (source: string, destination: string): Promise<void> => {
         const converter: Converter = new Converter();
         const data: string = await converter.convertFile(source, 'cfg');
-        console.log("data", data);
+        console.log('data', data);
         await writeFile(destination, data);
     });
 program.parse(process.argv);
