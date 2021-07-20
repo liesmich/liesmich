@@ -52,5 +52,7 @@
   "peerDependencies": {
     "ajv": "^8.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@liesmich/core": "^0.0.0"
+  }
 }
