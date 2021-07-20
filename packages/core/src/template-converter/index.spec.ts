@@ -7,7 +7,7 @@ import 'mocha';
 import Sinon from 'sinon';
 import { AbstractGenerator } from '../generator/abstract-generator';
 import { GeneratorHandler } from '../generator/generator-handler';
-import { Converter } from './';
+import { TemplateConverter } from './';
 
 class TestGenerator extends AbstractGenerator<'test', object> {
     public constructor(genHandler: GeneratorHandler) {
@@ -57,9 +57,9 @@ describe('template-converter/index', (): void => {
     });
     describe('Converter', (): void => {
         describe('extractTemplateVariables()', (): void => {
-            let converter: Converter;
+            let converter: TemplateConverter;
             beforeEach((): void => {
-                converter = new Converter(undefined as any);
+                converter = new TemplateConverter(undefined as any);
             });
             it('should match h4 title', async (): Promise<void> => {
                 expect(converter.extractTemplateVariables('test string')).to.be.empty;
@@ -86,13 +86,13 @@ describe('template-converter/index', (): void => {
             });
         });
         describe('convert()', (): void => {
-            let converter: Converter;
+            let converter: TemplateConverter;
             let genHandler: GeneratorHandler;
             beforeEach((): void => {
                 genHandler = new GeneratorHandler({} as any);
                 genHandler.register(TestGenerator);
                 genHandler.register(Test2Generator);
-                converter = new Converter(genHandler);
+                converter = new TemplateConverter(genHandler);
             });
             it('should match h4 title', async (): Promise<void> => {
                 expect(await converter.convert('test string')).to.equal('test string');

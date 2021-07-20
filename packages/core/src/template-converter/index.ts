@@ -20,7 +20,7 @@ export interface IMatches {
     qs?: QueryString.ParsedQs;
     start: number;
 }
-export class Converter {
+export class TemplateConverter {
     public constructor(private readonly genHandler: GeneratorHandler) { }
 
     public extractTemplateVariables(source: string): IMatches[] {
