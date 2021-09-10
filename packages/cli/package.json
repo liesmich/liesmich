@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "@liesmich/core": "^0.0.0",
-    "commander": "8.1.0"
+    "commander": "8.2.0"
   }
 }
