@@ -6,7 +6,7 @@
 import { parse, ParsedDocument } from '@liesmich/parser';
 
 export const loader = (data: string): string => {
-    const doc: ParsedDocument = parse(data);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const doc: ParsedDocument = parse(data);
     return JSON.stringify(doc);
 };
