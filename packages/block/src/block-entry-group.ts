@@ -13,6 +13,7 @@ export class BlockEntryGroup {
     public static async fromDir(path: string | Dirent): Promise<BlockEntryGroup> {
         const resolvedPath: string = resolve(typeof path === 'string' ? path : path.name);
         const fileContent: Dirent[] = await fsp.readdir(resolvedPath, { withFileTypes: true });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
         const da: ParsedDocument = parse(fileContent[0].name);
         return new BlockEntryGroup(resolvedPath, da);
     }
