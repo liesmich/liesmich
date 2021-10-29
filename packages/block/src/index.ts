@@ -1,5 +1,6 @@
-/*!
- * Source https://github.com/liesmich/liesmich Package: block
+/*
+ * Package @liesmich/block
+ * Source https://liesmich.github.io/liesmich/
  */
 
 export * from './block';
