@@ -27,7 +27,7 @@
     "@angular/router": "~12.2.0",
     "@liesmich/parser": "^0.0.0",
     "@nguniversal/express-engine": "^12.1.1",
-    "express": "^4.15.2",
+    "express": "^4.17.1",
     "prismjs": "^1.25.0",
     "rxjs": "~6.6.7",
     "strip-comments": "^2.0.1",
