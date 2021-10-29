@@ -1,0 +1,6 @@
+<code *ngIf="!disabled; else transclude" [tokenize]="$any(tokens$ | async)" class="language-typescript"></code>
+
+<ng-template #transclude>
+    <ng-content></ng-content>
+    <p>k</p>
+</ng-template>

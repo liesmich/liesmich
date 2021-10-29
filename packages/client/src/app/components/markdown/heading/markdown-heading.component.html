@@ -1,0 +1,12 @@
+<h1 *ngIf="node.depth === 1" [id]="toc(node)" [class]="customClasses?.h1" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h1>
+<h2 *ngIf="node.depth === 2" [id]="toc(node)" [class]="customClasses?.h2" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h2>
+<h3 *ngIf="node.depth === 3" [id]="toc(node)" [class]="customClasses?.h3" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h3>
+<h4 *ngIf="node.depth === 4" [id]="toc(node)" [class]="customClasses?.h4" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h4>
+<h5 *ngIf="node.depth === 5" [id]="toc(node)" [class]="customClasses?.h5" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h5>
+<h6 *ngIf="node.depth === 6" [id]="toc(node)" [class]="customClasses?.h6" [liesmich-md-inline]="node"
+    [customClasses]="customClasses"></h6>
