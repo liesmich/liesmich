@@ -59,7 +59,7 @@
     "qs": "~6.10.1",
     "rehype-parse": "~8.0.2",
     "rehype-raw": "6.1.0",
-    "rehype-stringify": "~9.0.1",
+    "rehype-stringify": "~9.0.2",
     "remark-gfm": "3.0.0",
     "remark-parse": "~10.0.0",
     "remark-stringify": "~10.0.1",
