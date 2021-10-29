@@ -1,5 +1,6 @@
-/*!
- * Source https://github.com/liesmich/liesmich Package: core
+/*
+ * Package @liesmich/block-loader
+ * Source https://liesmich.github.io/liesmich/
  */
 
 import { expect } from 'chai';
@@ -21,7 +22,7 @@ describe('template-converter/index', (): void => {
     });
     describe('Converter', (): void => {
         describe('convert()', (): void => {
-            it('should match h4 title', async (): Promise<void> => {
+            it('should match h4 title', (): void => {
                 const srcData: any = loader('# yolo');
                 expect(srcData).to.not.be.undefined;
             });
