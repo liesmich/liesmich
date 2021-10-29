@@ -1,5 +1,6 @@
-/*!
- * Source https://github.com/liesmich/liesmich Package: core
+/*
+ * Package @liesmich/parser
+ * Source https://liesmich.github.io/liesmich/
  */
 
 export * from './converter';

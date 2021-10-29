@@ -1,5 +1,6 @@
-/*!
- * Source https://github.com/liesmich/liesmich Package: core
+/*
+ * Package @liesmich/parser
+ * Source https://liesmich.github.io/liesmich/
  */
 
 import frontMatter, { FrontMatterResult } from 'front-matter';
@@ -18,7 +19,6 @@ const clearData = (a: MdRoot | MdParent | MdContent): void => {
     if ('position' in a) {
         delete a.position;
     }
-
 };
 export interface IAttributes {
     title?: string;
@@ -49,18 +49,11 @@ export {
     Code as MdCode,
     InlineCode as MdInlineCode,
 } from 'mdast';
-export {
-    MdRoot,
-    MdContent,
-    MdParent,
-};
-export type ParsedDocument = MdRoot & { frontmatter: IAttributes, hash: string };
+export { MdRoot, MdContent, MdParent };
+export type ParsedDocument = MdRoot & { frontmatter: IAttributes; hash: string };
 export const parse = (data: string): ParsedDocument => {
     const hash: string = SparkMD5.hash(data);
     const fm: FrontMatterResult<IAttributes> = frontMatter(data);
-    const r: MdRoot = unified()
-        .use(remarkParse)
-        .use(remarkGfm)
-        .parse(fm.body);
-    return Object.assign<MdRoot, { frontmatter: IAttributes, hash: string }>(r, { frontmatter: fm.attributes, hash });
+    const r: MdRoot = unified().use(remarkParse).use(remarkGfm).parse(fm.body);
+    return Object.assign<MdRoot, { frontmatter: IAttributes; hash: string }>(r, { frontmatter: fm.attributes, hash });
 };
