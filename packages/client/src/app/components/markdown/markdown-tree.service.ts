@@ -16,7 +16,7 @@ import { environment } from "src/environments/environment";
 @Injectable()
 export class MarkdownTree {
 
-    public root!: ParsedDocument;
+    public root!: MdRoot;
     public defs!: MdDefinition[];
     public notes!: MdFootnoteDefinition[];
 
@@ -26,10 +26,7 @@ export class MarkdownTree {
     /** Parses the markdown source into an mdContent tree */
     public parse(source: string): MdRoot {
         // Parses the source into the mdContent tree
-        this.root = parse(source);//!!source ? parse(source) : [];
-        if (!environment.production) {
-            console.info('Loaded doc', this.root.hash, source ? source.length : 0);
-        }
+        this.root = parse(source).article;//!!source ? parse(source) : [];
         // Extracts the definitions (links and images)
         this.defs = this.tops.filter(node => node.type === 'definition') as MdDefinition[];
         // Extracts the footnote definitions
