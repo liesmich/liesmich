@@ -45,7 +45,7 @@
     "@types/prismjs": "1.16.6",
     "@types/strip-comments": "2.0.1",
     "jasmine-core": "3.10.1",
-    "karma": "6.3.6",
+    "karma": "6.3.7",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "2.0.3",
     "karma-jasmine": "4.0.1",
