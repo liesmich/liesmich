@@ -3,7 +3,7 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-import frontMatter, { FrontMatterResult } from 'front-matter';
+import matter, { GrayMatterFile } from 'gray-matter';
 import { Content as MdContent, Parent as MdParent, Root as MdRoot } from 'mdast';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
@@ -50,10 +50,17 @@ export {
     InlineCode as MdInlineCode,
 } from 'mdast';
 export { MdRoot, MdContent, MdParent };
-export type ParsedDocument = MdRoot & { frontmatter: IAttributes; hash: string };
+type PartialFrontMatter = Pick<GrayMatterFile<string>, 'data' | 'excerpt' | 'language'> & { hash: string };
+export type ParsedDocument = MdRoot & PartialFrontMatter;
 export const parse = (data: string): ParsedDocument => {
     const hash: string = SparkMD5.hash(data);
-    const fm: FrontMatterResult<IAttributes> = frontMatter(data);
-    const r: MdRoot = unified().use(remarkParse).use(remarkGfm).parse(fm.body);
-    return Object.assign<MdRoot, { frontmatter: IAttributes; hash: string }>(r, { frontmatter: fm.attributes, hash });
+    const fm: GrayMatterFile<string> = matter(data, { excerpt: true });
+    const r: MdRoot = unified().use(remarkParse).use(remarkGfm).parse(fm.content);
+    return Object.assign<MdRoot, PartialFrontMatter>(r,
+        {
+            data: fm.data,
+            excerpt: fm.excerpt,
+            hash,
+            language: fm.language,
+        });
 };
