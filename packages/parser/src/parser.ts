@@ -5,10 +5,10 @@
 
 import matter, { GrayMatterFile } from 'gray-matter';
 import { Content as MdContent, Parent as MdParent, Root as MdRoot } from 'mdast';
-import remarkGfm from 'remark-gfm';
+import remarkGfm, { Root } from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import SparkMD5 from 'spark-md5';
-import { unified } from 'unified';
+import { Processor, unified } from 'unified';
 
 const clearData = (a: MdRoot | MdParent | MdContent): void => {
     if ('children' in a) {
@@ -50,17 +50,35 @@ export {
     InlineCode as MdInlineCode,
 } from 'mdast';
 export { MdRoot, MdContent, MdParent };
-type PartialFrontMatter = Pick<GrayMatterFile<string>, 'data' | 'excerpt' | 'language'> & { hash: string };
-export type ParsedDocument = MdRoot & PartialFrontMatter;
-export const parse = (data: string): ParsedDocument => {
+type PartialFrontMatter = Pick<GrayMatterFile<string>, 'data' | 'language'>;
+type PartialDocument = {
+    article: MdRoot;
+    excerpt?: MdRoot;
+    hash: string;
+};
+/**
+ * Containing Data about the parsed Document
+ */
+export type ParsedDocument = PartialFrontMatter & PartialDocument;
+/**
+ * Parses the input data into an ast
+ *
+ * @param data data to parse
+ * @param opts options
+ * @param opts.excerpt if excerpt should be tried to extract
+ * @returns a parsed document
+ */
+export const parse = (data: string, opts: { excerpt?: boolean } = { excerpt: true }): ParsedDocument => {
     const hash: string = SparkMD5.hash(data);
-    const fm: GrayMatterFile<string> = matter(data, { excerpt: true });
-    const r: MdRoot = unified().use(remarkParse).use(remarkGfm).parse(fm.content);
-    return Object.assign<MdRoot, PartialFrontMatter>(r,
-        {
-            data: fm.data,
-            excerpt: fm.excerpt,
-            hash,
-            language: fm.language,
-        });
+    const fm: GrayMatterFile<string> = matter(data, { excerpt: opts?.excerpt || true });
+    const processor: Processor<Root, Root, Root, void> = unified().use(remarkParse).use(remarkGfm);
+    const article: MdRoot = processor.parse(fm.content);
+    const parsedExcerpt: MdRoot | undefined = fm.excerpt ? processor.parse(fm.excerpt) : undefined;
+    return {
+        article,
+        data: fm.data,
+        ...(parsedExcerpt ? { excerpt: parsedExcerpt } : {}),
+        hash,
+        language: fm.language,
+    };
 };

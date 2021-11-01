@@ -3,4 +3,4 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-export * from './converter';
+export * from './parser';
