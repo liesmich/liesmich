@@ -56,7 +56,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@liesmich/block-loader": "^0.0.0",
     "@liesmich/parser": "^0.0.0",
     "clean-webpack-plugin": "~4.0.0",
     "file-loader": "~6.2.0",

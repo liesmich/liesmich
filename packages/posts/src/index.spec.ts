@@ -1,6 +1,5 @@
-/*
- * Package @liesmich/block
- * Source https://liesmich.github.io/liesmich/
+/*!
+ * Source https://github.com/liesmich/liesmich Package: core
  */
 
 import 'mocha';

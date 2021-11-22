@@ -21,13 +21,13 @@ describe('template-converter/index', (): void => {
         sandbox.restore();
     });
     describe('extractExcerpt', (): void => {
-        it("shouldn't detect an excerpt", (): void => {
+        it(`shouldn't detect an excerpt`, (): void => {
             expect(extractExcerpt('# test\r\n1. yo')).to.be.undefined;
         });
         it('should detect an excerpt', (): void => {
             expect(extractExcerpt('# test\r\n---\r1. yo')).to.equal('# test');
         });
-        it("shouldn't detect an excerpt", (): void => {
+        it(`shouldn't detect an excerpt`, (): void => {
             expect(extractExcerpt('# test\n| a | b | vc |   |   |\r\n|---|---|----|---|---|\n\r1. yo')).to.be.undefined;
         });
     });
