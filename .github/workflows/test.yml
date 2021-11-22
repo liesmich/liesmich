@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Install Deps
         run: |
-          npm update npm -g
+          npm update -g npm
           npm -v
           npm ci
           npx lerna bootstrap --ci
