@@ -35,6 +35,7 @@ jobs:
       - name: Install Deps
         run: |
           npm update npm -g
+          npm -v
           npm ci
           npx lerna bootstrap --ci
       - name: Run Build
