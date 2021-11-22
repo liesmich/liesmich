@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Update NPM
         run: |
-          npm update -g npm
+          npm update -g npm@7
       - name: Install Deps
         run: |
           npm -v
