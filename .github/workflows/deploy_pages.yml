@@ -16,7 +16,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.4.1
         with:
-          node-version: '14'
+          node-version: '16'
+      - name: Patch NPM
+        run: |
+          npm install -g npm@8
+          npm -v
       - name: Setup Cache
         uses: actions/cache@v2.1.6
         with:
@@ -60,7 +64,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2.4.1
         with:
-          node-version: '14'
+          node-version: '16'
+      - name: Patch NPM
+        run: |
+          npm install -g npm@8
+          npm -v
       - name: Setup Cache
         uses: actions/cache@v2.1.6
         with:

@@ -35,6 +35,10 @@ jobs:
       uses: actions/setup-node@v2.4.1
       with:
         node-version: 16
+    - name: Patch NPM
+      run: |
+        npm install -g npm@8
+        npm -v
     - name: Install and Build
       run: |
         npm ci
