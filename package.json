@@ -44,6 +44,9 @@
     "lint:fix": "lerna run lint:fix",
     "version": "npm run build:readme && git add README.md"
   },
+  "engines": {
+    "node": ">=14.0.0 <17"
+  },
   "nyc": {
     "include": [
       "src/*.ts",
