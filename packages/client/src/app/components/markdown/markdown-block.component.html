@@ -1,0 +1,65 @@
+<ng-container *ngFor="let child of children">
+
+    <ng-container [ngSwitch]="child.type">
+
+        <!-- Headings -->
+        <ng-container *ngSwitchCase="'heading'">
+            <h1 *ngIf="child.depth === 1" [id]="toc(child)" [class]="customClasses?.h1" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h1>
+            <h2 *ngIf="child.depth === 2" [id]="toc(child)" [class]="customClasses?.h2" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h2>
+            <h3 *ngIf="child.depth === 3" [id]="toc(child)" [class]="customClasses?.h3" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h3>
+            <h4 *ngIf="child.depth === 4" [id]="toc(child)" [class]="customClasses?.h4" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h4>
+            <h5 *ngIf="child.depth === 5" [id]="toc(child)" [class]="customClasses?.h5" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h5>
+            <h6 *ngIf="child.depth === 6" [id]="toc(child)" [class]="customClasses?.h6" [attr.src-line]="pos(child)"
+                [liesmich-md-inline]="child" [customClasses]="customClasses"></h6>
+        </ng-container>
+
+        <!-- Paragraph -->
+        <p *ngSwitchCase="'paragraph'" [class]="customClasses?.p" [attr.src-line]="pos(child)"
+            [liesmich-md-inline]="child" [customClasses]="customClasses"></p>
+
+        <!-- Lists -->
+        <ng-container *ngSwitchCase="'list'">
+            <ol *ngIf="child.ordered" [class]="customClasses?.ol" [start]="child.start" [attr.src-line]="pos(child)">
+                <li *ngFor=" let item of child.children" [class]="customClasses?.li" [liesmich-md-block]="item"
+                    [customClasses]="customClasses">
+                </li>
+            </ol>
+            <ul *ngIf="!child.ordered" [class]="customClasses?.ul" [attr.src-line]="pos(child)">
+                <li *ngFor=" let item of child.children" [class]="customClasses?.li" [liesmich-md-block]="item"
+                    [customClasses]="customClasses">
+                </li>
+            </ul>
+        </ng-container>
+
+        <!-- Tables -->
+        <table *ngSwitchCase="'table'" [liesmich-md-table]="child"></table>
+        <!-- Thematic Break -->
+        <hr *ngSwitchCase="'thematicBreak'" [class]="customClasses?.hr" [attr.src-line]="pos(child)" />
+
+        <!-- Blockquotes -->
+        <blockquote *ngSwitchCase="'blockquote'" [class]="customClasses?.blockquote" [liesmich-md-block]="child"
+            [customClasses]="customClasses"></blockquote>
+
+        <!-- Left aligned block - Align plugin -->
+        <span *ngSwitchCase="'leftAligned'" align="left" [liesmich-md-block]="child"
+            [customClasses]="customClasses"></span>
+
+        <!-- Center aligned block - Align plugin -->
+        <span *ngSwitchCase="'centerAligned'" align="center" [liesmich-md-block]="child"
+            [customClasses]="customClasses"></span>
+
+        <!-- Right aligned block - Align plugin -->
+        <span *ngSwitchCase="'rightAligned'" align="right" [liesmich-md-block]="child"
+            [customClasses]="customClasses"></span>
+
+        <!-- Code Block w/ syntax highlighting by Prism when enabled -->
+        <pre *ngSwitchCase="'code'" [liesmich-md-code-prism]="child" [disabled]="false"></pre>
+
+    </ng-container>
+
+</ng-container>

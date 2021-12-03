@@ -1,0 +1,61 @@
+<ng-container *ngFor="let child of children">
+
+    <ng-container [ngSwitch]="child.type">
+
+        <!-- Emphasis -->
+        <em *ngSwitchCase="'emphasis'" [class]="customClasses?.em" [liesmich-md-inline]="child"
+            [customClasses]="customClasses"></em>
+
+        <!-- Strong -->
+        <strong *ngSwitchCase="'strong'" [class]="customClasses?.strong" [liesmich-md-inline]="child"
+            [customClasses]="customClasses"></strong>
+
+        <!-- Delete -->
+        <del *ngSwitchCase="'delete'" [class]="customClasses?.del" [liesmich-md-inline]="child"
+            [customClasses]="customClasses"></del>
+
+        <!-- Inlide Code -->
+        <code *ngSwitchCase="'inlineCode'" [class]="customClasses?.code">{{ secureString(child.value) }}</code>
+
+        <!-- Sub-script Super-script plugin -->
+        <sub *ngSwitchCase="'sub'" [class]="customClasses?.sub" [liesmich-md-inline]="child"
+            [customClasses]="customClasses"></sub>
+
+        <!-- Super-script Super-script plugin -->
+        <sup *ngSwitchCase="'sup'" [class]="customClasses?.sup" [liesmich-md-inline]="child"
+            [customClasses]="customClasses"></sup>
+
+        <!-- Footnote Reference -->
+        <sup *ngSwitchCase="'footnoteReference'">[{{ tree.footnoteIndex(child) }}]</sup>
+
+
+        <!-- Line Break -->
+        <br *ngSwitchCase="'break'" [class]="customClasses?.br" />
+
+        <!-- Link -->
+        <a *ngSwitchCase="'link'" [href]="child.url" [class]="customClasses?.a" (click)="navigate(child.url)"
+            [liesmich-md-inline]="child" [customClasses]="customClasses"></a>
+
+        <!-- Link Reference -->
+        <ng-container *ngSwitchCase="'linkReference'">
+            <a *ngIf="tree.definition(child) as def" [href]="def.url" [class]="customClasses?.a"
+                (click)="navigate(def.url)" [liesmich-md-inline]="child" [customClasses]="customClasses"></a>
+        </ng-container>
+
+        <!-- Image -->
+        <img *ngSwitchCase="'image'" [class]="customClasses?.img" [src]="child.url" [title]="secureString(child.title)"
+            [alt]="secureString(child.alt)" />
+
+        <!-- Image Reference -->
+        <ng-container *ngSwitchCase="'imageReference'">
+            <img *ngIf="tree.definition(child) as def" [class]="customClasses?.img" [src]="def.url"
+                [title]="secureString(def.title)" [alt]="secureString(def.alt)" />
+        </ng-container>
+
+        <!-- Text -->
+        <ng-container *ngSwitchCase="'text'">
+            {{child.value}}
+        </ng-container>
+    </ng-container>
+
+</ng-container>
