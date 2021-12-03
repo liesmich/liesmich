@@ -1,6 +1,6 @@
 {
   "name": "@liesmich/parser",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An express api router used to proxy requests to the upstream server",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
