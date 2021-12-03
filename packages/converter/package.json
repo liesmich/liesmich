@@ -5,7 +5,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "private": false,
+  "private": true,
   "type": "module",
   "exports": {
     "import": "./dist/esm/index.js",
