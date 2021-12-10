@@ -163,9 +163,21 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "liesmich"
+  "defaultProject": "liesmich",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
