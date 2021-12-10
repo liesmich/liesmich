@@ -1,13 +1,19 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { MdBlockContent, MdHeading, MdPhrasingContent, MdStaticPhrasingContent, MdTable, MdTableContent, } from '@liesmich/parser';
-import { MarkdownTree } from './../markdown-tree.service';
+import { MdHeading, MdPhrasingContent } from '@liesmich/parser';
 import { BaseMarkdownComponent } from '../base.component';
+import { MarkdownTree } from './../markdown-tree.service';
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[liesmich-md-heading]',
-    templateUrl: './markdown-heading.component.html',
     styleUrls: ['./markdown-heading.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './markdown-heading.component.html',
 })
 export class MarkdownHeadingComponent extends BaseMarkdownComponent {
 
@@ -15,10 +21,11 @@ export class MarkdownHeadingComponent extends BaseMarkdownComponent {
         super();
     }
 
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('data') node!: MdHeading;
 
     // AOT safe children from the node
-    get children(): MdPhrasingContent[] { return ("children" in this.node) ? this.node.children : [] }
+    get children(): MdPhrasingContent[] { return ('children' in this.node) ? this.node.children : [] }
 
 
     // Table of content anchor helper

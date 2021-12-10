@@ -1,3 +1,8 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { MdContent, MdHeading } from '@liesmich/parser';
 import { BaseMarkdownComponent } from './base.component';
@@ -33,13 +38,14 @@ export interface MarkdownCustomClasses extends MarkdownInlineCustomClasses {
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[liesmich-md-block]',
-  templateUrl: './markdown-block.component.html',
   styleUrls: ['./markdown-block.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './markdown-block.component.html',
 })
 /** Renders a markdown text into an angular view */
-export class MarkdownBlock extends BaseMarkdownComponent {
+export class MarkdownBlockComponent extends BaseMarkdownComponent {
 
   constructor(readonly tree: MarkdownTree) {
     super();
@@ -51,7 +57,7 @@ export class MarkdownBlock extends BaseMarkdownComponent {
   @Input() customClasses!: MarkdownCustomClasses;
 
   // AOT safe children from the node
-  get children(): any[] { return ("children" in this.node) ? this.node.children : [] }
+  get children(): any[] { return ('children' in this.node) ? this.node.children : [] }
 
   // Table of content anchor helper
   public toc(heading: MdHeading): string {

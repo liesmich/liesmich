@@ -1,3 +1,8 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,6 +13,7 @@ import { MarkdownModule } from './components/markdown';
 import { PostService } from './post.service';
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     //GhComponent,
@@ -19,6 +25,5 @@ import { PostService } from './post.service';
     HttpClientModule,
   ],
   providers: [PostService],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,11 +1,17 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, Input } from '@angular/core';
 import { Token } from 'prismjs';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[tokenize]',
     templateUrl: './markdown-code-prism-token.component.html'
 })
-export class PrismTokenizer {
+export class PrismTokenizerComponent {
 
     public tokens!: (string | Token)[];
 
@@ -14,10 +20,18 @@ export class PrismTokenizer {
         this.tokens = typeof (source) === 'string' ? [source] : source;
     }
 
-    /** Helper for rendering strings */
+    /**
+     * Helper for rendering strings
+     *
+     * @param token
+     */
     isString(token: string | Token): boolean { return typeof (token) === 'string'; }
 
-    /** Helper for rendering tokens */
+    /**
+     * Helper for rendering tokens
+     *
+     * @param token
+     */
     tokenClass(token: string | Token): string {
         if (typeof token === 'string') {
             return '';

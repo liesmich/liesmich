@@ -1,23 +1,30 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import { MdTable, MdTableContent } from '@liesmich/parser';
 import { BaseMarkdownComponent } from '../base.component';
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'table[liesmich-md-table]',
-    templateUrl: './markdown-table.component.html',
     styleUrls: ['./markdown-table.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './markdown-table.component.html',
 })
-export class MarkdownTable extends BaseMarkdownComponent {
+export class MarkdownTableComponent extends BaseMarkdownComponent {
 
     constructor() {
         super();
     }
 
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('liesmich-md-table') node!: MdTable;
 
     // AOT safe children from the node
-    get children(): MdTableContent[] { return ("children" in this.node) ? this.node.children : [] }
+    get children(): MdTableContent[] { return ('children' in this.node) ? this.node.children : [] }
 
 
     public getColumnAlignment(idx: number): string {
