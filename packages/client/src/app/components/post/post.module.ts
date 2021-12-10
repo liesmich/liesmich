@@ -1,3 +1,8 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MarkdownModule } from '../markdown';
@@ -8,15 +13,15 @@ import { PostComponent } from './post.component';
     declarations: [
         PostComponent
     ],
+    exports: [
+        PostComponent,
+    ],
     imports: [
         CommonModule,
         PostRoutingModule,
         MarkdownModule,
     ],
     providers: [
-    ],
-    exports: [
-        PostComponent,
     ],
 })
 export class PostModule { }

@@ -1,20 +1,25 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
-import { MdBlockContent, MdCode, MdHeading, MdPhrasingContent, MdStaticPhrasingContent, MdTable, MdTableContent, } from '@liesmich/parser';
-import { MarkdownTree } from '../markdown-tree.service';
+import { MdCode } from '@liesmich/parser';
+import { Token, TokenStream } from 'prismjs';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { BaseMarkdownComponent } from '../base.component';
 import { PrismService } from './prism.service';
-import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
-import { Token, TokenStream } from 'prismjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
-    selector: 'pre[liesmich-md-code-prism]',
-    templateUrl: './markdown-code-prism.component.html',
-    styleUrls: ['./markdown-code-prism.component.scss'],// './../../../../../node_modules/prismjs/themes/prism.css'],
     encapsulation: ViewEncapsulation.Emulated,
     providers: [
         PrismService,
-    ]
+    ],
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'pre[liesmich-md-code-prism]',
+    styleUrls: ['./markdown-code-prism.component.scss'],// './../../../../../node_modules/prismjs/themes/prism.css'],
+    templateUrl: './markdown-code-prism.component.html',
 })
 export class MarkdownCodePrismComponent extends BaseMarkdownComponent {
 
@@ -39,6 +44,7 @@ export class MarkdownCodePrismComponent extends BaseMarkdownComponent {
     }
 
     /** Disables the highlighting */
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('disabled') set disableHighlight(value: boolean) { this.disabled = this.parseBoolean(value); }
     public disabled = false;
 
@@ -46,6 +52,7 @@ export class MarkdownCodePrismComponent extends BaseMarkdownComponent {
     public language!: string | undefined;
 
     /** Parses the source text */
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('liesmich-md-code-prism') set source(source: MdCode) {
         this.language = source.lang || undefined;
         this.sourceSubject.next(source.value);

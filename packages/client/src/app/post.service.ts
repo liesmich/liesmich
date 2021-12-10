@@ -1,15 +1,20 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { from, Observable, of } from "rxjs";
-import { tap } from "rxjs/operators";
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
 
-    private cacheData: any;
+    private cacheData!: string;
     constructor(private http: HttpClient) {
     }
-    public getData(): Observable<any> {
+    public getData(): Observable<string> {
         if (this.cacheData) {
             return of(this.cacheData);
         }

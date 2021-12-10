@@ -1,4 +1,9 @@
-import { Injectable } from "@angular/core";
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
+import { Injectable } from '@angular/core';
 import {
     MdContent,
     MdDefinition,
@@ -10,8 +15,8 @@ import {
     MdTopLevelContent,
     parse,
     ParsedDocument
-} from "@liesmich/parser";
-import { environment } from "src/environments/environment";
+} from '@liesmich/parser';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MarkdownTree {
@@ -21,9 +26,13 @@ export class MarkdownTree {
     public notes!: MdFootnoteDefinition[];
 
     /** Top level nodes (root's children) */
-    public get tops(): MdTopLevelContent[] { return (!!this.root && this.root.children || []) as any[]; }
+    public get tops(): MdTopLevelContent[] { return (!!this.root && this.root.children || []) as MdTopLevelContent[]; }
 
-    /** Parses the markdown source into an mdContent tree */
+    /**
+     * Parses the markdown source into an mdContent tree
+     *
+     * @param source
+     */
     public parse(source: string): MdRoot {
         // Parses the source into the mdContent tree
         this.root = parse(source).article;//!!source ? parse(source) : [];
@@ -35,27 +44,43 @@ export class MarkdownTree {
         return this.root;
     }
 
-    /** Seeks for the definition's node of the matching reference  */
+    /**
+     * Seeks for the definition's node of the matching reference
+     *
+     * @param ref
+     */
     public definition(ref: MdReference): MdDefinition | any {
         // Seeks the referred definition node
         return this.defs.find(def => def.identifier === ref.identifier)!;
     }
 
-    /** Seeks for the footnode definition's node of the matching reference */
+    /**
+     * Seeks for the footnode definition's node of the matching reference
+     *
+     * @param ref
+     */
     public footnote(ref: MdFootnoteReference): MdFootnoteDefinition {
         // Seeks the referred definition node
         return this.notes.find(def => def.identifier === ref.identifier)!;
     }
 
-    /** Seeks for the footnote definition index of the matching reference */
+    /**
+     * Seeks for the footnote definition index of the matching reference
+     *
+     * @param ref
+     */
     public footnoteIndex(ref: MdFootnoteDefinition): number {
         return 1 + this.notes.findIndex(def => def.identifier === ref.identifier);
     }
 
-    /** Parses the tree branch returning a plain concatenated text */
+    /**
+     * Parses the tree branch returning a plain concatenated text
+     *
+     * @param node
+     */
     public text(node: MdContent): string {
 
-        return ("children" in node) ? (node as MdParent).children.reduce((txt: string, child: MdContent) => {
+        return ('children' in node) ? (node as MdParent).children.reduce((txt: string, child: MdContent) => {
 
             return txt + (child.type === 'text' ? child.value : '') + this.text(child);
 

@@ -1,5 +1,10 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
-import { Token, Grammar, languages as prismLanguages } from 'prismjs';
+import { Token, Grammar, languages as prismLanguages, tokenize } from 'prismjs';
 import { Observable, of, from, EMPTY, combineLatest } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -19,12 +24,17 @@ export interface PrismLanguage {
 @Injectable()
 export class PrismService {
 
-    private tokenizer: Observable<any> = from(import('prismjs').then((p) => {
+    private tokenizer: Observable<typeof tokenize> = from(import('prismjs').then((p) => {
         return p.tokenize;
     })).pipe(shareReplay(1));
     constructor(@Optional() @Inject(LANGUAGE_MODULES) private languages: PrismLanguages) { }
 
-    /** Tokenizes the input source by loading the grammar dynamically whenever necessary */
+    /**
+     * Tokenizes the input source by loading the grammar dynamically whenever necessary
+     *
+     * @param source
+     * @param language
+     */
     public tokenize(source: string, language: string): Observable<(string | Token)[]> {
 
         // Skips invalid source
@@ -32,12 +42,16 @@ export class PrismService {
         // Loads the grammar and tokenizes the source accordingly
         return combineLatest([this.loadGrammar(language), this.tokenizer]).pipe(
             map(([grammar, tokenizer]) => {
-                return !!grammar ? tokenizer(source, grammar) : [source];
+                return grammar ? tokenizer(source, grammar) : [source];
             })
         );
     }
 
-    /** Loads the Grammar */
+    /**
+     * Loads the Grammar
+     *
+     * @param language
+     */
     private loadGrammar(language: string): Observable<Grammar> {
 
         // No language, no grammar...
