@@ -1,23 +1,37 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Languages } from 'prismjs';
 import { MarkdownCodePrismComponent } from './code-prism';
-import { PrismTokenizer } from './code-prism/markdown-code-prism-token.component';
+import { PrismTokenizerComponent } from './code-prism/markdown-code-prism-token.component';
 import { LANGUAGE_MODULES, PrismLanguages } from './code-prism/prism.service';
 
-import { MarkdownBlock } from './markdown-block.component';
-import { MarkdownInline } from './markdown-inline.component';
-import { MarkdownRoot } from './markdown-root.component';
-import { MarkdownTable } from './table';
+import { MarkdownBlockComponent } from './markdown-block.component';
+import { MarkdownInlineComponent } from './markdown-inline.component';
+import { MarkdownRootComponent } from './markdown-root.component';
+import { MarkdownTableComponent } from './table';
 
+
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 @NgModule({
     declarations: [
-        MarkdownBlock,
-        MarkdownRoot,
-        MarkdownInline,
-        MarkdownTable,
+        MarkdownBlockComponent,
+        MarkdownRootComponent,
+        MarkdownInlineComponent,
+        MarkdownTableComponent,
         MarkdownCodePrismComponent,
-        PrismTokenizer
+        PrismTokenizerComponent
+    ],
+    exports: [
+        MarkdownBlockComponent,
+        MarkdownRootComponent,
+        MarkdownInlineComponent,
+        MarkdownTableComponent,
+        MarkdownCodePrismComponent,
+        PrismTokenizerComponent
     ],
     imports: [
         CommonModule,
@@ -27,45 +41,36 @@ import { MarkdownTable } from './table';
             provide: LANGUAGE_MODULES,
             // @ts-ignore
             useValue: <PrismLanguages>[{
+                // @ts-ignore
+                load: () => import('prismjs/components/prism-scss'),
                 name: 'scss',
-                // @ts-ignore
-                load: () => import('prismjs/components/prism-scss')
             },
             {
+                // @ts-ignore
+                load: () => import('prismjs/components/prism-typescript'),
                 name: ['typescript', 'ts'],
-                // @ts-ignore
-                load: () => import('prismjs/components/prism-typescript')
             },
             {
+                // @ts-ignore
+                load: () => import('prismjs/components/prism-javascript'),
                 name: ['javascript', 'js'],
-                // @ts-ignore
-                load: () => import('prismjs/components/prism-javascript')
             },
             {
+                // @ts-ignore
+                load: () => import('prismjs/components/prism-markdown'),
                 name: ['markdown', 'md'],
-                // @ts-ignore
-                load: () => import('prismjs/components/prism-markdown')
             },
             {
-                name: ['bash',],
                 // @ts-ignore
-                load: () => import('prismjs/components/prism-bash')
+                load: () => import('prismjs/components/prism-bash'),
+                name: ['bash'],
             },
             {
+                // @ts-ignore
+                load: () => import('prismjs/components/prism-shell-session'),
                 name: ['shell', 'sh'],
-                // @ts-ignore
-                load: () => import('prismjs/components/prism-shell-session')
-            }
-            ]
+            }]
         }
-    ],
-    exports: [
-        MarkdownBlock,
-        MarkdownRoot,
-        MarkdownInline,
-        MarkdownTable,
-        MarkdownCodePrismComponent,
-        PrismTokenizer
     ],
 })
 export class MarkdownModule { }

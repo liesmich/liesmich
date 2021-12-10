@@ -1,3 +1,8 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TransferHttpCacheModule } from '@nguniversal/common';

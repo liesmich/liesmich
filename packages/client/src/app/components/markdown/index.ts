@@ -1,2 +1,7 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 export { MarkdownModule } from './markdown.module';
-export { MarkdownRoot } from './markdown-root.component';
+export { MarkdownRootComponent } from './markdown-root.component';

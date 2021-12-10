@@ -1,7 +1,12 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { MdContent, MdDefinition, MdHeading, MdPhrasingContent, MdStaticPhrasingContent, MdTableCell } from '@liesmich/parser';
+import { MdHeading, MdPhrasingContent, MdTableCell } from '@liesmich/parser';
 import { BaseMarkdownComponent } from './base.component';
-import { MarkdownRoot } from './markdown-root.component';
+import { MarkdownRootComponent } from './markdown-root.component';
 import { MarkdownTree } from './markdown-tree.service';
 
 /** Inline Elements' custom classes */
@@ -20,14 +25,15 @@ export interface MarkdownInlineCustomClasses {
 }
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[liesmich-md-inline]',
-    templateUrl: './markdown-inline.component.html',
     styleUrls: ['./markdown-inline.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './markdown-inline.component.html',
 })
-export class MarkdownInline extends BaseMarkdownComponent {
+export class MarkdownInlineComponent extends BaseMarkdownComponent {
 
-    constructor(readonly tree: MarkdownTree, private root: MarkdownRoot) {
+    constructor(readonly tree: MarkdownTree, private root: MarkdownRootComponent) {
         super();
     }
 
@@ -37,7 +43,7 @@ export class MarkdownInline extends BaseMarkdownComponent {
     @Input() customClasses!: MarkdownInlineCustomClasses;
 
     // AOT safe children from the node
-    get children(): any[] { return ("children" in this.node) ? this.node.children : [] }
+    get children(): any[] { return ('children' in this.node) ? this.node.children : [] }
 
     // Navigation helper functions
     public navigate(url: string): boolean {

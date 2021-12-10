@@ -1,3 +1,8 @@
+/*
+ * Package @liesmich/client
+ * Source undefined
+ */
+
 import { Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import { MdContent, MdHeading, MdParent } from '@liesmich/parser';
 import { MarkdownInlineCustomClasses } from './markdown-inline.component';
@@ -41,10 +46,10 @@ export abstract class BaseMarkdownComponent<NODE extends MdContent = MdContent> 
 
     public node!: NODE;
     public pos(node: MdContent): string {
-        return '' + (!!node && !!node.position && node.position.start.line);
+        return `${(!!node && !!node.position && node.position.start.line) as number}`;
     }
 
-    public secureString(value: string, defaultValue: string = '') { return value || defaultValue };
+    public secureString(value: string, defaultValue = '') { return value || defaultValue };
     @HostBinding('attr.src-line')
     public get srcLine(): string {
         return this.pos(this.node);
