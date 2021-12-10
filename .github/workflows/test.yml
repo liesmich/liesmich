@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        node: [14, 16]
+        node: [12, 14, 16, 17]
         os: [ubuntu-latest] #, windows-latest]
     steps:
       - name: Checkout
@@ -20,19 +20,10 @@ jobs:
         uses: actions/setup-node@v2.5.0
         with:
           node-version: ${{ matrix.node }}
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Setup Cache
         uses: actions/cache@v2.1.7
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -56,7 +47,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        node: [14, 16]
+        node: [12, 14, 16]
         os: [ubuntu-latest] #, windows-latest]
     steps:
       - name: Checkout
@@ -67,19 +58,10 @@ jobs:
         uses: actions/setup-node@v2.5.0
         with:
           node-version: ${{ matrix.node }}
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Setup Cache
         uses: actions/cache@v2.1.7
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -103,7 +85,7 @@ jobs:
         uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ${{ steps.flagname.outputs.flagname }}
+          flags: unit #${{ steps.flagname.outputs.flagname }}
           directory: ${{ matrix.package.location }}
           name: Test
           fail_ci_if_error: false
@@ -127,19 +109,10 @@ jobs:
         uses: actions/setup-node@v2.5.0
         with:
           node-version: ${{ matrix.node }}
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Setup Cache
         uses: actions/cache@v2.1.7
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -147,12 +120,26 @@ jobs:
         run: |
           npm ci
           npx lerna bootstrap --ci
-      - name: Run Lint
-        run: npx lerna run lint
+      - name: Download Build artifacts
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: build-${{matrix.os}}-${{matrix.node}}
+          path: ./packages
+      - name: Lint ALL Packages
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' || ( github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')) }}
+        run: |
+          npx lerna run lint
+      - name: Lint Packages changed since dev
+        if: ${{ github.event_name == 'push' && github.ref != 'refs/heads/dev' && github.ref != 'refs/heads/master' }}
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/dev:refs/remotes/origin/dev
+          npx lerna run lint --since origin/dev
   docs_suite:
     needs: build_suite
     runs-on: ${{ matrix.os }}
     name: Docs - ${{ matrix.os }} - Node ${{ matrix.node }}
+    # only run docs on pull_requests and non feature branches
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' }}
     timeout-minutes: 30
     strategy:
       max-parallel: 4
@@ -168,19 +155,10 @@ jobs:
         uses: actions/setup-node@v2.5.0
         with:
           node-version: ${{ matrix.node }}
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Setup Cache
         uses: actions/cache@v2.1.7
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -199,6 +177,7 @@ jobs:
     needs: [test_suite, lint_suite, docs_suite]
     name: Finish Test
     runs-on: ubuntu-latest
+    if: ${{ !failure() && !cancelled() }}
     steps:
     - name: Coveralls Finished
       run: echo "Test Finished"
