@@ -64,7 +64,7 @@
     "gulp-cli": "~2.3.0",
     "json-loader": "~0.5.7",
     "responsive-loader": "~2.3.0",
-    "rxjs": "~7.4.0",
+    "rxjs": "~7.5.0",
     "sharp": "~0.29.3",
     "webpack": "~5.62.1",
     "webpack-cli": "~4.9.1"
