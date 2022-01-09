@@ -4,6 +4,7 @@
   "devDependencies": {
     "@appnest/readme": "1.2.7",
     "@donmahallem/eslint-config": "0.5.5",
+    "@donmahallem/lerna-fixer": "0.1.1",
     "@donmahallem/rollup-config": "1.0.2",
     "@donmahallem/tslint-config": "0.3.1",
     "@rollup/plugin-commonjs": "21.0.1",
@@ -44,7 +45,7 @@
     "lint": "lerna run lint",
     "docs": "lerna run docs",
     "lint:fix": "lerna run lint:fix",
-    "version": "npm run build:readme && git add README.md"
+    "version": "npx @donmahallem/lerna-fixer lockfile fixversion && npm run build:readme && git add README.md"
   },
   "engines": {
     "node": ">=14.0.0 <17"
