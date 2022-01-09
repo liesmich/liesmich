@@ -3,7 +3,6 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-
 import 'mocha';
 import Sinon from 'sinon';
 
