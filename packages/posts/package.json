@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@liesmich/parser": "^0.0.1",
-    "rxjs": "~7.5.1"
+    "rxjs": "~7.5.2"
   },
   "devDependencies": {
     "@types/gulp": "4.0.9",
