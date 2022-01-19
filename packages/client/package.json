@@ -30,7 +30,7 @@
     "@angular/platform-server": "~13.1.2",
     "@angular/router": "~13.1.2",
     "@liesmich/parser": "^0.0.1",
-    "@nguniversal/express-engine": "~13.0.1",
+    "@nguniversal/express-engine": "~13.0.2",
     "express": "~4.17.2",
     "prismjs": "~1.26.0",
     "rxjs": "~7.5.2",
