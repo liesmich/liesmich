@@ -1,0 +1,65 @@
+{
+  "name": "@liesmich/plugin-variable",
+  "version": "0.0.1",
+  "description": "plugin CLI",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "import": "./dist/esm/index.js"
+  },
+  "keywords": [
+    "liesmich"
+  ],
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "rollup -c ./rollup.config.js",
+    "postbuild": "npm run build:types",
+    "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
+    "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
+    "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node",
+    "test:coverage": "c8 --config ../../.nycrc.json npm run test",
+    "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src",
+    "postlint": "prettier --config ./../../.prettierrc src/**/*.ts --check",
+    "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src --fix",
+    "postlint:fix": "prettier --config ./../../.prettierrc src/**/*.ts --write",
+    "docs": "typedoc --options ./typedoc.config.cjs",
+    "prepublishOnly": "npm run test && npm run docs && npm run build",
+    "version": "npm run build:readme && git add README.md"
+  },
+  "homepage": "https://liesmich.github.io/liesmich/",
+  "author": {
+    "name": "donmahallem",
+    "email": "donmahallem@users.noreply.github.com",
+    "url": "https://github.com/donmahallem"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/liesmich/liesmich/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liesmich/liesmich.git"
+  },
+  "engines": {
+    "node": ">=14.0.0 <17"
+  },
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@liesmich/tree-walker": "^0.0.1",
+    "dot-prop": "~6.0.1"
+  },
+  "devDependencies": {
+    "@liesmich-test/plugin-test": "^0.0.1",
+    "@liesmich/core": "^0.0.1",
+    "@types/unist": "2.0.6",
+    "unified": "10.1.1"
+  }
+}

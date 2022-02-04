@@ -1,0 +1,98 @@
+name: Deploy to Github Pages
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Deploy App
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: '16'
+      - name: Patch NPM
+        run: |
+          npm install -g npm@8
+          npm -v
+      - name: Setup Cache
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node14-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install
+        run: |
+          npm ci
+          npx lerna bootstrap --ci
+      - name: Build
+        run: |
+          echo "${{ secrets.APP_DEPLOY_ENVIRONMENT }}" > "./packages/client-ng/src/environments/environment.ts"
+          echo "${{ secrets.APP_DEPLOY_ENVIRONMENT }}" > "./packages/client-ng/src/environments/environment.prod.ts"
+          npx lerna run build --scope @liesmich/client-ng --include-dependencies
+          npx lerna exec --scope=@liesmich/client-ng -- ng build --prod --aot
+          cp ./packages/client-ng/dist/liesmich/index.html ./packages/client-ng/dist/liesmich/404.html
+      - name: Install SSH Client
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.APP_DEPLOY_KEY }}
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          SSH: true
+          BRANCH: master # The branch the action should deploy to.
+          FOLDER: packages/client-ng/dist/liesmich # The folder the action should deploy.
+          REPOSITORY_NAME: liesmich/liesmich.github.io
+          TARGET_FOLDER: .
+          CLEAN: true
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+    name: Deploy Documentation
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.4.0
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: '16'
+      - name: Patch NPM
+        run: |
+          npm install -g npm@8
+          npm -v
+      - name: Setup Cache
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node14-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npx lerna bootstrap --ci
+          npx lerna run build
+          npx lerna run docs
+          node .github/workflows/prepare_docs_deploy.js
+      - name: Install SSH Client 🔑
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.DOCS_DEPLOY_KEY }}
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          SSH: true
+          BRANCH: master # The branch the action should deploy to.
+          FOLDER: docs # The folder the action should deploy.
+          REPOSITORY_NAME: liesmich/docs
+          TARGET_FOLDER: .
