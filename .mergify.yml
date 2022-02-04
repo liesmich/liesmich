@@ -15,7 +15,7 @@ pull_request_rules:
   - name: delete head branch on merged pull requests
     conditions:
       - merged
-      - -head~=^(master|dev)$
+      - -head~=^(main|dev)$
       - -author~=^dependabot(|-preview)\[bot\]$
     actions:
       label:
