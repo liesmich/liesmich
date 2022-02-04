@@ -2,7 +2,7 @@ name: Deploy to Github Pages
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -48,7 +48,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           SSH: true
-          BRANCH: master # The branch the action should deploy to.
+          BRANCH: main # The branch the action should deploy to.
           FOLDER: packages/client-ng/dist/liesmich # The folder the action should deploy.
           REPOSITORY_NAME: liesmich/liesmich.github.io
           TARGET_FOLDER: .
@@ -92,7 +92,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           SSH: true
-          BRANCH: master # The branch the action should deploy to.
+          BRANCH: main # The branch the action should deploy to.
           FOLDER: docs # The folder the action should deploy.
           REPOSITORY_NAME: liesmich/docs
           TARGET_FOLDER: .

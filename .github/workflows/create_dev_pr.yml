@@ -1,4 +1,4 @@
-name: Create PR into master
+name: Create PR into main
 on:
   push:
     branches:
@@ -13,8 +13,8 @@ jobs:
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
-        destination_branch: "master"                      # If blank, default: master
-        pr_title: "chore: merge dev into master" # Title of pull request
+        destination_branch: "main"                      # If blank, default: main
+        pr_title: "chore: merge dev into main" # Title of pull request
         pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
         pr_reviewer: "donmahallem"                         # Comma-separated list (no spaces)
         pr_assignee: "donmahallem"                         # Comma-separated list (no spaces)

@@ -21,7 +21,7 @@ for (let dir of dirs) {
     console.log("Create docs symlink", packageDocsDir);
     fsextra.copySync(packageDocsDir, path.join(outputDir, path.sep, dir));
     README += `## [${dir}](http://liesmich.github.io/docs/${dir}/index.html)\n`;
-    README += `Docs for [${dir}](http://github.com/liesmich/liesmich/tree/master/packages/${dir}/)\n\n`;
+    README += `Docs for [${dir}](http://github.com/liesmich/liesmich/tree/main/packages/${dir}/)\n\n`;
 }
 
 fs.writeFileSync(path.join(outputDir, 'README.md'), README, { encoding: 'utf8' });
