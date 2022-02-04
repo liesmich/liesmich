@@ -52,13 +52,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@liesmich-test/plugin-test": "^0.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@liesmich-test/plugin-test": "0.0.1",
     "@liesmich/core": "^0.0.1",
-    "@liesmich/plugin": "^0.0.1",
     "@types/unist": "2.0.6",
     "unified": "10.1.1"
   }
