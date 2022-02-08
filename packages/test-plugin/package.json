@@ -50,7 +50,7 @@
     "src/*"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "dependencies": {
     "remark-gfm": "~3.0.1",
