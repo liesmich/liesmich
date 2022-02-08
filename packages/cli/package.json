@@ -55,6 +55,6 @@
   "dependencies": {
     "@liesmich/parser": "^0.0.1",
     "commander": "~8.3.0",
-    "rxjs": "~7.5.2"
+    "rxjs": "~7.5.3"
   }
 }
