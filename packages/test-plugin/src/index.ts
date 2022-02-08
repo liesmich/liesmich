@@ -10,7 +10,8 @@ import { Plugin, Processor, unified } from 'unified';
 
 /**
  * @param plg
+ * @param opts
  */
-export function createPipeline(plg: Plugin): Processor {
-    return unified().use(remarkParse).use(remarkGfm).use(remarkStringify).use(plg);
+export function createPipeline(plg: Plugin, opts?: unknown): Processor {
+    return unified().use(remarkParse).use(remarkGfm).use(remarkStringify).use(plg, opts);
 }
