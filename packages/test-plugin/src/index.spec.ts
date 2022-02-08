@@ -1,5 +1,5 @@
 /*
- * Package @liesmich/core
+ * Package @liesmich-helpers/test-plugin
  * Source https://liesmich.github.io/liesmich/
  */
 
