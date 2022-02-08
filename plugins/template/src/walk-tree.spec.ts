@@ -1,12 +1,16 @@
 /*
- * Package @liesmich/plugin-variable
+ * Package @liesmich/plugin-template
  * Source https://liesmich.github.io/liesmich/
  */
 
+import { LiesmichLiteral, MdParent } from '@liesmich/core';
 import { expect } from 'chai';
 import 'mocha';
 import Sinon, { SinonStub } from 'sinon';
-import { LiesmichTreeWalker, LiesmichVariableNode } from './walk-tree';
+import { toVFile } from 'to-vfile';
+import { FrozenProcessor } from 'unified';
+import { Parent } from 'unist';
+import { PluginData, TemplateTreeWalker } from './walk-tree';
 
 // tslint:disable:no-unused-expression
 describe('walk-tree', (): void => {
@@ -21,83 +25,77 @@ describe('walk-tree', (): void => {
         sandbox.restore();
     });
     describe('LiesmichTreeWalker', (): void => {
-        let testWalker: LiesmichTreeWalker;
-        let getterStub: SinonStub;
+        let testWalker: TemplateTreeWalker;
+        let parseStub: SinonStub<Parameters<FrozenProcessor['parse']>, ReturnType<FrozenProcessor['parse']>>;
+        let runStub: SinonStub;
         before((): void => {
-            getterStub = sandbox.stub();
+            parseStub = sandbox.stub();
+            runStub = sandbox.stub();
         });
         beforeEach((): void => {
-            testWalker = new LiesmichTreeWalker(getterStub);
+            testWalker = new TemplateTreeWalker(
+                {
+                    parse: parseStub,
+                    run: runStub,
+                },
+                './'
+            );
         });
         describe('handle()', (): void => {
-            it('expect throw error on missing key', (): void => {
-                expect((): void => {
-                    testWalker.handle(false, { type: 'text' } as LiesmichVariableNode, 0);
-                }).to.throw('No key defined');
+            let loadFileStub: SinonStub<Parameters<TemplateTreeWalker['loadFile']>, ReturnType<TemplateTreeWalker['loadFile']>>;
+            beforeEach((): void => {
+                loadFileStub = sandbox.stub(testWalker, 'loadFile');
             });
-            it('expect to replace value and remove data block', (): void => {
-                getterStub.returns('yes');
-                const testNode: LiesmichVariableNode = {
-                    data: {
-                        liesmich: {
-                            host: 'variable',
-                            query: {
-                                key: 'asdf',
-                            },
-                            scheme: 'lm',
+            it('expect to replace value and remove data block', async (): Promise<void> => {
+                loadFileStub.resolves(toVFile('data'));
+                const resultNode: Parent = {
+                    children: [
+                        {
+                            type: 'a',
                         },
-                    },
-                    type: 'liesmich',
-                    value: 'testvalue',
+                        {
+                            type: 'b',
+                        },
+                    ],
+                    type: 'root',
                 };
-                expect(testWalker.handle(false, testNode, 0)).to.equal(false);
-                expect(testNode.data).to.deep.equal({}, 'variable block should be removed');
-                expect(testNode.value).to.equal('yes');
-            });
-        });
-        describe('filter()', (): void => {
-            const TEST_NODE_1: LiesmichVariableNode = {
-                data: {
-                    liesmich: {
-                        host: 'variable',
-                        query: {
-                            key: 'asdf',
-                        },
-                        scheme: 'lm',
+                parseStub.returns(resultNode);
+                runStub.returns(resultNode);
+                const testNode: LiesmichLiteral<PluginData> = {
+                    host: 'template',
+                    query: {
+                        path: './test.md',
                     },
-                },
-                type: 'liesmich',
-                value: 'testvalue',
-            };
-            const TEST_NODE_2: LiesmichVariableNode = {
-                data: {
-                    liesmich: {
-                        host: 'other',
-                        query: {
-                            key: 'asdf',
-                        },
-                        scheme: 'lm',
+                    scheme: 'lm',
+                    type: 'liesmich',
+                    value: 'test',
+                };
+                const testRoot: MdParent = {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    children: [testNode as any],
+                    data: {
+                        test: true,
                     },
-                },
-                type: 'liesmich',
-                value: 'testvalue',
-            };
-            const TEST_NODE_3: LiesmichVariableNode = {
-                data: {},
-                type: 'liesmich',
-                value: 'testvalue',
-            };
-            const TEST_NODE_4: LiesmichVariableNode = {
-                type: 'liesmich',
-                value: 'testvalue',
-            };
-            it('should reject nodes', (): void => {
-                expect(testWalker.filter(false, TEST_NODE_2, 0)).to.equal(false);
-                expect(testWalker.filter(false, TEST_NODE_3, 0)).to.equal(false);
-                expect(testWalker.filter(false, TEST_NODE_4, 0)).to.equal(false);
-            });
-            it('should accept nodes', (): void => {
-                expect(testWalker.filter(false, TEST_NODE_1, 0)).to.equal(true);
+                    type: 'root',
+                };
+                expect(await testWalker.handle(testRoot, testNode, 0)).to.equal(false);
+                expect(testRoot).to.deep.equal(
+                    {
+                        children: [
+                            {
+                                type: 'a',
+                            },
+                            {
+                                type: 'b',
+                            },
+                        ],
+                        data: {
+                            test: true,
+                        },
+                        type: 'root',
+                    },
+                    'variable block should be removed'
+                );
             });
         });
     });

@@ -1,6 +1,6 @@
 /*
- * Package @liesmich/plugin-variable
+ * Package @liesmich/plugin-template
  * Source https://liesmich.github.io/liesmich/
  */
 
-export { plugin as default } from './plugin';
+export { plugin as default, plugin } from './plugin';
