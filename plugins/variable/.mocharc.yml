@@ -28,6 +28,5 @@ loader: 'ts-node/esm'
 retries: 1
 slow: 75
 sort: false
-spec: src/**/*.spec.ts # the positional arguments!
 ui: bdd
 watch: false

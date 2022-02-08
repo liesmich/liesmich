@@ -18,8 +18,9 @@
     "postbuild": "npm run build:types",
     "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
     "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
-    "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node",
+    "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node --spec src/**/*.spec.ts",
     "test:coverage": "c8 --config ../../.nycrc.json npm run test",
+    "e2e": "mocha --config .mocharc.yml --spec e2e/**/*.spec.ts --experimental-specifier-resolution=node",
     "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src",
     "postlint": "prettier --config ./../../.prettierrc src/**/*.ts --check",
     "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src --fix",
@@ -57,6 +58,7 @@
     "dot-prop": "~6.0.1"
   },
   "devDependencies": {
+    "@liesmich-helpers/test-plugin": "0.0.1",
     "@liesmich/core": "^0.0.1",
     "@types/unist": "2.0.6",
     "unified": "10.1.1"
