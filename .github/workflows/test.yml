@@ -84,17 +84,11 @@ jobs:
           path: ./packages
       - name: Run Test
         run: npx lerna run test:coverage
-      - name: Retrieve Codecov Flag Name
-        id: "flagname"
-        run: |
-          FLAGNAME=$(echo "${{ matrix.package.name }}" | sed -n -e 's/^.*\///p')
-          echo "::set-output name=flagname::${FLAGNAME}"
       - name: Upload coverage to Codecov Monorepo
         uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unit #${{ steps.flagname.outputs.flagname }}
-          directory: ${{ matrix.package.location }}
+          flags: unit
           name: Test
           fail_ci_if_error: false
           verbose: false
