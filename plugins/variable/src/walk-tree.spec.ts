@@ -32,65 +32,53 @@ describe('walk-tree', (): void => {
         describe('handle()', (): void => {
             it('expect throw error on missing key', (): void => {
                 expect((): void => {
-                    testWalker.handle(false, { type: 'text' } as LiesmichVariableNode, 0);
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                    testWalker.handle(false, { type: 'text' } as any, 0);
                 }).to.throw('No key defined');
             });
             it('expect to replace value and remove data block', (): void => {
                 getterStub.returns('yes');
                 const testNode: LiesmichVariableNode = {
-                    data: {
-                        liesmich: {
-                            host: 'variable',
-                            query: {
-                                key: 'asdf',
-                            },
-                            scheme: 'lm',
-                        },
+                    host: 'variable',
+                    query: {
+                        key: 'asdf',
                     },
+                    scheme: 'lm',
                     type: 'liesmich',
                     value: 'testvalue',
                 };
-                expect(testWalker.handle(false, testNode, 0)).to.equal(false);
-                expect(testNode.data).to.deep.equal({}, 'variable block should be removed');
-                expect(testNode.value).to.equal('yes');
+                expect((): void => {
+                    testWalker.handle(false, testNode, 0);
+                }).to.throw('A parent is required');
             });
         });
         describe('filter()', (): void => {
             const TEST_NODE_1: LiesmichVariableNode = {
-                data: {
-                    liesmich: {
-                        host: 'variable',
-                        query: {
-                            key: 'asdf',
-                        },
-                        scheme: 'lm',
-                    },
+                host: 'variable',
+                query: {
+                    key: 'asdf',
                 },
+                scheme: 'lm',
                 type: 'liesmich',
                 value: 'testvalue',
             };
             const TEST_NODE_2: LiesmichVariableNode = {
-                data: {
-                    liesmich: {
-                        host: 'other',
-                        query: {
-                            key: 'asdf',
-                        },
-                        scheme: 'lm',
-                    },
+                host: 'other',
+                query: {
+                    key: 'asdf',
                 },
+                scheme: 'lm',
                 type: 'liesmich',
                 value: 'testvalue',
             };
             const TEST_NODE_3: LiesmichVariableNode = {
-                data: {},
                 type: 'liesmich',
                 value: 'testvalue',
-            };
+            } as LiesmichVariableNode;
             const TEST_NODE_4: LiesmichVariableNode = {
                 type: 'liesmich',
                 value: 'testvalue',
-            };
+            } as LiesmichVariableNode;
             it('should reject nodes', (): void => {
                 expect(testWalker.filter(false, TEST_NODE_2, 0)).to.equal(false);
                 expect(testWalker.filter(false, TEST_NODE_3, 0)).to.equal(false);
