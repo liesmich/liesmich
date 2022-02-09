@@ -43,4 +43,5 @@ export type LiesmichLiteral<Q extends LiesmichQueryData = LiesmichQueryData, D e
     host: string;
     query?: Q;
     scheme: string;
+    type: 'liesmich';
 };
