@@ -1,0 +1,26 @@
+comment:
+  layout: "reach, diff, flags, files"
+coverage:
+  status:
+    project:
+      plugins:
+        paths:
+          - plugins/*/src/**/*
+      core:
+        paths:
+          - packages/*/src/**/*
+flags:
+  unit:
+    paths:
+      - packages/*/src
+      - plugins/*/src
+    carryforward: true
+  e2e:
+    paths:
+      - packages/*/src
+      - plugins/*/src
+    carryforward: true
+ignore:
+  - "packages/*/node_modules/**"
+  - "plugins/*/node_modules/**"
+  - "**/*.json"  # ignore files submodules
