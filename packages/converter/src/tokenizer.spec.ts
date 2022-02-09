@@ -3,6 +3,7 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
+import { LiesmichLiteral } from '@liesmich/core';
 import { expect } from 'chai';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import 'mocha';
@@ -31,7 +32,7 @@ function doesContainLiesmich(tree: Parent): boolean {
  * @param tree
  * @param child
  */
-function simpleComparison(tree: Parent, child: Node | Literal): void {
+function simpleComparison(tree: Parent, child: Node | Literal | LiesmichLiteral): void {
     expect(tree).to.deep.equal({
         children: [
             {
@@ -111,13 +112,7 @@ describe('tokenizer.ts', (): void => {
                     mdastExtensions: [testFromMarkdown],
                 });
                 simpleComparison(out, {
-                    data: {
-                        host: 'path',
-                        query: {
-                            key: 'none',
-                        },
-                        scheme: 'lm',
-                    },
+                    host: 'path',
                     position: {
                         end: {
                             column: 26,
@@ -130,6 +125,10 @@ describe('tokenizer.ts', (): void => {
                             offset: 5,
                         },
                     },
+                    query: {
+                        key: 'none',
+                    },
+                    scheme: 'lm',
                     type: 'liesmich',
                     value: '{{lm:path?key=none}}',
                 });
@@ -140,13 +139,7 @@ describe('tokenizer.ts', (): void => {
                     mdastExtensions: [testFromMarkdown],
                 });
                 simpleComparison(out, {
-                    data: {
-                        host: 'path',
-                        query: {
-                            key: 'none',
-                        },
-                        scheme: 'LM',
-                    },
+                    host: 'path',
                     position: {
                         end: {
                             column: 26,
@@ -159,6 +152,10 @@ describe('tokenizer.ts', (): void => {
                             offset: 5,
                         },
                     },
+                    query: {
+                        key: 'none',
+                    },
+                    scheme: 'LM',
                     type: 'liesmich',
                     value: '{{LM:path?key=none}}',
                 });
@@ -189,13 +186,7 @@ describe('tokenizer.ts', (): void => {
                                     value: 'test ',
                                 },
                                 {
-                                    data: {
-                                        host: 'variable',
-                                        query: {
-                                            key: 'test',
-                                        },
-                                        scheme: 'lm',
-                                    },
+                                    host: 'variable',
                                     position: {
                                         end: {
                                             column: 32,
@@ -208,6 +199,10 @@ describe('tokenizer.ts', (): void => {
                                             offset: 5,
                                         },
                                     },
+                                    query: {
+                                        key: 'test',
+                                    },
+                                    scheme: 'lm',
                                     type: 'liesmich',
                                     value: '{{ lm:variable?key=test }}',
                                 },
