@@ -38,12 +38,9 @@ export interface ILiesmichConfig {
     out?: string;
 }
 export type LiesmichQueryData = ParsedQs;
-export type LiesmichNodeData<Q extends LiesmichQueryData = LiesmichQueryData> = Data & {
-    liesmich?: {
-        host: string;
-        query?: Q;
-        scheme: string;
-    };
-};
 
-export type LiesmichLiteral<Q extends LiesmichQueryData = LiesmichQueryData> = Literal<string, LiesmichNodeData<Q>>;
+export type LiesmichLiteral<Q extends LiesmichQueryData = LiesmichQueryData, D extends Data = Data> = Literal<string, D> & {
+    host: string;
+    query?: Q;
+    scheme: string;
+};
