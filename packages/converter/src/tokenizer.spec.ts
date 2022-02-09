@@ -163,6 +163,101 @@ describe('tokenizer.ts', (): void => {
                     value: '{{LM:path?key=none}}',
                 });
             });
+            it('should pass with leading and trailing inner spaces', (): void => {
+                const out = fromMarkdown('test {{ lm:variable?key=test }} but no', {
+                    extensions: [liesmichExtension],
+                    mdastExtensions: [testFromMarkdown],
+                });
+                expect(out).to.deep.equal({
+                    children: [
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
+                                },
+                                {
+                                    data: {
+                                        host: 'variable',
+                                        query: {
+                                            key: 'test',
+                                        },
+                                        scheme: 'lm',
+                                    },
+                                    position: {
+                                        end: {
+                                            column: 32,
+                                            line: 1,
+                                            offset: 31,
+                                        },
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                    },
+                                    type: 'liesmich',
+                                    value: '{{ lm:variable?key=test }}',
+                                },
+                                {
+                                    position: {
+                                        end: {
+                                            column: 39,
+                                            line: 1,
+                                            offset: 38,
+                                        },
+                                        start: {
+                                            column: 32,
+                                            line: 1,
+                                            offset: 31,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' but no',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 39,
+                                    line: 1,
+                                    offset: 38,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 39,
+                            line: 1,
+                            offset: 38,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
+                });
+            });
             it('should ignore with leading triple braces', (): void => {
                 const out = fromMarkdown('test {{{ LM:path?key=none}} a', {
                     extensions: [liesmichExtension],
