@@ -46,7 +46,7 @@ jobs:
   test_suite:
     needs: build_suite
     runs-on: ${{ matrix.os }}
-    name: Test - ${{ matrix.os }} - Node ${{ matrix.node }}
+    name: Unit Test - ${{ matrix.os }} - Node ${{ matrix.node }}
     timeout-minutes: 30
     strategy:
       max-parallel: 4
@@ -84,18 +84,61 @@ jobs:
           path: ./packages
       - name: Run Test
         run: npx lerna run test:coverage
-      - name: Retrieve Codecov Flag Name
-        id: "flagname"
-        run: |
-          FLAGNAME=$(echo "${{ matrix.package.name }}" | sed -n -e 's/^.*\///p')
-          echo "::set-output name=flagname::${FLAGNAME}"
       - name: Upload coverage to Codecov Monorepo
         uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unit #${{ steps.flagname.outputs.flagname }}
-          directory: ${{ matrix.package.location }}
+          flags: unit
           name: Test
+          fail_ci_if_error: false
+          verbose: false
+  e2e_suite:
+    needs: build_suite
+    runs-on: ${{ matrix.os }}
+    name: E2E Tests - ${{ matrix.os }} - Node ${{ matrix.node }}
+    timeout-minutes: 30
+    strategy:
+      max-parallel: 4
+      matrix:
+        node: [14, 16]
+        os: [ubuntu-latest] #, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 200
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Patch NPM
+        run: |
+          npm install -g npm@8
+          npm -v
+      - name: Setup Cache
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node${{ matrix.node }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Deps
+        run: |
+          npm ci
+          npx lerna bootstrap --ci
+      - name: Download Build artifacts
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: build-${{matrix.os}}-${{matrix.node}}
+          path: ./packages
+      - name: Run Test
+        run: npx lerna run e2e:coverage
+      - name: Upload coverage to Codecov Monorepo
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: e2e
+          name: E2E Test
           fail_ci_if_error: false
           verbose: false
   lint_suite:
@@ -192,7 +235,7 @@ jobs:
       - name: Build READMEs
         run: npx lerna run build:readme
   finish:
-    needs: [test_suite, lint_suite, docs_suite]
+    needs: [test_suite, lint_suite, docs_suite, e2e_suite]
     name: Finish Test
     runs-on: ubuntu-latest
     if: ${{ !failure() && !cancelled() }}
