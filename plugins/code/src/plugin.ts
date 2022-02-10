@@ -3,8 +3,7 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-import { get } from 'dot-prop';
-import { Getter, LiesmichTreeWalker } from './walk-tree';
+import { LiesmichTreeWalker } from './walk-tree';
 import type { Plugin as UnifiedPlugin, Transformer } from 'unified';
 import type { Node, Parent } from 'unist';
 import type { VFile } from 'vfile';
