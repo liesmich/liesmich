@@ -4,12 +4,7 @@
  */
 
 import { codes } from 'micromark-util-symbol/codes';
-// import { classifyCharacter } from 'micromark-util-classify-character'
 import { Code, Construct, Effects, Extension, State, Tokenizer } from 'micromark-util-types';
-import { Data, Node } from 'unist';
-import { fromMarkdown } from './from-markdown-extension';
-import { toMarkdown } from './to-markdown-extension';
-import type { Plugin as UnifiedPlugin } from 'unified';
 
 const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effects, ok: State, nok: State): State {
     let openBraces = 0;
@@ -106,20 +101,4 @@ export const liesmichExtension: Extension = {
     attentionMarkers: { null: [codes.leftCurlyBrace] },
     insideSpan: { null: [liesmichConstruct] },
     text: { [codes.leftCurlyBrace]: liesmichConstruct },
-};
-
-export const plugin: UnifiedPlugin<unknown[], Node, Node> = function plugin(...options: unknown[]): void {
-    const data: Data = this.data();
-
-    /**
-     * @param key
-     * @param value
-     */
-    function addExtension(key: string, value: unknown) {
-        const extensions: unknown[] = data[key] ? (data[key] as any[]) : (data[key] = []);
-        extensions.push(value);
-    }
-    addExtension('micromarkExtensions', liesmichExtension);
-    addExtension('fromMarkdownExtensions', fromMarkdown);
-    addExtension('toMarkdownExtensions', toMarkdown);
 };
