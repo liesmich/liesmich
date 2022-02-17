@@ -5,6 +5,7 @@
 
 import { Handle, SafeOptions, Context, Options } from 'mdast-util-to-markdown';
 import { Literal, Parent } from 'unist';
+import { Constants } from './constants';
 
 const variableHandler: Handle = function variableHandler(
     node: Literal<string>,
@@ -16,6 +17,6 @@ const variableHandler: Handle = function variableHandler(
 };
 export const toMarkdown: Options = {
     handlers: {
-        variable: variableHandler,
+        [Constants.LIESMICH]: variableHandler,
     },
 };

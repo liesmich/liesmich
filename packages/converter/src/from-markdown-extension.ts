@@ -15,9 +15,10 @@ const getParent = (stack: CompileContext['stack']): Node => {
 };
 export const fromMarkdown: Extension = {
     enter: {
-        [Constants.LIESMICH]: function (token) {
+        [Constants.LIESMICH]: function (token: Token | any) {
             this.enter(
                 {
+                    ...token.newLine ? token.newLine : {},
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     type: Constants.LIESMICH as any,
                     value: this.sliceSerialize(token),
