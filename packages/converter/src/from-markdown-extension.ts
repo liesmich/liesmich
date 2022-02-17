@@ -8,31 +8,32 @@ import { Extension, Token } from 'mdast-util-from-markdown';
 import { CompileContext } from 'mdast-util-from-markdown/lib';
 import { parse as qsParse } from 'qs';
 import { Node } from 'unist';
+import { Constants } from './constants';
 
 const getParent = (stack: CompileContext['stack']): Node => {
     return stack[stack.length - 1];
 };
 export const fromMarkdown: Extension = {
     enter: {
-        liesmich: function (token) {
+        [Constants.LIESMICH]: function (token) {
             this.enter(
                 {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    type: 'liesmich' as any,
+                    type: Constants.LIESMICH as any,
                     value: this.sliceSerialize(token),
                 },
                 token
             );
         },
-        liesmichScheme: function (token) {
+        [Constants.LIESMICH_SCHEME]: function (token) {
             const parent: LiesmichLiteral = getParent(this.stack) as LiesmichLiteral;
-            if (parent.type === 'liesmich') {
+            if (parent.type === Constants.LIESMICH) {
                 parent.scheme = this.sliceSerialize(token);
             }
         },
-        liesmichString: function (token: Token) {
+        [Constants.LIESMICH_STRING]: function (token: Token) {
             const parent: LiesmichLiteral = getParent(this.stack) as LiesmichLiteral;
-            if (parent.type === 'liesmich') {
+            if (parent.type === Constants.LIESMICH) {
                 const serialized: string = this.sliceSerialize(token);
                 const queryIndex: number = serialized.indexOf('?');
                 if (queryIndex >= 0) {
@@ -45,14 +46,14 @@ export const fromMarkdown: Extension = {
         },
     },
     exit: {
-        liesmich: function exitFootnoteDefinition(token) {
+        [Constants.LIESMICH]: function exitFootnoteDefinition(token) {
             //  console.log('exit', token, this.getData('k'));
             this.exit(token);
         },
-        liesmichScheme: function exitFootnoteDefinition(token) {
+        [Constants.LIESMICH_SCHEME]: function exitFootnoteDefinition(token) {
             // console.log('exit', token, this.getData('k'));
         },
-        liesmichString: function exitFootnoteDefinition(token) {
+        [Constants.LIESMICH_STRING]: function exitFootnoteDefinition(token) {
             // console.log('exit', token);
         },
     },
