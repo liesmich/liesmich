@@ -4,7 +4,7 @@
  */
 
 import { codes } from 'micromark-util-symbol/codes';
-import { Code, Construct, Effects, Extension, State, Tokenizer } from 'micromark-util-types';
+import { Constants } from './constants';
 
 const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effects, ok: State, nok: State): State {
     let openBraces = 0;
@@ -14,12 +14,12 @@ const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effec
         if (openBraces > 2 || (openBraces === 0 && this.previous === codes.leftCurlyBrace)) {
             return nok(code);
         } else if (code !== codes.leftCurlyBrace && openBraces === 2) {
-            effects.exit('liesmichMarker');
+            effects.exit(Constants.LIESMICH_MARKER_START);
             return scheme(code);
         } else if (code === codes.leftCurlyBrace) {
             if (openBraces === 0) {
-                effects.enter('liesmich');
-                effects.enter('liesmichMarker');
+                effects.enter(Constants.LIESMICH);
+                effects.enter(Constants.LIESMICH_MARKER_START);
             }
             effects.consume(code);
             openBraces++;
@@ -34,7 +34,7 @@ const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effec
             return scheme;
         }
         if (schemeCounter === 0 && (code === codes.lowercaseL || code === codes.uppercaseL)) {
-            effects.enter('liesmichScheme');
+            effects.enter(Constants.LIESMICH_SCHEME);
             effects.consume(code);
             schemeCounter++;
             return scheme;
@@ -45,9 +45,9 @@ const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effec
             return scheme;
         }
         if (schemeCounter === 2 && code === codes.colon) {
-            effects.exit('liesmichScheme');
+            effects.exit(Constants.LIESMICH_SCHEME);
             effects.consume(code);
-            effects.enter('liesmichString');
+            effects.enter(Constants.LIESMICH_STRING);
             schemeCounter++;
             return inside;
         }
@@ -60,13 +60,13 @@ const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effec
                 effects.consume(code);
                 return end;
             } else {
-                effects.enter('liesmichMarker');
+                effects.enter(Constants.LIESMICH_MARKER_END);
             }
         }
         if (code !== codes.rightCurlyBrace) {
             if (closeBraces === 2) {
-                effects.exit('liesmichMarker');
-                effects.exit('liesmich');
+                effects.exit(Constants.LIESMICH_MARKER_END);
+                effects.exit(Constants.LIESMICH);
                 return ok(code);
             } else {
                 return nok(code);
@@ -82,7 +82,7 @@ const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effec
             return nok(code);
         }
         if (code === codes.rightCurlyBrace || code === codes.space || code === codes.horizontalTab) {
-            effects.exit('liesmichString');
+            effects.exit(Constants.LIESMICH_STRING);
             return end(code);
         }
 
