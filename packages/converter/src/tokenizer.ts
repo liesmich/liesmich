@@ -4,6 +4,7 @@
  */
 
 import { codes } from 'micromark-util-symbol/codes';
+import { Code, Construct, Effects, Extension, State, Tokenizer } from 'micromark-util-types';
 import { Constants } from './constants';
 
 const liesmichTokenizeOpen: Tokenizer = function liesmichTokenize(effects: Effects, ok: State, nok: State): State {
