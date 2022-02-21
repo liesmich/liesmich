@@ -7,7 +7,9 @@ import { createPipeline } from '@liesmich-helpers/test-plugin';
 import { expect } from 'chai';
 import 'mocha';
 import { Processor } from 'unified';
+import { read } from 'to-vfile';
 import { plugin } from './../src';
+import { VFile } from 'vfile-find-up';
 
 // tslint:disable:no-unused-expression
 describe('e2e', (): void => {
@@ -24,6 +26,11 @@ describe('e2e', (): void => {
         it('should inline variable correclty', async (): Promise<void> => {
             p.data('test', 'asdf');
             expect((await p.process('test {{ lm:variable?key=test }} but no')).toString()).to.equal('test asdf but no\n');
+        });
+        it('should inline for full file', async (): Promise<void> => {
+            const testVFile: VFile = await read('./e2e/simple_inline.md');
+            p.data('test', 'asdf');
+            expect((await p.process(testVFile)).toString()).to.equal('# asdf\n\n## @liesmich/plugin-variable\n');
         });
     });
 });
