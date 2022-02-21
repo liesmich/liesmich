@@ -9,4 +9,5 @@ export enum Constants {
     LIESMICH_STRING = 'liesmichString',
     LIESMICH_SCHEME = 'liesmichScheme',
     LIESMICH = 'liesmich',
+    LIESMICH_SPACE_SUFFIX = 'liesmichSpaceSuffix',
 }
