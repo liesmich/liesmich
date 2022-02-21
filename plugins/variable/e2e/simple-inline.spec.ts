@@ -6,10 +6,10 @@
 import { createPipeline } from '@liesmich-helpers/test-plugin';
 import { expect } from 'chai';
 import 'mocha';
-import { Processor } from 'unified';
 import { read } from 'to-vfile';
-import { plugin } from './../src';
+import { Processor } from 'unified';
 import { VFile } from 'vfile-find-up';
+import { plugin } from './../src';
 
 // tslint:disable:no-unused-expression
 describe('e2e', (): void => {
