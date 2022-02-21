@@ -1,5 +1,10 @@
-import { codes } from "micromark-util-symbol/codes";
-import { Code, Construct, Effects, State } from "micromark-util-types";
+/*
+ * Package @liesmich/converter
+ * Source https://liesmich.github.io/liesmich/
+ */
+
+import { codes } from 'micromark-util-symbol/codes';
+import { Code, Construct, Effects, State } from 'micromark-util-types';
 import { liesmichConstructStart } from './../tokenizer/start-construct';
 
 export const liesmichConstructFlowStart: Construct = {
@@ -24,8 +29,12 @@ export const liesmichConstructFlowStart: Construct = {
                     return nok;
             }
         };
-        return effects.attempt(liesmichConstructStart, (code: Code): void | State => {
-            return start(code);
-        }, nok);
+        return effects.attempt(
+            liesmichConstructStart,
+            (code: Code): void | State => {
+                return start(code);
+            },
+            nok
+        );
     },
 };

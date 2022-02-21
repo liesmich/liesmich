@@ -1,11 +1,16 @@
-import { codes } from "micromark-util-symbol/codes";
-import { Code, Construct, Effects, State } from "micromark-util-types";
-import { Constants } from "../constants";
+/*
+ * Package @liesmich/converter
+ * Source https://liesmich.github.io/liesmich/
+ */
+
+import { codes } from 'micromark-util-symbol/codes';
+import { Code, Construct, Effects, State } from 'micromark-util-types';
+import { Constants } from '../constants';
 
 export const liesmichConstructEnd: Construct = {
     name: 'liesmichEnd',
     tokenize: function (effects: Effects, ok: State, nok: State): State {
-        let closeBraces: number = 0;
+        let closeBraces = 0;
 
         const end: State = (code: Code): State | void => {
             if (closeBraces === 0) {
@@ -31,5 +36,4 @@ export const liesmichConstructEnd: Construct = {
         };
         return end;
     },
-
 };

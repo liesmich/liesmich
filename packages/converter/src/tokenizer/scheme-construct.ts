@@ -1,7 +1,12 @@
-import { codes } from "micromark-util-symbol/codes";
-import { Code, Construct, Effects, State } from "micromark-util-types";
-import { Constants } from "../constants";
-import { liesmichConstructInside } from "./inside-construct";
+/*
+ * Package @liesmich/converter
+ * Source https://liesmich.github.io/liesmich/
+ */
+
+import { codes } from 'micromark-util-symbol/codes';
+import { Code, Construct, Effects, State } from 'micromark-util-types';
+import { Constants } from '../constants';
+import { liesmichConstructInside } from './inside-construct';
 
 export const liesmichConstructScheme: Construct = {
     name: 'liesmichScheme',
@@ -33,5 +38,5 @@ export const liesmichConstructScheme: Construct = {
             return nok(code);
         };
         return scheme;
-    }
+    },
 };

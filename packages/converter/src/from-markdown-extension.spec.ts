@@ -4,12 +4,15 @@
  */
 
 import { expect } from 'chai';
-import { Parent } from 'mdast-util-from-markdown/lib';
+import { Node } from 'mdast-util-from-markdown/lib';
 import { toMarkdown } from 'mdast-util-to-markdown';
 import 'mocha';
 import { toMarkdown as testToMarkdown } from './to-markdown-extension';
 
-function testConvert(inp: Parent): string {
+/**
+ * @param inp
+ */
+function testConvert(inp: Node): string {
     return toMarkdown(inp, {
         extensions: [testToMarkdown],
     });
@@ -52,6 +55,7 @@ describe('from-markdown-extension.ts', (): void => {
                     ],
                     type: 'root',
                 };
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 expect(testConvert(testTree)).to.equal('test\n\n{{lm:path?key=none}}\n\na\n');
             });
             it('should work with consecutive blocks and preserve whitespace prefix', (): void => {
@@ -91,6 +95,7 @@ describe('from-markdown-extension.ts', (): void => {
                     ],
                     type: 'root',
                 };
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 expect(testConvert(testTree)).to.equal('test {{lm:path?key=none}}\n{{lm:c?key=2}}\n');
             });
             it('should work with inline text', (): void => {
@@ -121,6 +126,7 @@ describe('from-markdown-extension.ts', (): void => {
                     ],
                     type: 'root',
                 };
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                 expect(testConvert(testTree)).to.equal('test{{lm:path?key=none}}a\n');
             });
         });

@@ -11,6 +11,9 @@ import { fromMarkdown as testFromMarkdown } from './from-markdown-extension';
 import { toMarkdown as testToMarkdown } from './to-markdown-extension';
 import { liesmichExtension } from './tokenizer';
 
+/**
+ * @param inp
+ */
 function testE2EMarkdown(inp: string): string {
     const from = fromMarkdown(inp, {
         extensions: [liesmichExtension],
@@ -26,23 +29,23 @@ describe('to-markdown-extension.ts', (): void => {
     describe('to-markdown-extension', (): void => {
         describe('parse without leading or trailing line breaks', (): void => {
             it('should work with consecutive blocks and preserve whitespace prefix', (): void => {
-                const testString: string = 'test {{LM:path?key=none }}\n{{lm:other }} a\n';
+                const testString = 'test {{LM:path?key=none }}\n{{lm:other }} a\n';
                 expect(testE2EMarkdown(testString)).to.equal(testString);
             });
             it('should work with trailing line break', (): void => {
-                const testString: string = 'test {{ lm:path?key=none }}\na\n';
+                const testString = 'test {{ lm:path?key=none }}\na\n';
                 expect(testE2EMarkdown(testString)).to.equal(testString);
             });
             it('should work with trailing line break', (): void => {
-                const testString: string = 'test {{ lm:path?key=none }}\n\na\n';
+                const testString = 'test {{ lm:path?key=none }}\n\na\n';
                 expect(testE2EMarkdown(testString)).to.equal(testString);
             });
             it('should work without line breaks', (): void => {
-                const testString: string = 'test {{ LM:path?key=none }} a\n';
+                const testString = 'test {{ LM:path?key=none }} a\n';
                 expect(testE2EMarkdown(testString)).to.equal(testString);
             });
             it('should work with leading line break', (): void => {
-                const testString: string = 'test\n{{ LM:path?key=none }} a\n';
+                const testString = 'test\n{{ LM:path?key=none }} a\n';
                 expect(testE2EMarkdown(testString)).to.equal(testString);
             });
         });

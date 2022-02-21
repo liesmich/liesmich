@@ -37,125 +37,125 @@ describe('tokenizer.ts', (): void => {
                     mdastExtensions: [testFromMarkdown],
                 });
                 expect(out).to.deep.equal({
-                    "type": "root",
-                    "children": [
+                    children: [
                         {
-                            "type": "paragraph",
-                            "children": [
+                            children: [
                                 {
-                                    "type": "text",
-                                    "value": "test ",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 1,
-                                            "offset": 0
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "liesmich",
-                                    "value": "{{LM:path?key=none }}",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 27,
-                                            "offset": 26
-                                        }
                                     },
-                                    "scheme": "LM",
-                                    "query": {
-                                        "key": "none"
+                                    type: 'text',
+                                    value: 'test ',
+                                },
+                                {
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
+                                        },
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
                                     },
-                                    "host": "path"
-                                },
-                                {
-                                    "type": "text",
-                                    "value": "\n",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 28,
-                                            "offset": 27
-                                        },
-                                        "end": {
-                                            "line": 2,
-                                            "column": 1,
-                                            "offset": 28
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "liesmich",
-                                    "value": "{{lm:other }}",
-                                    "position": {
-                                        "start": {
-                                            "line": 2,
-                                            "column": 2,
-                                            "offset": 29
-                                        },
-                                        "end": {
-                                            "line": 2,
-                                            "column": 15,
-                                            "offset": 42
-                                        }
+                                    query: {
+                                        key: 'none',
                                     },
-                                    "scheme": "lm",
-                                    "host": "other"
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
                                 },
                                 {
-                                    "type": "text",
-                                    "value": " a",
-                                    "position": {
-                                        "start": {
-                                            "line": 2,
-                                            "column": 15,
-                                            "offset": 42
+                                    position: {
+                                        end: {
+                                            column: 1,
+                                            line: 2,
+                                            offset: 28,
                                         },
-                                        "end": {
-                                            "line": 2,
-                                            "column": 17,
-                                            "offset": 44
-                                        }
-                                    }
-                                }
+                                        start: {
+                                            column: 28,
+                                            line: 1,
+                                            offset: 27,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: '\n',
+                                },
+                                {
+                                    host: 'other',
+                                    position: {
+                                        end: {
+                                            column: 15,
+                                            line: 2,
+                                            offset: 42,
+                                        },
+                                        start: {
+                                            column: 2,
+                                            line: 2,
+                                            offset: 29,
+                                        },
+                                    },
+                                    scheme: 'lm',
+                                    type: 'liesmich',
+                                    value: '{{lm:other }}',
+                                },
+                                {
+                                    position: {
+                                        end: {
+                                            column: 17,
+                                            line: 2,
+                                            offset: 44,
+                                        },
+                                        start: {
+                                            column: 15,
+                                            line: 2,
+                                            offset: 42,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' a',
+                                },
                             ],
-                            "position": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 1,
-                                    "offset": 0
+                            position: {
+                                end: {
+                                    column: 17,
+                                    line: 2,
+                                    offset: 44,
                                 },
-                                "end": {
-                                    "line": 2,
-                                    "column": 17,
-                                    "offset": 44
-                                }
-                            }
-                        }
-                    ],
-                    "position": {
-                        "start": {
-                            "line": 1,
-                            "column": 1,
-                            "offset": 0
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
                         },
-                        "end": {
-                            "line": 2,
-                            "column": 17,
-                            "offset": 44
-                        }
-                    }
+                    ],
+                    position: {
+                        end: {
+                            column: 17,
+                            line: 2,
+                            offset: 44,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
                 });
             });
             it('should work with consecutive blocks with double new line between', (): void => {
@@ -164,126 +164,126 @@ describe('tokenizer.ts', (): void => {
                     mdastExtensions: [testFromMarkdown],
                 });
                 expect(out).to.deep.equal({
-                    "type": "root",
-                    "children": [
+                    children: [
                         {
-                            "type": "paragraph",
-                            "children": [
+                            children: [
                                 {
-                                    "type": "text",
-                                    "value": "test ",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 1,
-                                            "offset": 0
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
-                                        }
-                                    }
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
                                 },
                                 {
-                                    "type": "liesmich",
-                                    "value": "{{LM:path?key=none }}",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 27,
-                                            "offset": 26
-                                        }
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
                                     },
-                                    "scheme": "LM",
-                                    "query": {
-                                        "key": "none"
+                                    query: {
+                                        key: 'none',
                                     },
-                                    "host": "path"
-                                }
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
+                                },
                             ],
-                            "position": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 1,
-                                    "offset": 0
+                            position: {
+                                end: {
+                                    column: 27,
+                                    line: 1,
+                                    offset: 26,
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 27,
-                                    "offset": 26
-                                }
-                            }
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
                         },
                         {
-                            "type": "paragraph",
-                            "children": [
+                            children: [
                                 {
-                                    "type": "liesmich",
-                                    "value": "{{lm:other }}",
-                                    "position": {
-                                        "start": {
-                                            "line": 3,
-                                            "column": 1,
-                                            "offset": 28
+                                    host: 'other',
+                                    position: {
+                                        end: {
+                                            column: 14,
+                                            line: 3,
+                                            offset: 41,
                                         },
-                                        "end": {
-                                            "line": 3,
-                                            "column": 14,
-                                            "offset": 41
-                                        }
+                                        start: {
+                                            column: 1,
+                                            line: 3,
+                                            offset: 28,
+                                        },
                                     },
-                                    "scheme": "lm",
-                                    "host": "other"
+                                    scheme: 'lm',
+                                    type: 'liesmich',
+                                    value: '{{lm:other }}',
                                 },
                                 {
-                                    "type": "text",
-                                    "value": " a",
-                                    "position": {
-                                        "start": {
-                                            "line": 3,
-                                            "column": 14,
-                                            "offset": 41
+                                    position: {
+                                        end: {
+                                            column: 16,
+                                            line: 3,
+                                            offset: 43,
                                         },
-                                        "end": {
-                                            "line": 3,
-                                            "column": 16,
-                                            "offset": 43
-                                        }
-                                    }
-                                }
-                            ],
-                            "position": {
-                                "start": {
-                                    "line": 3,
-                                    "column": 1,
-                                    "offset": 28
+                                        start: {
+                                            column: 14,
+                                            line: 3,
+                                            offset: 41,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' a',
                                 },
-                                "end": {
-                                    "line": 3,
-                                    "column": 16,
-                                    "offset": 43
-                                }
-                            }
-                        }
+                            ],
+                            position: {
+                                end: {
+                                    column: 16,
+                                    line: 3,
+                                    offset: 43,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 3,
+                                    offset: 28,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
                     ],
-                    "position": {
-                        "start": {
-                            "line": 1,
-                            "column": 1,
-                            "offset": 0
+                    position: {
+                        end: {
+                            column: 16,
+                            line: 3,
+                            offset: 43,
                         },
-                        "end": {
-                            "line": 3,
-                            "column": 16,
-                            "offset": 43
-                        }
-                    }
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
                 });
             });
             it('should work as standalone block', (): void => {
@@ -292,126 +292,126 @@ describe('tokenizer.ts', (): void => {
                     mdastExtensions: [testFromMarkdown],
                 });
                 expect(out).to.deep.equal({
-                    "type": "root",
-                    "children": [
+                    children: [
                         {
-                            "type": "paragraph",
-                            "children": [
+                            children: [
                                 {
-                                    "type": "text",
-                                    "value": "test ",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 1,
-                                            "offset": 0
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
-                                        }
-                                    }
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
                                 },
                                 {
-                                    "type": "liesmich",
-                                    "value": "{{LM:path?key=none }}",
-                                    "position": {
-                                        "start": {
-                                            "line": 1,
-                                            "column": 6,
-                                            "offset": 5
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
                                         },
-                                        "end": {
-                                            "line": 1,
-                                            "column": 27,
-                                            "offset": 26
-                                        }
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
                                     },
-                                    "scheme": "LM",
-                                    "query": {
-                                        "key": "none"
+                                    query: {
+                                        key: 'none',
                                     },
-                                    "host": "path"
-                                }
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
+                                },
                             ],
-                            "position": {
-                                "start": {
-                                    "line": 1,
-                                    "column": 1,
-                                    "offset": 0
+                            position: {
+                                end: {
+                                    column: 27,
+                                    line: 1,
+                                    offset: 26,
                                 },
-                                "end": {
-                                    "line": 1,
-                                    "column": 27,
-                                    "offset": 26
-                                }
-                            }
-                        },
-                        {
-                            "type": "liesmich",
-                            "value": "{{lm:other }}",
-                            "position": {
-                                "start": {
-                                    "line": 3,
-                                    "column": 1,
-                                    "offset": 28
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
                                 },
-                                "end": {
-                                    "line": 3,
-                                    "column": 14,
-                                    "offset": 41
-                                }
                             },
-                            "scheme": "lm",
-                            "host": "other"
+                            type: 'paragraph',
                         },
                         {
-                            "type": "paragraph",
-                            "children": [
-                                {
-                                    "type": "text",
-                                    "value": "a",
-                                    "position": {
-                                        "start": {
-                                            "line": 5,
-                                            "column": 1,
-                                            "offset": 43
-                                        },
-                                        "end": {
-                                            "line": 5,
-                                            "column": 2,
-                                            "offset": 44
-                                        }
-                                    }
-                                }
-                            ],
-                            "position": {
-                                "start": {
-                                    "line": 5,
-                                    "column": 1,
-                                    "offset": 43
+                            host: 'other',
+                            position: {
+                                end: {
+                                    column: 14,
+                                    line: 3,
+                                    offset: 41,
                                 },
-                                "end": {
-                                    "line": 5,
-                                    "column": 2,
-                                    "offset": 44
-                                }
-                            }
-                        }
-                    ],
-                    "position": {
-                        "start": {
-                            "line": 1,
-                            "column": 1,
-                            "offset": 0
+                                start: {
+                                    column: 1,
+                                    line: 3,
+                                    offset: 28,
+                                },
+                            },
+                            scheme: 'lm',
+                            type: 'liesmich',
+                            value: '{{lm:other }}',
                         },
-                        "end": {
-                            "line": 5,
-                            "column": 2,
-                            "offset": 44
-                        }
-                    }
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 2,
+                                            line: 5,
+                                            offset: 44,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 5,
+                                            offset: 43,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'a',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 2,
+                                    line: 5,
+                                    offset: 44,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 5,
+                                    offset: 43,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 2,
+                            line: 5,
+                            offset: 44,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
                 });
             });
             it('should work with inline blocks', (): void => {
