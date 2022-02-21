@@ -56,7 +56,8 @@
   },
   "dependencies": {
     "@liesmich/tree-walker": "^0.0.1",
-    "dot-prop": "~6.0.1"
+    "dot-prop": "~6.0.1",
+    "vfile-find-up": "~6.0.0"
   },
   "devDependencies": {
     "@liesmich-helpers/test-plugin": "0.0.1",
