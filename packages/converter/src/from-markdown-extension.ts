@@ -15,7 +15,7 @@ const getParent = (stack: CompileContext['stack']): Node => {
 };
 export const fromMarkdown: Extension = {
     enter: {
-        [Constants.LIESMICH]: function (token) {
+        [Constants.LIESMICH]: function (token: Token) {
             this.enter(
                 {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

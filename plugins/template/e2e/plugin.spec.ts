@@ -32,9 +32,9 @@ describe('e2e', (): void => {
                             {
                                 position: {
                                     end: {
-                                        column: 1,
-                                        line: 2,
-                                        offset: 5,
+                                        column: 5,
+                                        line: 1,
+                                        offset: 4,
                                     },
                                     start: {
                                         column: 1,
@@ -43,28 +43,26 @@ describe('e2e', (): void => {
                                     },
                                 },
                                 type: 'text',
-                                value: 'test\n',
+                                value: 'test',
                             },
+                        ],
+                        position: {
+                            end: {
+                                column: 5,
+                                line: 1,
+                                offset: 4,
+                            },
+                            start: {
+                                column: 1,
+                                line: 1,
+                                offset: 0,
+                            },
+                        },
+                        type: 'paragraph',
+                    },
+                    {
+                        children: [
                             {
-                                children: [
-                                    {
-                                        position: {
-                                            end: {
-                                                column: 8,
-                                                line: 1,
-                                                offset: 7,
-                                            },
-                                            start: {
-                                                column: 3,
-                                                line: 1,
-                                                offset: 2,
-                                            },
-                                        },
-                                        type: 'text',
-                                        value: 'title',
-                                    },
-                                ],
-                                depth: 1,
                                 position: {
                                     end: {
                                         column: 8,
@@ -72,13 +70,32 @@ describe('e2e', (): void => {
                                         offset: 7,
                                     },
                                     start: {
-                                        column: 1,
+                                        column: 3,
                                         line: 1,
-                                        offset: 0,
+                                        offset: 2,
                                     },
                                 },
-                                type: 'heading',
+                                type: 'text',
+                                value: 'title',
                             },
+                        ],
+                        depth: 1,
+                        position: {
+                            end: {
+                                column: 8,
+                                line: 1,
+                                offset: 7,
+                            },
+                            start: {
+                                column: 1,
+                                line: 1,
+                                offset: 0,
+                            },
+                        },
+                        type: 'heading',
+                    },
+                    {
+                        children: [
                             {
                                 position: {
                                     end: {
@@ -87,13 +104,13 @@ describe('e2e', (): void => {
                                         offset: 45,
                                     },
                                     start: {
-                                        column: 34,
-                                        line: 2,
-                                        offset: 38,
+                                        column: 1,
+                                        line: 3,
+                                        offset: 39,
                                     },
                                 },
                                 type: 'text',
-                                value: '\nbut no',
+                                value: 'but no',
                             },
                         ],
                         position: {
@@ -104,8 +121,8 @@ describe('e2e', (): void => {
                             },
                             start: {
                                 column: 1,
-                                line: 1,
-                                offset: 0,
+                                line: 3,
+                                offset: 39,
                             },
                         },
                         type: 'paragraph',
@@ -128,7 +145,7 @@ describe('e2e', (): void => {
         });
         it('should inline variable correclty', async (): Promise<void> => {
             expect((await p.process('test {{ lm:template?path=./e2e/test4.md }} but no')).toString()).to.equal(
-                'test test\n# title\nbut no but no\n'
+                'test test# titlebut no but no\n'
             );
         });
     });

@@ -3,11 +3,10 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-import { LiesmichLiteral } from '@liesmich/core';
 import { expect } from 'chai';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import 'mocha';
-import { Literal, Node, Parent } from 'unist';
+import { Parent } from 'unist';
 import { fromMarkdown as testFromMarkdown } from './from-markdown-extension';
 import { liesmichExtension } from './tokenizer';
 
@@ -28,140 +27,12 @@ function doesContainLiesmich(tree: Parent): boolean {
     }
     return false;
 }
-/**
- * @param tree
- * @param child
- */
-function simpleComparison(tree: Parent, child: Node | Literal | LiesmichLiteral): void {
-    expect(tree).to.deep.equal({
-        children: [
-            {
-                children: [
-                    {
-                        position: {
-                            end: {
-                                column: 6,
-                                line: 1,
-                                offset: 5,
-                            },
-                            start: {
-                                column: 1,
-                                line: 1,
-                                offset: 0,
-                            },
-                        },
-                        type: 'text',
-                        value: 'test ',
-                    },
-                    child,
-                    {
-                        position: {
-                            end: {
-                                column: 28,
-                                line: 1,
-                                offset: 27,
-                            },
-                            start: {
-                                column: 26,
-                                line: 1,
-                                offset: 25,
-                            },
-                        },
-                        type: 'text',
-                        value: ' a',
-                    },
-                ],
-                position: {
-                    end: {
-                        column: 28,
-                        line: 1,
-                        offset: 27,
-                    },
-                    start: {
-                        column: 1,
-                        line: 1,
-                        offset: 0,
-                    },
-                },
-                type: 'paragraph',
-            },
-        ],
-        position: {
-            end: {
-                column: 28,
-                line: 1,
-                offset: 27,
-            },
-            start: {
-                column: 1,
-                line: 1,
-                offset: 0,
-            },
-        },
-        type: 'root',
-    });
-}
-
 // tslint:disable:no-unused-expression
 describe('tokenizer.ts', (): void => {
     describe('Tokenizer', (): void => {
-        describe('walker', (): void => {
-            it('should inline correctly between two', (): void => {
-                const out = fromMarkdown('test {{lm:path?key=none}} a', {
-                    extensions: [liesmichExtension],
-                    mdastExtensions: [testFromMarkdown],
-                });
-                simpleComparison(out, {
-                    host: 'path',
-                    position: {
-                        end: {
-                            column: 26,
-                            line: 1,
-                            offset: 25,
-                        },
-                        start: {
-                            column: 6,
-                            line: 1,
-                            offset: 5,
-                        },
-                    },
-                    query: {
-                        key: 'none',
-                    },
-                    scheme: 'lm',
-                    type: 'liesmich',
-                    value: '{{lm:path?key=none}}',
-                });
-            });
-            it('should inline correctly between two', (): void => {
-                const out = fromMarkdown('test {{LM:path?key=none}} a', {
-                    extensions: [liesmichExtension],
-                    mdastExtensions: [testFromMarkdown],
-                });
-                simpleComparison(out, {
-                    host: 'path',
-                    position: {
-                        end: {
-                            column: 26,
-                            line: 1,
-                            offset: 25,
-                        },
-                        start: {
-                            column: 6,
-                            line: 1,
-                            offset: 5,
-                        },
-                    },
-                    query: {
-                        key: 'none',
-                    },
-                    scheme: 'LM',
-                    type: 'liesmich',
-                    value: '{{LM:path?key=none}}',
-                });
-            });
-            it('should pass with leading and trailing inner spaces', (): void => {
-                const out = fromMarkdown('test {{ lm:variable?key=test }} but no', {
+        describe('parse without leading or trailing line breaks', (): void => {
+            it('should work with consecutive blocks', (): void => {
+                const out = fromMarkdown('test {{LM:path?key=none }} \n {{lm:other }} a', {
                     extensions: [liesmichExtension],
                     mdastExtensions: [testFromMarkdown],
                 });
@@ -186,12 +57,12 @@ describe('tokenizer.ts', (): void => {
                                     value: 'test ',
                                 },
                                 {
-                                    host: 'variable',
+                                    host: 'path',
                                     position: {
                                         end: {
-                                            column: 32,
+                                            column: 27,
                                             line: 1,
-                                            offset: 31,
+                                            offset: 26,
                                         },
                                         start: {
                                             column: 6,
@@ -200,95 +71,533 @@ describe('tokenizer.ts', (): void => {
                                         },
                                     },
                                     query: {
-                                        key: 'test',
+                                        key: 'none',
                                     },
-                                    scheme: 'lm',
+                                    scheme: 'LM',
                                     type: 'liesmich',
-                                    value: '{{ lm:variable?key=test }}',
+                                    value: '{{LM:path?key=none }}',
                                 },
                                 {
                                     position: {
                                         end: {
-                                            column: 39,
-                                            line: 1,
-                                            offset: 38,
+                                            column: 1,
+                                            line: 2,
+                                            offset: 28,
                                         },
                                         start: {
-                                            column: 32,
+                                            column: 28,
                                             line: 1,
-                                            offset: 31,
+                                            offset: 27,
                                         },
                                     },
                                     type: 'text',
-                                    value: ' but no',
+                                    value: '\n',
+                                },
+                                {
+                                    host: 'other',
+                                    position: {
+                                        end: {
+                                            column: 15,
+                                            line: 2,
+                                            offset: 42,
+                                        },
+                                        start: {
+                                            column: 2,
+                                            line: 2,
+                                            offset: 29,
+                                        },
+                                    },
+                                    scheme: 'lm',
+                                    type: 'liesmich',
+                                    value: '{{lm:other }}',
+                                },
+                                {
+                                    position: {
+                                        end: {
+                                            column: 17,
+                                            line: 2,
+                                            offset: 44,
+                                        },
+                                        start: {
+                                            column: 15,
+                                            line: 2,
+                                            offset: 42,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' a',
                                 },
                             ],
                             position: {
                                 end: {
-                                    column: 39,
+                                    column: 17,
+                                    line: 2,
+                                    offset: 44,
+                                },
+                                start: {
+                                    column: 1,
                                     line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 17,
+                            line: 2,
+                            offset: 44,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
+                });
+            });
+            it('should work with consecutive blocks with double new line between', (): void => {
+                const out = fromMarkdown('test {{LM:path?key=none }}\n\n{{lm:other }} a', {
+                    extensions: [liesmichExtension],
+                    mdastExtensions: [testFromMarkdown],
+                });
+                expect(out).to.deep.equal({
+                    children: [
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
+                                },
+                                {
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
+                                        },
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                    },
+                                    query: {
+                                        key: 'none',
+                                    },
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 27,
+                                    line: 1,
+                                    offset: 26,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                        {
+                            children: [
+                                {
+                                    host: 'other',
+                                    position: {
+                                        end: {
+                                            column: 14,
+                                            line: 3,
+                                            offset: 41,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 3,
+                                            offset: 28,
+                                        },
+                                    },
+                                    scheme: 'lm',
+                                    type: 'liesmich',
+                                    value: '{{lm:other }}',
+                                },
+                                {
+                                    position: {
+                                        end: {
+                                            column: 16,
+                                            line: 3,
+                                            offset: 43,
+                                        },
+                                        start: {
+                                            column: 14,
+                                            line: 3,
+                                            offset: 41,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' a',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 16,
+                                    line: 3,
+                                    offset: 43,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 3,
+                                    offset: 28,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 16,
+                            line: 3,
+                            offset: 43,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
+                });
+            });
+            it('should work as standalone block', (): void => {
+                const out = fromMarkdown('test {{LM:path?key=none }}\n\n{{lm:other }}\n\na', {
+                    extensions: [liesmichExtension],
+                    mdastExtensions: [testFromMarkdown],
+                });
+                expect(out).to.deep.equal({
+                    children: [
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
+                                },
+                                {
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
+                                        },
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                    },
+                                    query: {
+                                        key: 'none',
+                                    },
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 27,
+                                    line: 1,
+                                    offset: 26,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                        {
+                            host: 'other',
+                            position: {
+                                end: {
+                                    column: 14,
+                                    line: 3,
+                                    offset: 41,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 3,
+                                    offset: 28,
+                                },
+                            },
+                            scheme: 'lm',
+                            type: 'liesmich',
+                            value: '{{lm:other }}',
+                        },
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 2,
+                                            line: 5,
+                                            offset: 44,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 5,
+                                            offset: 43,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'a',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 2,
+                                    line: 5,
+                                    offset: 44,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 5,
+                                    offset: 43,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 2,
+                            line: 5,
+                            offset: 44,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
+                });
+            });
+            it('should work with inline blocks', (): void => {
+                const out = fromMarkdown('test {{LM:path?key=none }} a', {
+                    extensions: [liesmichExtension],
+                    mdastExtensions: [testFromMarkdown],
+                });
+                expect(out).to.deep.equal({
+                    children: [
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test ',
+                                },
+                                {
+                                    host: 'path',
+                                    position: {
+                                        end: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
+                                        },
+                                        start: {
+                                            column: 6,
+                                            line: 1,
+                                            offset: 5,
+                                        },
+                                    },
+                                    query: {
+                                        key: 'none',
+                                    },
+                                    scheme: 'LM',
+                                    type: 'liesmich',
+                                    value: '{{LM:path?key=none }}',
+                                },
+                                {
+                                    position: {
+                                        end: {
+                                            column: 29,
+                                            line: 1,
+                                            offset: 28,
+                                        },
+                                        start: {
+                                            column: 27,
+                                            line: 1,
+                                            offset: 26,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: ' a',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 29,
+                                    line: 1,
+                                    offset: 28,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+                    ],
+                    position: {
+                        end: {
+                            column: 29,
+                            line: 1,
+                            offset: 28,
+                        },
+                        start: {
+                            column: 1,
+                            line: 1,
+                            offset: 0,
+                        },
+                    },
+                    type: 'root',
+                });
+            });
+            it('should work with inline blocks', (): void => {
+                const out = fromMarkdown('test\n{{ lm:template?path=./test2.md }}\nbut no\n', {
+                    extensions: [liesmichExtension],
+                    mdastExtensions: [testFromMarkdown],
+                });
+                expect(out).to.deep.equal({
+                    children: [
+                        {
+                            children: [
+                                {
+                                    position: {
+                                        end: {
+                                            column: 5,
+                                            line: 1,
+                                            offset: 4,
+                                        },
+                                        start: {
+                                            column: 1,
+                                            line: 1,
+                                            offset: 0,
+                                        },
+                                    },
+                                    type: 'text',
+                                    value: 'test',
+                                },
+                            ],
+                            position: {
+                                end: {
+                                    column: 5,
+                                    line: 1,
+                                    offset: 4,
+                                },
+                                start: {
+                                    column: 1,
+                                    line: 1,
+                                    offset: 0,
+                                },
+                            },
+                            type: 'paragraph',
+                        },
+
+                        {
+                            host: 'template',
+                            position: {
+                                end: {
+                                    column: 34,
+                                    line: 2,
                                     offset: 38,
                                 },
                                 start: {
                                     column: 1,
-                                    line: 1,
-                                    offset: 0,
+                                    line: 2,
+                                    offset: 5,
                                 },
                             },
-                            type: 'paragraph',
+                            query: {
+                                path: './test2.md',
+                            },
+                            scheme: 'lm',
+                            type: 'liesmich',
+                            value: '{{ lm:template?path=./test2.md }}',
                         },
-                    ],
-                    position: {
-                        end: {
-                            column: 39,
-                            line: 1,
-                            offset: 38,
-                        },
-                        start: {
-                            column: 1,
-                            line: 1,
-                            offset: 0,
-                        },
-                    },
-                    type: 'root',
-                });
-            });
-            it('should ignore with leading triple braces', (): void => {
-                const out = fromMarkdown('test {{{ LM:path?key=none}} a', {
-                    extensions: [liesmichExtension],
-                    mdastExtensions: [testFromMarkdown],
-                });
-                expect(out).to.deep.equal({
-                    children: [
                         {
                             children: [
                                 {
                                     position: {
                                         end: {
-                                            column: 30,
-                                            line: 1,
-                                            offset: 29,
+                                            column: 7,
+                                            line: 3,
+                                            offset: 45,
                                         },
                                         start: {
                                             column: 1,
-                                            line: 1,
-                                            offset: 0,
+                                            line: 3,
+                                            offset: 39,
                                         },
                                     },
                                     type: 'text',
-                                    value: 'test {{{ LM:path?key=none}} a',
+                                    value: 'but no',
                                 },
                             ],
                             position: {
                                 end: {
-                                    column: 30,
-                                    line: 1,
-                                    offset: 29,
+                                    column: 7,
+                                    line: 3,
+                                    offset: 45,
                                 },
                                 start: {
                                     column: 1,
-                                    line: 1,
-                                    offset: 0,
+                                    line: 3,
+                                    offset: 39,
                                 },
                             },
                             type: 'paragraph',
@@ -296,9 +605,9 @@ describe('tokenizer.ts', (): void => {
                     ],
                     position: {
                         end: {
-                            column: 30,
-                            line: 1,
-                            offset: 29,
+                            column: 1,
+                            line: 4,
+                            offset: 46,
                         },
                         start: {
                             column: 1,
@@ -309,62 +618,7 @@ describe('tokenizer.ts', (): void => {
                     type: 'root',
                 });
             });
-            it('should ignore with trailing triple braces', (): void => {
-                const out = fromMarkdown('test {{LM:path?key=none }}} a', {
-                    extensions: [liesmichExtension],
-                    mdastExtensions: [testFromMarkdown],
-                });
-                expect(out).to.deep.equal({
-                    children: [
-                        {
-                            children: [
-                                {
-                                    position: {
-                                        end: {
-                                            column: 30,
-                                            line: 1,
-                                            offset: 29,
-                                        },
-                                        start: {
-                                            column: 1,
-                                            line: 1,
-                                            offset: 0,
-                                        },
-                                    },
-                                    type: 'text',
-                                    value: 'test {{LM:path?key=none }}} a',
-                                },
-                            ],
-                            position: {
-                                end: {
-                                    column: 30,
-                                    line: 1,
-                                    offset: 29,
-                                },
-                                start: {
-                                    column: 1,
-                                    line: 1,
-                                    offset: 0,
-                                },
-                            },
-                            type: 'paragraph',
-                        },
-                    ],
-                    position: {
-                        end: {
-                            column: 30,
-                            line: 1,
-                            offset: 29,
-                        },
-                        start: {
-                            column: 1,
-                            line: 1,
-                            offset: 0,
-                        },
-                    },
-                    type: 'root',
-                });
-            });
+
             it('should not parse with line break', (): void => {
                 const out = fromMarkdown('test {{ \nLM:path?key=none }}} a', {
                     extensions: [liesmichExtension],
