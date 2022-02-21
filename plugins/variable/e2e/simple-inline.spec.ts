@@ -2,6 +2,7 @@
  * Package @liesmich/plugin-variable
  * Source https://liesmich.github.io/liesmich/
  */
+
 import { createPipeline } from '@liesmich-helpers/test-plugin';
 import { expect } from 'chai';
 import 'mocha';
@@ -25,5 +26,4 @@ describe('e2e', (): void => {
             expect((await p.process('test {{ lm:variable?key=test }} but no')).toString()).to.equal('test asdf but no\n');
         });
     });
-
 });
