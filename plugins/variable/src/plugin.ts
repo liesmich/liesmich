@@ -3,7 +3,7 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-import { get } from 'dot-prop';
+import { getProperty } from 'dot-prop';
 import { read } from 'to-vfile';
 import { findUpOne } from 'vfile-find-up';
 import { LiesmichTreeWalker } from './walk-tree';
@@ -37,7 +37,7 @@ export const plugin: UnifiedPlugin = function plugin(options: object): Transform
     return async (node: Node | Parent, file: VFile): Promise<Node> => {
         const data: BaseRecord = await populateData(this.data(), file);
         const treeWalker: LiesmichTreeWalker = new LiesmichTreeWalker((key: string): unknown => {
-            return get(data, key);
+            return getProperty(data, key);
         });
         await treeWalker.walk(node);
         return node;
