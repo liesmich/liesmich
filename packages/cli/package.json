@@ -6,7 +6,9 @@
   "types": "dist/types/index.d.ts",
   "private": true,
   "type": "module",
-  "bin": "./dist/esm/index.js",
+  "bin": {
+    "liesmich": "./dist/esm/index.js"
+  },
   "exports": {
     "import": "./dist/esm/index.js"
   },
