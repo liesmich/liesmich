@@ -3,21 +3,17 @@
  * Source https://liesmich.github.io/liesmich/
  */
 
-import { unified } from "unified";
-import { args } from "unified-args";
+import { unified } from 'unified';
+import { args } from 'unified-args';
 
 args({
-    processor: unified,
-    name: 'liesmich',
     description: 'liesmich readme generator',
-    version: '__BUILD_VERSION__',
-    pluginPrefix: 'remark',
-    extensions: ['remark-gfm',
-        'remark-parse',
-        'remark-stringify',
-        '@liesmich/converter'
-    ],
+    extensions: ['remark-gfm', 'remark-parse', 'remark-stringify', '@liesmich/converter'],
+    ignoreName: '.liesmichignore',
+    name: 'liesmich',
     packageField: 'liesmich',
+    pluginPrefix: 'remark',
+    processor: unified,
     rcName: '.liesmichrc',
-    ignoreName: '.liesmichignore'
-})
+    version: '__BUILD_VERSION__',
+});
