@@ -6,6 +6,9 @@
   "types": "dist/types/index.d.ts",
   "private": true,
   "type": "module",
+  "bin": {
+    "liesmich": "./dist/esm/index.js"
+  },
   "exports": {
     "import": "./dist/esm/index.js"
   },
@@ -53,8 +56,14 @@
     "access": "public"
   },
   "dependencies": {
+    "@liesmich/converter": "^0.0.1",
     "@liesmich/parser": "^0.0.1",
     "commander": "~8.3.0",
-    "rxjs": "~7.5.4"
+    "remark-gfm": "~3.0.1",
+    "remark-parse": "~10.0.1",
+    "remark-stringify": "~10.0.1",
+    "rxjs": "~7.5.4",
+    "unified": "~10.1.1",
+    "unified-args": "~9.0.2"
   }
 }
