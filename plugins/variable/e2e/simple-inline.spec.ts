@@ -8,7 +8,7 @@ import { expect } from 'chai';
 import 'mocha';
 import { read } from 'to-vfile';
 import { Processor } from 'unified';
-import { VFile } from 'vfile-find-up';
+import { VFile } from 'vfile';
 import { plugin } from './../src';
 
 // tslint:disable:no-unused-expression
