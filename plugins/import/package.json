@@ -52,7 +52,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vfile": "~5.2.1"
+  },
   "devDependencies": {
     "@liesmich/core": "^0.0.1",
     "@types/unist": "2.0.6",
