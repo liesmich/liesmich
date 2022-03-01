@@ -4,20 +4,22 @@ on:
     types: [published]
 
 jobs:
+  
   release_npm:
     runs-on: ubuntu-latest
     name: Publish Package to NPM
+    timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.0.0
-      - name: Setup Node
-        uses: actions/setup-node@v3.0.0
+        uses: actions/checkout@v2.4.0
         with:
-          node-version: '16'
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
+          fetch-depth: 0
+          ref:  ${{ github.event.workflow_run.head_branch }}
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
       - name: Install Packages
         run: |
           npm ci
@@ -27,22 +29,25 @@ jobs:
       - name: Prepare Package
         run: |
           npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-      - name: Upload Package
-        run: npx lerna publish from-git --yes
+      - name: Publish Packages
+        run: npx lerna publish from-git -y --no-verify-access
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   release_github:
+    needs: [build_suite]
     runs-on: ubuntu-latest
     name: Publish Package to GITHUB
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.0.0
-      - name: Setup Node
-        uses: actions/setup-node@v3.0.0
+        uses: actions/checkout@v2.4.0
         with:
-          node-version: '16'
-      - name: Patch NPM
-        run: |
-          npm install -g npm@8
-          npm -v
+          fetch-depth: 0
+          ref:  ${{ github.event.workflow_run.head_branch }}
+      - name: Setup Node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16
       - name: Install Packages
         run: |
           npm ci
@@ -52,5 +57,5 @@ jobs:
       - name: Prepare Package
         run: |
           npm config set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Package
-        run: npx lerna publish from-git --registry https://npm.pkg.github.com/liesmich --yes
+      - name: Publish Packages
+        run: npx lerna publish from-package -y --no-verify-access --registry https://npm.pkg.github.com/donmahallem
