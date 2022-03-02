@@ -67,6 +67,6 @@
     "unified-args": "~9.0.2"
   },
   "devDependencies": {
-    "@donmahallem/rollup-plugin-shebang": "1.0.0"
+    "@donmahallem/rollup-plugin-shebang": "1.0.1"
   }
 }
