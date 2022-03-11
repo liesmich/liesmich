@@ -48,7 +48,8 @@
     "version": "npx @donmahallem/lerna-fixer lockfile fixversion && npm run build:readme && git add README.md"
   },
   "engines": {
-    "node": ">=14.0.0 <17"
+    "node": ">=14.0.0",
+    "npm": ">=8"
   },
   "nyc": {
     "include": [
