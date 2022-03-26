@@ -4,7 +4,7 @@
     "plugins/*",
     "helpers/*"
   ],
-  "version": "0.3.0",
+  "version": "0.3.1",
   "command": {
     "publish": {
       "message": "chore(release): publish %s"

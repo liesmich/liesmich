@@ -1,6 +1,6 @@
 {
     "name": "@liesmich/converter",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Converter",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -58,8 +58,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@liesmich/core": "^0.3.0",
-        "@liesmich/tree-walker": "^0.3.0",
+        "@liesmich/core": "^0.3.1",
+        "@liesmich/tree-walker": "^0.3.1",
         "mdast-util-from-markdown": "^1.2.0",
         "micromark-util-symbol": "^1.0.1",
         "micromark-util-types": "^1.0.2",
