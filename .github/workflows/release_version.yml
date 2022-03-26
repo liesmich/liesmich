@@ -12,13 +12,15 @@ jobs:
         name: Create Reelase for merged branch ${{ github.event.pull_request.head.ref }}
         if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'release-staging'
         runs-on: ubuntu-latest
+        outputs:
+            release_version: ${{ steps.tag_version.outputs.new_tag }}
         steps:
             - name: Checkout
               uses: actions/checkout@v3.0.0
               with:
                   fetch-depth: 0
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  ref: ${{ github.event.workflow_run.head_branch }}
+                  ref: ${{ github.event.pull_request.base.ref }}
             - name: Setup Node
               uses: actions/setup-node@v3.0.0
               with:
@@ -50,7 +52,7 @@ jobs:
               uses: actions/checkout@v3.0.0
               with:
                   fetch-depth: 0
-                  ref: ${{ github.event.workflow_run.head_branch }}
+                  ref: ${{ needs.create-release.outputs.release_version }}
             - name: Setup Node
               uses: actions/setup-node@v3.0.0
               with:
@@ -79,7 +81,7 @@ jobs:
               uses: actions/checkout@v3.0.0
               with:
                   fetch-depth: 0
-                  ref: ${{ github.event.workflow_run.head_branch }}
+                  ref: ${{ needs.create-release.outputs.release_version }}
             - name: Setup Node
               uses: actions/setup-node@v3.0.0
               with:
