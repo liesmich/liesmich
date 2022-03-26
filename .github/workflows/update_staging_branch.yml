@@ -58,6 +58,6 @@ jobs:
                   title: 'chore: stage release ${{ steps.get-pr-body.outputs.version }} [skip ci]'
                   body: ${{ steps.get-pr-body.outputs.body }}
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  base: master
+                  base: main
                   commit-message: 'chore: stage release ${{ steps.get-pr-body.outputs.version }}'
                   reviewers: donmahallem
