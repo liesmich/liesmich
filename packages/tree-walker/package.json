@@ -1,6 +1,6 @@
 {
   "name": "@liesmich/tree-walker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "plugin CLI",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -53,7 +53,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@liesmich/core": "^0.1.0"
+    "@liesmich/core": "^0.2.0"
   },
   "devDependencies": {
     "@types/unist": "2.0.6"
