@@ -1,0 +1,63 @@
+name: Update staging branch
+on:
+    push:
+        branches:
+            - main # Support wildcard matching
+concurrency:
+    group: update_staging_branch
+    cancel-in-progress: true
+jobs:
+    build_suite:
+        runs-on: ${{ matrix.os }}
+        name: Update Staging branch
+        concurrency:
+            group: release_version
+        timeout-minutes: 30
+        strategy:
+            max-parallel: 4
+            matrix:
+                node: [16]
+                os: [ubuntu-latest] #, windows-latest]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3.0.0
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  ref: ${{ github.event.workflow_run.head_branch }}
+            - name: Setup Node
+              uses: actions/setup-node@v3.0.0
+              with:
+                  node-version: ${{ matrix.node }}
+                  registry-url: 'https://registry.npmjs.org'
+            - name: Install Deps
+              run: |
+                  npm ci
+            - name: Setup GIT
+              run: |
+                  git config --local user.email "donmahallem@users.noreply.github.com"
+                  git config --local user.name "donmahallem"
+            - name: Version Packages
+              run: npx lerna version --create-release github -y --no-push --no-git-tag-version
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - name: Create Release Body
+              id: get-pr-body
+              run: |
+                  body=$(npx conventional-changelog -r 1)
+                  body="${body//'%'/'%25'}"
+                  body="${body//$'\n'/'%0A'}"
+                  body="${body//$'\r'/'%0D'}" 
+                  echo ::set-output name=body::$body
+                  node ./.github/extract-version.js
+            - name: Prepare Release
+              uses: peter-evans/create-pull-request@v4.0.0
+              with:
+                  branch: release-staging
+                  title: 'chore: stage release ${{ steps.get-pr-body.outputs.version }} [skip ci]'
+                  body: ${{ steps.get-pr-body.outputs.body }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  base: master
+                  commit-message: 'chore: stage release ${{ steps.get-pr-body.outputs.version }}'
+                  reviewers: donmahallem
