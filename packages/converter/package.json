@@ -1,77 +1,77 @@
 {
-  "name": "@liesmich/converter",
-  "version": "0.3.0",
-  "description": "Converter",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
-  },
-  "keywords": [
-    "api",
-    "types"
-  ],
-  "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "build": "rollup -c ./rollup.config.js",
-    "postbuild": "npm run build:types",
-    "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
-    "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
-    "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node",
-    "test:coverage": "c8 --config ../../.nycrc.json npm run test",
-    "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src",
-    "postlint": "prettier --config ./../../.prettierrc src/**/*.ts --check",
-    "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src --fix",
-    "postlint:fix": "prettier --config ./../../.prettierrc src/**/*.ts --write",
-    "docs": "typedoc --options ./typedoc.config.cjs",
-    "prepublishOnly": "npm run test && npm run docs && npm run build",
-    "version": "npm run build:readme && git add README.md",
-    "webpack": "webpack --stats-error-details",
-    "gulp": "gulp --gulpfile ./dist/cjs/index.js --cwd ./"
-  },
-  "homepage": "https://liesmich.github.io/liesmich/",
-  "author": {
-    "name": "donmahallem",
-    "email": "donmahallem@users.noreply.github.com",
-    "url": "https://github.com/donmahallem"
-  },
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/liesmich/liesmich/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/liesmich/liesmich.git"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "files": [
-    "dist/*",
-    "src/*"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@liesmich/core": "^0.3.0",
-    "@liesmich/tree-walker": "^0.3.0",
-    "mdast-util-from-markdown": "^1.2.0",
-    "micromark-util-symbol": "^1.0.1",
-    "micromark-util-types": "^1.0.2",
-    "qs": "~6.10.3",
-    "unified": "~10.1.2",
-    "vfile": "~5.3.2"
-  },
-  "devDependencies": {
-    "@types/qs": "6.9.7",
-    "@types/unist": "2.0.6",
-    "remark-gfm": "3.0.1",
-    "remark-parse": "10.0.1",
-    "remark-stringify": "10.0.2"
-  }
+    "name": "@liesmich/converter",
+    "version": "0.3.0",
+    "description": "Converter",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "private": false,
+    "type": "module",
+    "exports": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+    },
+    "keywords": [
+        "api",
+        "types"
+    ],
+    "scripts": {
+        "start": "ts-node ./src/index.ts",
+        "build": "rollup -c ./rollup.config.js",
+        "postbuild": "npm run build:types",
+        "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
+        "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
+        "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node",
+        "test:coverage": "c8 --config ../../.nycrc.json npm run test",
+        "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src",
+        "postlint": "prettier --config ./../../.prettierrc src/**/*.ts --check",
+        "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src --fix",
+        "postlint:fix": "prettier --config ./../../.prettierrc src/**/*.ts --write",
+        "docs": "typedoc --options ./typedoc.config.cjs",
+        "prepublishOnly": "npm run test && npm run docs && npm run build",
+        "version": "npm run build:readme && git add README.md",
+        "webpack": "webpack --stats-error-details",
+        "gulp": "gulp --gulpfile ./dist/cjs/index.js --cwd ./"
+    },
+    "homepage": "https://liesmich.github.io/liesmich/",
+    "author": {
+        "name": "donmahallem",
+        "email": "donmahallem@users.noreply.github.com",
+        "url": "https://github.com/donmahallem"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/liesmich/liesmich/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/liesmich/liesmich.git"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "files": [
+        "dist/*",
+        "src/*"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@liesmich/core": "^0.3.0",
+        "@liesmich/tree-walker": "^0.3.0",
+        "mdast-util-from-markdown": "^1.2.0",
+        "micromark-util-symbol": "^1.0.1",
+        "micromark-util-types": "^1.0.2",
+        "qs": "~6.10.3",
+        "unified": "~10.1.2",
+        "vfile": "~5.3.2"
+    },
+    "devDependencies": {
+        "@types/qs": "6.9.7",
+        "@types/unist": "2.0.6",
+        "remark-gfm": "3.0.1",
+        "remark-parse": "10.0.1",
+        "remark-stringify": "10.0.2"
+    }
 }

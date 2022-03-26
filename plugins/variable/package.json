@@ -1,70 +1,70 @@
 {
-  "name": "@liesmich/plugin-variable",
-  "version": "0.3.0",
-  "description": "plugin CLI",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "private": true,
-  "type": "module",
-  "exports": {
-    "import": "./dist/esm/index.js"
-  },
-  "keywords": [
-    "liesmich"
-  ],
-  "scripts": {
-    "start": "ts-node ./src/index.ts",
-    "build": "rollup -c ./rollup.config.js",
-    "postbuild": "npm run build:types",
-    "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
-    "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
-    "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node --spec src/**/*.spec.ts",
-    "test:coverage": "c8 --config ../../.nycrc.json npm run test",
-    "e2e": "mocha --config .mocharc.yml --spec e2e/**/*.spec.ts --experimental-specifier-resolution=node",
-    "e2e:coverage": "c8 --config ../../.nycrc.json npm run e2e",
-    "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src ./e2e",
-    "postlint": "prettier --config ./../../.prettierrc src/**/*.ts e2e/**/*.ts --check",
-    "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src ./e2e --fix",
-    "postlint:fix": "prettier --config ./../../.prettierrc src/**/*.ts e2e/**/*.ts --write",
-    "docs": "typedoc --options ./typedoc.config.cjs",
-    "prepublishOnly": "npm run test && npm run docs && npm run build",
-    "version": "npm run build:readme && git add README.md"
-  },
-  "homepage": "https://liesmich.github.io/liesmich/",
-  "author": {
-    "name": "donmahallem",
-    "email": "donmahallem@users.noreply.github.com",
-    "url": "https://github.com/donmahallem"
-  },
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/liesmich/liesmich/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/liesmich/liesmich.git"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "files": [
-    "dist/*",
-    "src/*"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@liesmich/tree-walker": "^0.3.0",
-    "dot-prop": "~7.0.0",
-    "to-vfile": "~7.2.3",
-    "vfile": "~5.3.2",
-    "vfile-find-up": "~6.0.0"
-  },
-  "devDependencies": {
-    "@liesmich-helpers/test-plugin": "^0.3.0",
-    "@liesmich/core": "^0.3.0",
-    "@types/unist": "2.0.6",
-    "unified": "10.1.2"
-  }
+    "name": "@liesmich/plugin-variable",
+    "version": "0.3.0",
+    "description": "plugin CLI",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "private": false,
+    "type": "module",
+    "exports": {
+        "import": "./dist/esm/index.js"
+    },
+    "keywords": [
+        "liesmich"
+    ],
+    "scripts": {
+        "start": "ts-node ./src/index.ts",
+        "build": "rollup -c ./rollup.config.js",
+        "postbuild": "npm run build:types",
+        "build:types": "tsc --project ./tsconfig.json  -d --declarationDir dist/types --declarationMap --emitDeclarationOnly",
+        "build:readme": "npx @appnest/readme generate --input ../package_readme_blueprint.md --config readme_config.json",
+        "test": "mocha --config .mocharc.yml --experimental-specifier-resolution=node --spec src/**/*.spec.ts",
+        "test:coverage": "c8 --config ../../.nycrc.json npm run test",
+        "e2e": "mocha --config .mocharc.yml --spec e2e/**/*.spec.ts --experimental-specifier-resolution=node",
+        "e2e:coverage": "c8 --config ../../.nycrc.json npm run e2e",
+        "lint": "eslint -c ./.eslintrc.cjs --ext .ts ./src ./e2e",
+        "postlint": "prettier --config ./../../.prettierrc src/**/*.ts e2e/**/*.ts --check",
+        "lint:fix": "eslint -c ./.eslintrc.cjs --ext .ts ./src ./e2e --fix",
+        "postlint:fix": "prettier --config ./../../.prettierrc src/**/*.ts e2e/**/*.ts --write",
+        "docs": "typedoc --options ./typedoc.config.cjs",
+        "prepublishOnly": "npm run test && npm run docs && npm run build",
+        "version": "npm run build:readme && git add README.md"
+    },
+    "homepage": "https://liesmich.github.io/liesmich/",
+    "author": {
+        "name": "donmahallem",
+        "email": "donmahallem@users.noreply.github.com",
+        "url": "https://github.com/donmahallem"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/liesmich/liesmich/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/liesmich/liesmich.git"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "files": [
+        "dist/*",
+        "src/*"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@liesmich/tree-walker": "^0.3.0",
+        "dot-prop": "~7.0.0",
+        "to-vfile": "~7.2.3",
+        "vfile": "~5.3.2",
+        "vfile-find-up": "~6.0.0"
+    },
+    "devDependencies": {
+        "@liesmich-helpers/test-plugin": "^0.3.0",
+        "@liesmich/core": "^0.3.0",
+        "@types/unist": "2.0.6",
+        "unified": "10.1.2"
+    }
 }
