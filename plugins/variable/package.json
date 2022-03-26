@@ -1,6 +1,6 @@
 {
   "name": "@liesmich/plugin-variable",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "plugin CLI",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -55,15 +55,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@liesmich/tree-walker": "^0.0.1",
+    "@liesmich/tree-walker": "^0.1.0",
     "dot-prop": "~7.0.0",
     "to-vfile": "~7.2.3",
     "vfile": "~5.3.2",
     "vfile-find-up": "~6.0.0"
   },
   "devDependencies": {
-    "@liesmich-helpers/test-plugin": "0.0.1",
-    "@liesmich/core": "^0.0.1",
+    "@liesmich-helpers/test-plugin": "^0.1.0",
+    "@liesmich/core": "^0.1.0",
     "@types/unist": "2.0.6",
     "unified": "10.1.2"
   }

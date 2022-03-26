@@ -3,10 +3,10 @@
 
 # ➤ liesmich
 <p align="center">
-		<a href="https://github.com/liesmich/liesmich/actions?query=workflow%3ATest+branch%3Amaster"><img alt="Test" src="https://github.com/liesmich/liesmich/workflows/Test/badge.svg?branch=master&event=push" height="20"/></a>
-<a href="https://codecov.io/gh/liesmich/liesmich/branch/master"><img alt="codecov" src="https://codecov.io/gh/liesmich/liesmich/branch/master/graph/badge.svg" height="20"/></a>
+		<a href="https://github.com/liesmich/liesmich/actions?query=workflow%3ATest+branch%3Amain"><img alt="Test" src="https://github.com/liesmich/liesmich/workflows/Test/badge.svg?branch=main&event=push" height="20"/></a>
+<a href="https://codecov.io/gh/liesmich/liesmich/branch/main"><img alt="codecov" src="https://codecov.io/gh/liesmich/liesmich/branch/main/graph/badge.svg" height="20"/></a>
 <a href="https://github.com/liesmich/liesmich/releases"><img alt="GitHub release (latest SemVer)" src="https://img.shields.io/github/v/release/liesmich/liesmich?sort=semver" height="20"/></a>
-<a href="https://github.com/liesmich/liesmich/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/liesmich/liesmich" height="20"/></a>
+<a href="https://github.com/liesmich/liesmich/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/liesmich/liesmich" height="20"/></a>
 <a href="https://github.com/liesmich/liesmich"><img alt="David" src="https://img.shields.io/david/dev/liesmich/liesmich" height="20"/></a>
 <a href="https://github.com/liesmich/liesmich/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/liesmich/liesmich" height="20"/></a>
 	</p>
