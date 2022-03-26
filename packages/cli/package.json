@@ -58,7 +58,7 @@
   "dependencies": {
     "@liesmich/converter": "^0.0.1",
     "@liesmich/parser": "^0.0.1",
-    "commander": "~8.3.0",
+    "commander": "~9.1.0",
     "remark-gfm": "~3.0.1",
     "remark-parse": "~10.0.1",
     "remark-stringify": "~10.0.2",
