@@ -9,7 +9,8 @@ concurrency:
     group: publish_release
 jobs:
     create-release:
-        if: github.event.pull_request.merged == true && github.event.pull_request.head.sha == 'release-staging'
+        name: Create Reelase for merged branch ${{ github.event.pull_request.head.ref }}
+        if: github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'release-staging'
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
