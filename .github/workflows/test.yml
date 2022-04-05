@@ -90,7 +90,7 @@ jobs:
             - name: Run Test
               run: npx lerna run test:coverage
             - name: Upload coverage to Codecov Monorepo
-              uses: codecov/codecov-action@v2.1.0
+              uses: codecov/codecov-action@v3.0.0
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   flags: unit
@@ -139,7 +139,7 @@ jobs:
             - name: Run Test
               run: npx lerna run e2e:coverage
             - name: Upload coverage to Codecov Monorepo
-              uses: codecov/codecov-action@v2.1.0
+              uses: codecov/codecov-action@v3.0.0
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   flags: e2e
