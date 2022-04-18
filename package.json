@@ -39,15 +39,15 @@
         "typescript": "4.6.3"
     },
     "scripts": {
-        "build": "lerna run build",
+        "build": "nx run-many --target=build --all",
         "build:readme": "npx @appnest/readme generate --input readme_blueprint.md --config readme_config.json --extend ./temp_readme.json",
-        "test": "lerna run test",
-        "test:coverage": "lerna run test:coverage",
+        "test": "nx run-many --target=test --all",
+        "test:coverage": "nx run-many --target=test:coverage --all",
         "coverage:merge": "node ./scripts/merge_coverage.js",
-        "lint": "lerna run lint",
-        "docs": "lerna run docs",
-        "lint:fix": "lerna run lint:fix",
-        "version": "npx @donmahallem/lerna-fixer lockfile fixversion && npm run build:readme && git add README.md"
+        "lint": "nx run-many --target=lint --all",
+        "docs": "nx run-many --target=docs --all",
+        "lint:fix": "nx run-many --target=lint:fix --all",
+        "version": "npm run build:readme && git add README.md"
     },
     "engines": {
         "node": ">=14.0.0",
