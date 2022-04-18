@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.2](https://github.com/liesmich/liesmich/compare/v0.3.0...v0.3.2) (2022-04-18)
+
+
+### Bug Fixes
+
+* **deps:** make packages non private ([4c571d9](https://github.com/liesmich/liesmich/commit/4c571d99365334a3be112a5da092847f0a176ba5))
+* **deps:** update dependency commander to ~9.2.0 ([9b00e15](https://github.com/liesmich/liesmich/commit/9b00e15ab4b51ebcb95f8182872c56952f795cab))
+
+
+
+
+
 ## [0.3.1](https://github.com/liesmich/liesmich/compare/v0.3.0...v0.3.1) (2022-03-26)
 
 
