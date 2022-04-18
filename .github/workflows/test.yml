@@ -39,9 +39,8 @@ jobs:
             - name: Install Deps
               run: |
                   npm ci
-                  npx lerna bootstrap --ci
             - name: Run Build
-              run: npx lerna run build
+              run: npm run build
             - name: Archive production artifacts
               uses: actions/upload-artifact@v3.0.0
               with:
@@ -81,14 +80,13 @@ jobs:
             - name: Install Deps
               run: |
                   npm ci
-                  npx lerna bootstrap --ci
             - name: Download Build artifacts
               uses: actions/download-artifact@v3.0.0
               with:
                   name: build-${{matrix.os}}-${{matrix.node}}
                   path: ./packages
             - name: Run Test
-              run: npx lerna run test:coverage
+              run: npm run test:coverage
             - name: Upload coverage to Codecov Monorepo
               uses: codecov/codecov-action@v3.0.0
               with:
@@ -130,14 +128,13 @@ jobs:
             - name: Install Deps
               run: |
                   npm ci
-                  npx lerna bootstrap --ci
             - name: Download Build artifacts
               uses: actions/download-artifact@v3.0.0
               with:
                   name: build-${{matrix.os}}-${{matrix.node}}
                   path: ./packages
             - name: Run Test
-              run: npx lerna run e2e:coverage
+              run: npx nx run-many --target=e2e:coverage --all
             - name: Upload coverage to Codecov Monorepo
               uses: codecov/codecov-action@v3.0.0
               with:
@@ -179,21 +176,14 @@ jobs:
             - name: Install Deps
               run: |
                   npm ci
-                  npx lerna bootstrap --ci
             - name: Download Build artifacts
               uses: actions/download-artifact@v3.0.0
               with:
                   name: build-${{matrix.os}}-${{matrix.node}}
                   path: ./packages
             - name: Lint ALL Packages
-              if: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' || ( github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')) }}
               run: |
-                  npx lerna run lint
-            - name: Lint Packages changed since dev
-              if: ${{ github.event_name == 'push' && github.ref != 'refs/heads/dev' && github.ref != 'refs/heads/main' }}
-              run: |
-                  git fetch --no-tags --prune --depth=1 origin +refs/heads/dev:refs/remotes/origin/dev
-                  npx lerna run lint --since origin/dev
+                  npm run lint
     docs_suite:
         needs: build_suite
         runs-on: ${{ matrix.os }}
@@ -229,16 +219,15 @@ jobs:
             - name: Install Deps
               run: |
                   npm ci
-                  npx lerna bootstrap --ci
             - name: Download Build artifacts
               uses: actions/download-artifact@v3.0.0
               with:
                   name: build-${{matrix.os}}-${{matrix.node}}
                   path: ./packages
             - name: Run Docs
-              run: npx lerna run docs
+              run: npm run docs
             - name: Build READMEs
-              run: npx lerna run build:readme
+              run: npm run build:readme
     finish:
         needs: [test_suite, lint_suite, docs_suite, e2e_suite]
         name: Finish Test
