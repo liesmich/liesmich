@@ -57,15 +57,14 @@
     },
     "dependencies": {
         "@liesmich/converter": "^0.3.1",
-        "@liesmich/parser": "^0.0.1",
-        "commander": "~9.2.0",
-        "remark-gfm": "~3.0.1",
-        "remark-parse": "~10.0.1",
-        "remark-stringify": "~10.0.2",
-        "rxjs": "~7.5.5",
-        "unified": "~10.1.2",
-        "unified-args": "~9.0.2",
-        "vfile": "~5.3.2"
+        "commander": "9.2.0",
+        "remark-gfm": "3.0.1",
+        "remark-parse": "10.0.1",
+        "remark-stringify": "10.0.2",
+        "rxjs": "7.5.5",
+        "unified": "10.1.2",
+        "unified-args": "9.0.2",
+        "vfile": "5.3.2"
     },
     "devDependencies": {
         "@donmahallem/rollup-plugin-shebang": "1.0.9"
