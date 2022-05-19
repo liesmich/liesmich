@@ -4,7 +4,7 @@
     "devDependencies": {
         "@appnest/readme": "1.2.7",
         "@donmahallem/eslint-config": "1.0.81",
-        "@donmahallem/rollup-config": "2.0.29",
+        "@donmahallem/rollup-config": "2.0.31",
         "@donmahallem/tslint-config": "0.3.2",
         "@nrwl/workspace": "14.1.7",
         "@rollup/plugin-commonjs": "22.0.0",
@@ -28,7 +28,7 @@
         "mocha": "10.0.0",
         "nx": "14.1.7",
         "nyc": "15.1.0",
-        "rollup": "2.74.0",
+        "rollup": "2.74.1",
         "rollup-plugin-dts": "4.2.1",
         "sinon": "14.0.0",
         "ts-node": "10.7.0",
