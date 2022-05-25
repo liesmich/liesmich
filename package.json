@@ -29,7 +29,7 @@
         "nx": "14.1.9",
         "nyc": "15.1.0",
         "rollup": "2.74.1",
-        "rollup-plugin-dts": "4.2.1",
+        "rollup-plugin-dts": "4.2.2",
         "sinon": "14.0.0",
         "ts-node": "10.8.0",
         "tslib": "2.4.0",
