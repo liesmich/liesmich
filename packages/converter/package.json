@@ -63,7 +63,7 @@
         "mdast-util-from-markdown": "^1.2.0",
         "micromark-util-symbol": "^1.0.1",
         "micromark-util-types": "^1.0.2",
-        "qs": "6.10.3",
+        "qs": "6.10.5",
         "unified": "10.1.2",
         "vfile": "5.3.2"
     },
