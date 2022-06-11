@@ -53,7 +53,7 @@
         "access": "public"
     },
     "dependencies": {
-        "vfile": "5.3.2"
+        "vfile": "5.3.3"
     },
     "devDependencies": {
         "@liesmich/core": "^0.3.1",
