@@ -58,7 +58,7 @@
         "@liesmich/tree-walker": "^0.3.1",
         "dot-prop": "7.2.0",
         "to-vfile": "7.2.3",
-        "vfile": "5.3.2",
+        "vfile": "5.3.3",
         "vfile-find-up": "6.0.0"
     },
     "devDependencies": {
