@@ -65,7 +65,7 @@
         "micromark-util-types": "^1.0.2",
         "qs": "6.10.5",
         "unified": "10.1.2",
-        "vfile": "5.3.3"
+        "vfile": "5.3.4"
     },
     "devDependencies": {
         "@types/qs": "6.9.7",
