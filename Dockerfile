@@ -1,5 +1,5 @@
 # Get base container
-FROM node:18.3-alpine AS apline_container
+FROM node:18.4-alpine AS apline_container
 
 # Build server
 FROM apline_container AS build_server
