@@ -61,7 +61,7 @@
         "remark-gfm": "3.0.1",
         "remark-parse": "10.0.1",
         "remark-stringify": "10.0.2",
-        "rxjs": "7.5.5",
+        "rxjs": "7.5.6",
         "unified": "10.1.2",
         "unified-args": "10.0.0",
         "vfile": "5.3.4"
