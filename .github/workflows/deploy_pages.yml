@@ -15,7 +15,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node
-        uses: actions/setup-node@v3.4.0
+        uses: actions/setup-node@v3.4.1
         with:
           node-version: '16'
       - name: Patch NPM
@@ -63,7 +63,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node
-        uses: actions/setup-node@v3.4.0
+        uses: actions/setup-node@v3.4.1
         with:
           node-version: '16'
       - name: Patch NPM
