@@ -64,7 +64,7 @@
         "rxjs": "7.5.6",
         "unified": "10.1.2",
         "unified-args": "10.0.0",
-        "vfile": "5.3.4"
+        "vfile": "5.3.5"
     },
     "devDependencies": {
         "@donmahallem/rollup-plugin-shebang": "1.0.9"
