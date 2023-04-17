@@ -15,7 +15,7 @@
         "@types/chai": "4.3.4",
         "@types/mocha": "10.0.1",
         "@types/node": "18.15.11",
-        "@types/sinon": "10.0.13",
+        "@types/sinon": "10.0.14",
         "c8": "7.13.0",
         "chai": "4.3.7",
         "colors": "1.4.0",
