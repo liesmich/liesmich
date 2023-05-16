@@ -54,8 +54,8 @@
     },
     "dependencies": {
         "remark-gfm": "3.0.1",
-        "remark-parse": "10.0.1",
-        "remark-stringify": "10.0.2",
+        "remark-parse": "10.0.2",
+        "remark-stringify": "10.0.3",
         "unified": "10.1.2",
         "vfile": "5.3.7"
     },
