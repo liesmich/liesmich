@@ -71,7 +71,7 @@
         "@types/qs": "6.9.7",
         "@types/unist": "2.0.6",
         "remark-gfm": "3.0.1",
-        "remark-parse": "10.0.1",
-        "remark-stringify": "10.0.2"
+        "remark-parse": "10.0.2",
+        "remark-stringify": "10.0.3"
     }
 }
