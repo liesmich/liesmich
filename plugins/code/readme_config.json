@@ -1,0 +1,40 @@
+{
+    "extend": "../../readme_config.json",
+    "badges": [
+        {
+            "alt": "Test",
+            "url": "https://github.com/liesmich/liesmich/actions?query=workflow%3ATest+branch%3Amain",
+            "img": "https://github.com/liesmich/liesmich/workflows/Test/badge.svg?branch=main&event=push"
+        },
+        {
+            "alt": "codecov",
+            "url": "https://codecov.io/gh/liesmich/liesmich/liesmich/main/packages/plugin",
+            "img": "https://codecov.io/gh/liesmich/liesmich/branch/main/graph/badge.svg?flag=plugin"
+        },
+        {
+            "alt": "npm version",
+            "url": "https://badge.fury.io/js/%40liesmich%2Fplugin",
+            "img": "https://badge.fury.io/js/%40liesmich%2Fplugin.svg"
+        },
+        {
+            "alt": "GitHub license",
+            "url": "https://github.com/liesmich/liesmich/blob/main/LICENSE",
+            "img": "https://img.shields.io/github/license/liesmich/liesmich"
+        },
+        {
+            "alt": "dependencies Status",
+            "url": "https://david-dm.org/liesmich/liesmich?path=packages/plugin",
+            "img": "https://david-dm.org/liesmich/liesmich/status.svg?path=packages/plugin"
+        },
+        {
+            "alt": "devDependencies Status",
+            "url": "https://david-dm.org/liesmich/liesmich?path=packages/plugin&type=dev",
+            "img": "https://david-dm.org/liesmich/liesmich/dev-status.svg?path=packages/plugin"
+        },
+        {
+            "alt": "GitHub contributors",
+            "url": "https://github.com/liesmich/liesmich/graphs/contributors",
+            "img": "https://img.shields.io/github/contributors-anon/liesmich/liesmich"
+        }
+    ]
+}
