@@ -69,7 +69,7 @@
     },
     "devDependencies": {
         "@types/qs": "6.9.10",
-        "@types/unist": "2.0.7",
+        "@types/unist": "2.0.10",
         "remark-gfm": "3.0.1",
         "remark-parse": "10.0.2",
         "remark-stringify": "10.0.3"
