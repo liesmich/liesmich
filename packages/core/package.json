@@ -61,7 +61,7 @@
     },
     "devDependencies": {
         "@types/mdast": "3.0.15",
-        "@types/qs": "6.9.10",
+        "@types/qs": "6.9.11",
         "@types/unist": "2.0.10"
     }
 }
