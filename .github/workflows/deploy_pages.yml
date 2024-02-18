@@ -23,7 +23,7 @@ jobs:
           npm install -g npm@8
           npm -v
       - name: Setup Cache
-        uses: actions/cache@v3.3.3
+        uses: actions/cache@v4.0.0
         with:
           path: |
             node_modules
@@ -71,7 +71,7 @@ jobs:
           npm install -g npm@8
           npm -v
       - name: Setup Cache
-        uses: actions/cache@v3.3.3
+        uses: actions/cache@v4.0.0
         with:
           path: |
             node_modules
