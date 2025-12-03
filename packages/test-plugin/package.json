@@ -61,7 +61,7 @@
         "vfile": "5.3.7"
     },
     "devDependencies": {
-        "@types/mdast": "3.0.15",
+        "@types/mdast": "4.0.4",
         "@types/unist": "2.0.10"
     }
 }
