@@ -59,7 +59,7 @@
         "dot-prop": "8.0.0",
         "to-vfile": "7.2.3",
         "vfile": "5.3.7",
-        "vfile-find-up": "6.0.0"
+        "vfile-find-up": "6.1.0"
     },
     "devDependencies": {
         "@liesmich-helpers/test-plugin": "^0.3.1",
